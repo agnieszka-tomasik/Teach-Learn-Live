@@ -7,11 +7,7 @@ function Card() {
         <div class="card-wrapper">
 
             <div class="card">
-                <div class="card-image">
-                    <figure class="image is-4by3">
-                        <img src="https://bulma.io/images/placeholders/1280x960.png" alt="Placeholder image" />
-                    </figure>
-                </div>
+                <p class="card-header-title is-centered">Lorem Ipsum</p>
                 <div class="card-content">
                     <div class="content">
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit.

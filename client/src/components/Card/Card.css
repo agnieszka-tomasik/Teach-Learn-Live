@@ -1,4 +1,8 @@
 .card-wrapper {
-    width: 300px;
-    height: 400px;
+    width: 280px;
+}
+
+.card:hover {
+    transition: all 150ms ease 0ms;
+    outline: 3px solid #8FBFE0;
 }
