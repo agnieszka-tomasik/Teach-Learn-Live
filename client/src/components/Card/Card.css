@@ -2,6 +2,10 @@
     width: 280px;
 }
 
+.card-header {
+    /* background-color: #8FBFE0; */
+}
+
 .card:hover {
     transition: all 150ms ease 0ms;
     outline: 3px solid #8FBFE0;
