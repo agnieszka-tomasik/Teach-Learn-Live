@@ -6,12 +6,6 @@
     padding: 1%;
 }
 
-.nav-logo {
-    display:flex;
-    height: 50px;
-    width: 50px;
-    padding: 10%;
-}
 
 .nav-logo:hover {
 

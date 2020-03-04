@@ -7,7 +7,7 @@ const NavBar = () => {
         <div className = "header">
             {/* Logo */}
             <Link className = "nav-title" to="/">
-                <img className = "nav-logo" src={ "/logo192.png" } alt="React logo" />
+                <img className = "nav-logo" src={ "/Picture1.png" } alt="React logo" />
             </Link>
 
             {/* Page Links */}
