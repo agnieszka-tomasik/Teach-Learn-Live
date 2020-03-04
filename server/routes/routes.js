@@ -8,7 +8,6 @@ router.route('/').get((req,res) =>{
 });
 
 router.route('/home').get((req,res) =>{
-    console.log(req.session.userID);
     if(req.session.userID){
         res.send(`
         <h1>Home</h1>
@@ -61,27 +60,18 @@ router.route('/register').get((req,res) =>{
 
 router.route('/login').post((req,res) =>{
     const {username, email, password} = req.body;
-    User.findOne({uname:username}, (err,doc) =>{
+    User.findOne({uname:username, email:email}, (err,doc) =>{
         if(err){
             return res.status(400).send('Error.');
         }else if(doc){
+            console.log(doc.validPassword(password));
             if(doc.validPassword(password)){
                 req.session.userID = doc._id;
                 return res.redirect('/home');
             }
         }
+        return res.redirect("/login");
     });
-    User.findOne({email:email}, (err,doc) =>{
-        if(err){
-            return res.status(400).send('Error.');
-        }else if(doc){
-            if(doc.validPassword(password)){
-                req.session.userID = doc._id;
-                return res.redirect('/home');
-            }
-        }
-    });
-    return res.redirect('/login');
 });
 
 router.route('/register').post((req,res) =>{
