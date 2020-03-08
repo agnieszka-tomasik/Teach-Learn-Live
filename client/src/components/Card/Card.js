@@ -12,6 +12,7 @@ function Card(course) {
                     <div class="content-online-seats">{course.online}</div>
                     <div class="content-schedule">{course.schedule}</div>
                     // <button onClick={change style of button to embedded}>Add to cart</button>
+                    // button or footer from card component??? dev choice
                     <button>Add to cart</button>
                 </div>
             </div>
