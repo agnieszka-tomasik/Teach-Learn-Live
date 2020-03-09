@@ -14,11 +14,17 @@ const Forum = (props) => {
         const forum = data.map(post => {
                 return (
                 <div>
-                        <div className = "App">
+                        <div className = "Post-box">
                         {post.text}
                         </div>
                         <div>
+                        <input/>
+                        <button className = "Button-comment"
+                        onClick = {(e) => {
+                                console.log("watashi ga kita");
+                        }}>
                         comment
+                        </button>
                         </div>
                 </div>
                 );

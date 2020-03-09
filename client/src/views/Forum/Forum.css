@@ -2,11 +2,16 @@ body{
     margin: 0
 }
 
-.App {
+.Post-box{
     border: 1px solid blue;
     border-radius: 20px;
     width: 500px;
     background:white;
+}
+
+.Button-comment{
+    border: 1px solid red;
+    border-radius: 20px;
 }
 
 .Button-post{
