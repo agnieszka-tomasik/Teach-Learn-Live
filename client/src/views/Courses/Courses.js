@@ -21,16 +21,15 @@ const courses = [
     }
 ];
 
-function Courses(courses) {
+function Courses(props) {
     return (
-      <div class="container">
-          <h1 class="title">Courses</h1>
-              <div class="course-list">
-                  (courses) => {
-                      courses.forEach({Card(course);})
-                  };
-              </div>
-      </div>
+        <div class="container">
+            <h1 class="title">Courses</h1>
+            <div class="course-list">
+                {/* Temporary, just to display the course info. */}
+                {courses.map(Card)}
+            </div>
+        </div>
     )
 }
 
