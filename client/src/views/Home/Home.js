@@ -20,8 +20,9 @@ function Home() {
                             </div>
                             <div id="navbarMenuHeroA" class="navbar-menu">
                                 <div class="navbar-end">
-                                    <Link className="navbar-item">Register</Link>
-                                    <Link className="navbar-item">Login</Link>
+                                    <Link to="courses" className="navbar-item">Courses</Link>
+                                    <Link to="register" className="navbar-item">Register</Link>
+                                    <Link to="login" className="navbar-item">Login</Link>
                                 </div>
                             </div>
                         </div>
