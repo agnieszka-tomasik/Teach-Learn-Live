@@ -4,12 +4,10 @@ import Home from "./views/Home/Home";
 import Register from "./views/Register/Register";
 import Login from "./views/Login/Login";
 import NotFound from "./views/NotFound";
-import NavBar from "./components/Header/NavBar";
 
 const App = () => {
   return (
     <div>
-      <NavBar />
       <Switch>
         <Route exact path="/Home" component={Home} />
         <Route exact path="/Login" component={Login} />
