@@ -11,6 +11,7 @@ function Login(props) {
             <input type='submit' />
         </form>
       <Link to="/login">Login</Link>
+      <Link to="/home">Go back</Link>
     </div>
 }
 
