@@ -1,4 +1,5 @@
 const User = require('../schemas/UserSchema.js');
+const Newsletter = require('../schemas/NewsletterSchema.js');
 const lmsController = require('../controllers/lmsContentController.js');
 const express = require('express');
 const router = express.Router();
@@ -25,8 +26,24 @@ router.route('/login').post((req, res) => {
 });
 
 router.post('/logout', (req, res) => {
-    req.session.destroy();
-    return res.sendStatus(200);
+    req.session.destroy(err => {
+        if(err) {
+            return res.sendStatus(500);
+        } else {
+            return res.sendStatus(200);
+        }
+    });
+})
+
+router.post('/signup-newsletter', (req, res) => {
+    const {email} = req.body;
+    Newsletter.create({email}, (err, doc) => {
+        if(err) {
+            return res.sendStatus(400);
+        } else {
+            return res.sendStatus(200);
+        }
+    });
 })
 
 router.route('/register').post((req, res) => {

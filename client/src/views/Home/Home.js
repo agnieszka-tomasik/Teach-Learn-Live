@@ -23,14 +23,14 @@ function Home() {
         axios.post('/signup-newsletter', Object.fromEntries(formData))
             .then(response => {
                 if (response.status === 200) {
-                    setMessage(["Sign up successful!", "is-success"]);
+                    setMessage({message: "Sign up successful!", class: "is-success"});
 
                 } else {
-                    setMessage(["Wasn't able to sign up", "is-danger"]);
+                    setMessage({message: "Wasn't able to sign up", class: "is-danger"});
                 }
             })
             .catch(e => {
-                setMessage(["Wasn't able to sign up", "is-danger"]);
+                setMessage({message: "Wasn't able to sign up", class: "is-danger"});
             })
     };
     return (
@@ -42,18 +42,18 @@ function Home() {
                             <div className="navbar-brand">
                                 <img className="nav-logo navbar-item" src={"/tll_logo_no_bg.svg"} alt="Teach Leave Live" />
 
-                                <span class="navbar-burger burger" data-target="navbarMenuHeroA">
+                                <span className="navbar-burger burger" data-target="navbarMenuHeroA">
                                     <span></span>
                                     <span></span>
                                     <span></span>
                                 </span>
                             </div>
-                            <div id="navbarMenuHeroA" class="navbar-menu">
-                                <div class="navbar-end">
+                            <div id="navbarMenuHeroA" className="navbar-menu">
+                                <div className="navbar-end">
                                     <Link to="courses" className="navbar-item">Courses</Link>
                                     {!state.authenticated && <Link to="register" className="navbar-item">Register</Link>}
                                     {!state.authenticated && <Link to="login" className="navbar-item">Login</Link>}
-                                    {state.authenticated && <a className="navbar-item" onClick={logoutAction}>Logout</a>}
+                                    {state.authenticated && <a href="#" className="navbar-item" onClick={logoutAction}>Logout</a>}
                                 </div>
                             </div>
                         </div>
@@ -68,11 +68,12 @@ function Home() {
                         <form onSubmit={submit}>
                             <div className="field">
                                 <div className="sign-up control">
-                                    <input className="input is-medium" placeholder="email" type="email" />
+                                    <input className="input is-medium" name="email" placeholder="email" type="email" />
                                     <input className="is-one-fifth button is-link" value="Sign Up" type="submit" />
                                 </div>
                             </div>
                         </form>
+                        {message && <p className={message.class}>{message.message}</p>}
                     </div>
                 </div>
                 <div className="hero-foot">
