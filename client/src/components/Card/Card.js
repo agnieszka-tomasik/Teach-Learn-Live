@@ -1,6 +1,16 @@
 import React from 'react';
 import './Card.css';
 
+{/* add a selected course to cart */}
+handleAdd = (id)=>{
+    this.props.add(id);
+}
+
+{/* To connect with database??? Allowed with MERN stack?? */}
+{/* Multi-part tutorial on shopping cart functionality:
+  https://medium.com/@ayabellazreg/make-a-simple-shopping-cart-app-using-react-redux-1-3-fefde93e80c7 */}
+import { connect } from 'react-redux'
+
 function Card(course) {
     return (
         <div class="card-wrapper">
@@ -11,9 +21,8 @@ function Card(course) {
                     <div class="content-traditional-seats">{course.traditional}</div>
                     <div class="content-online-seats">{course.online}</div>
                     <div class="content-schedule">{course.schedule}</div>
-                    // <button onClick={change style of button to embedded}>Add to cart</button>
-                    // button or footer from card component??? dev choice
-                    <button>Add to cart</button>
+                    {/* handle a button click */}
+                    <button onClick={()=>{this.handleAdd(item.id)>Add to cart</button>
                 </div>
             </div>
         </div>
@@ -21,3 +30,11 @@ function Card(course) {
 }
 
 export default Card;
+
+const mapStateToProps = (state)=>{
+    return{course: state.addedCourse}
+}
+const mapDispatchToProps = (dispatch)=>{
+    return{add: (id)=>{dispatch(add(id))}}
+}
+export default connect(mapStateToProps,mapDispatchToProps)(Cart)

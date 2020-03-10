@@ -20,8 +20,9 @@ function Home() {
                             </div>
                             <div id="navbarMenuHeroA" class="navbar-menu">
                                 <div class="navbar-end">
-                                    <Link className="navbar-item">Register</Link>
-                                    <Link className="navbar-item">Login</Link>
+                                    <Link to="courses" className="navbar-item">Courses</Link>
+                                    <Link to="register" className="navbar-item">Register</Link>
+                                    <Link to="login" className="navbar-item">Login</Link>
                                 </div>
                             </div>
                         </div>
@@ -31,8 +32,6 @@ function Home() {
                     <div className="container has-text-centered">
                         <h1 className="title">Teach. Leave. Live.</h1>
                         <h2 className="subtitle">Teach your heart out, leave work at work, and live life with intention.</h2>
-
-
                         <div className="field">
                             <div className="sign-up control">
                                 <input class="input is-medium" placeholder="email" type="email"></input>
