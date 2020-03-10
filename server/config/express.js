@@ -1,4 +1,4 @@
-const config = require('./config');
+const config = process.env.NODE_ENV !== 'production' && require('./config');
 const path = require('path');
 const express = require('express');
 const mongoose = require('mongoose');
