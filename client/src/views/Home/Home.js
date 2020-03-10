@@ -51,6 +51,7 @@ function Home() {
                             <div id="navbarMenuHeroA" className="navbar-menu">
                                 <div className="navbar-end">
                                     <Link to="courses" className="navbar-item">Courses</Link>
+                                    {state.authenticated && <Link to="forum" className="navbar-item">Forum</Link>}
                                     {!state.authenticated && <Link to="register" className="navbar-item">Register</Link>}
                                     {!state.authenticated && <Link to="login" className="navbar-item">Login</Link>}
                                     {state.authenticated && <a href="#" className="navbar-item" onClick={logoutAction}>Logout</a>}
