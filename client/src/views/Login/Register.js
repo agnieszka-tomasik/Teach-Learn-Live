@@ -28,7 +28,7 @@ function Login(props) {
 
     return <div>
         <h1>Register</h1>
-        <form method='post' action='/register' onSubmit={submit}>
+        <form onSubmit={submit}>
             <Field label="Username">
                 <input name='username' placeholder='Username' required />
             </Field>
