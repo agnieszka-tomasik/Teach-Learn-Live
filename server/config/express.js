@@ -29,7 +29,7 @@ module.exports.init = () => {
     app.use(bodyParser.urlencoded({ extended: true })); 
 
     // session middleware
-    app.use(session({secret: config.secret}));
+    app.use(session({secret: process.env.SESSION_SECRET || config.secret}));
 
     // add a router
     app.use('/', router);
