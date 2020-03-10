@@ -21,14 +21,9 @@ function Card(course) {
                     <div class="content-traditional-seats">{course.traditional}</div>
                     <div class="content-online-seats">{course.online}</div>
                     <div class="content-schedule">{course.schedule}</div>
-<<<<<<< HEAD
-                    {/* handle a button click */}
-                    <button onClick={()=>{this.handleAdd(item.id)>Add to cart</button>
-=======
                     {/* // <button onClick={change style of button to embedded}>Add to cart</button>
                     // button or footer from card component??? dev choice */}
                     <button>Add to cart</button>
->>>>>>> 8aced52fb88557e3bede82b087a6307f899bd921
                 </div>
             </div>
         </div>
