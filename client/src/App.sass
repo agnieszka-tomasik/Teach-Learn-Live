@@ -5,16 +5,17 @@
 
 // Set your brand colors
 $cyan: #01FFFF;
-$purple: #8a4d76;
+$purple: #7C77B9;
 $pink: #fa7c91;
-$brown: #757763;
+$black: #151D21;
+$grey: #ABB6C7;
 $beige-light: #d0d1cd;
 $beige-lighter: #eff0eb;
 
 // Update Bulma's global variables
 $family-sans-serif: 'Nunito', sans-serif;
-$grey-dark: $brown;
-$grey-light: $beige-light;
+$grey-dark: $black;
+$grey-light: $grey;
 $primary: $cyan;
 $link: $pink;
 $widescreen-enabled: false;
@@ -31,7 +32,9 @@ $input-shadow: none;
 // @import '../node_modules/bulma/sass/utilities/_all.sass';
 // @import '../node_modules/bulma/sass/base/_all.sass';
 // @import '../node_modules/bulma/sass/elements/button.sass';
-// @import '../node_modules/bulma/sass/elements/container.sass';
+
+/* container allows the card component to be imported from Bulma */
+@import '../node_modules/bulma/sass/elements/container.sass';
 // @import '../node_modules/bulma/sass/elements/form.sass';
 // @import '../node_modules/bulma/sass/elements/title.sass';
 // @import '../node_modules/bulma/sass/form/_all.sass';
