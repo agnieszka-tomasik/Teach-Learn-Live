@@ -1,0 +1,9 @@
+.submit-box{
+    position: absolute;
+    bottom: 0;
+    width: 500px;
+}
+
+.submit-box > *{
+    margin: .75rem;
+}

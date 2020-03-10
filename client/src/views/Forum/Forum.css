@@ -1,20 +1,7 @@
-body{
-    margin: 0
-}
-
 .Post-box{
-    border: 1px solid blue;
-    border-radius: 20px;
+    width: 1000px;
+}
+
+.Comment-box{
     width: 500px;
-    background:white;
-}
-
-.Button-comment{
-    border: 1px solid red;
-    border-radius: 20px;
-}
-
-.Button-post{
-    
-    align-items: center;
 }

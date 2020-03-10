@@ -1,4 +1,5 @@
 import React from 'react';
+import './ForumSubmit.css'
 
 const ForumSubmit = (props) => {
     let newText;
@@ -10,22 +11,29 @@ const ForumSubmit = (props) => {
         }
     }
     return(
-    <form id = "post-form">
-        <input 
-        type="text" 
-        placeholder="Enter your post"
-        onChange = {(e) => {
-            newText = e.target.value;
-        }}
-        />
-        <button type = "button"
-            onClick = {(e) =>{
-                handlePost();
-                props.setNewPost(schema);
-                document.getElementById("post-form").reset();
-            }}>
-        Post</button>
-    </form>
+        
+            <form id = "post-form" className = "field">
+                <div className = "submit-box control">
+                <input 
+                type="text"
+                className = "input" 
+                placeholder="Enter your post"
+                onChange = {(e) => {
+                    newText = e.target.value;
+                }}
+                />
+                <button 
+                className = "button is-light"
+                type = "button"
+                    onClick = {(e) =>{
+                        handlePost();
+                        props.setNewPost(schema);
+                        document.getElementById("post-form").reset();
+                    }}>
+                Post</button>
+                </div>
+            </form>
+        
     )
 }
 

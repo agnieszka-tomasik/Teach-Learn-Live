@@ -14,28 +14,36 @@ const Forum = (props) => {
         const forum = data.map(post => {
                 return (
                 <div>
-                        <div className = "Post-box">
-                        {post.text}
+                        <div className = "container is-fluid">
+                                <div className = "Post-box control">
+                                        <div className = "box">
+                                                {post.text}
+                                        </div>
+                                </div>
                         </div>
-                        <div>
-                        <input/>
-                        <button className = "Button-comment"
-                        onClick = {(e) => {
-                                console.log("watashi ga kita");
-                        }}>
-                        comment
-                        </button>
+                        <div className = "field is-grouped is-grouped-right">
+                                <div className = "Comment-box control">
+                                        <input className = "input is-black" type = "text" placeholder = "comment input"/>
+                                </div>
+                                <button className = "button is-success"
+                                        onClick = {(e) => {
+                                                console.log("watashi ga kita");
+                                        }}>
+                                Comment
+                                </button>
                         </div>
+                        
                 </div>
                 );
         })
-        return( 
-        <div>{forum}
+        return(
+        <section className = "hero is-primary is-bold is-fullheight"> 
                 <div>
-                <ForumSubmit
-                setNewPost = {setNewPost}/>
+                        {forum}
+                        <ForumSubmit
+                        setNewPost = {setNewPost}/>
                 </div>
-        </div>);                
+        </section>);                
 
 }
 
