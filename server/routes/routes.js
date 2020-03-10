@@ -28,14 +28,6 @@ router.route('/home').get((req,res) =>{
 
 router.route('/login').get((req,res) =>{
     res.send(`
-    <h1>Login</h1>
-    <form method='post' action='/login'>
-        <input name='username' placeholder='Username' required />
-        <input type='email' name='email' placeholder='Email' required />
-        <input type='password' name='password' placeholder='Password' required />
-        <input type='submit' />
-    </form>
-    <a href='/register'>Register</a>
     `);
 });
 
@@ -43,19 +35,6 @@ router.route('/login').get((req,res) =>{
 
 router.route('/modules').get((req,res) =>{
     res.send(`<h1>Modules List</h1>`)
-});
-
-router.route('/register').get((req,res) =>{
-    res.send(`
-    <h1>Register</h1>
-    <form method='post' action='/register'>
-        <input name='username' placeholder='Username' required />
-        <input type='email' name='email' placeholder='Email' required />
-        <input type='password' name='password' placeholder='Password' required />
-        <input type='submit' />
-    </form>
-    <a href='/login'>Login</a>
-    `);
 });
 
 router.route('/login').post((req,res) =>{
