@@ -27,6 +27,7 @@
     "express-session": "^1.17.0",
     "mocha": "^6.2.1",
     "mongoose": "^5.7.1",
+    "mongoose-unique-validator": "^2.0.3",
     "morgan": "^1.9.1",
     "nodemon": "^1.18.10",
     "should": "^13.2.3",

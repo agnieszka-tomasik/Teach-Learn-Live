@@ -1,13 +1,14 @@
 import React from 'react';
-import { Route, Switch, Redirect  } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import Home from "./views/Home/Home";
 import Register from "./views/Login/Register";
 import Login from "./views/Login/Login";
 import NotFound from "./views/NotFound";
+import { StateProvider } from './store/store';
 
 const App = () => {
   return (
-    <div>
+    <StateProvider>
       <Switch>
         <Route exact path="/Home" component={Home} />
         <Route exact path="/Login" component={Login} />
@@ -17,7 +18,7 @@ const App = () => {
         </Route>
         <Route component={NotFound}/>
       </Switch>
-    </div>
+    </StateProvider>
   );
 }
 
