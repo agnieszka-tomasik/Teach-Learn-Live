@@ -1,0 +1,7 @@
+.course-list {
+    display: inline-grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+.course-list > * {
+    margin: .75rem;
+}

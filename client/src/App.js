@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import Home from "./views/Home/Home";
+import Courses from "./views/Courses/Courses";
 import Register from "./views/Login/Register";
 import Login from "./views/Login/Login";
 import NotFound from "./views/NotFound";
@@ -14,8 +15,9 @@ const App = () => {
         <Route exact path="/Login" component={Login} />
         <Route exact path="/Register" component={Register} />
         <Route exact path="/">
-          <Redirect to="/Home" />
+          <Redirect to="/home" />
         </Route>
+        <Route exact path="/courses" component={Courses} />
         <Route component={NotFound}/>
       </Switch>
     </StateProvider>
