@@ -1,15 +1,10 @@
 import React from 'react';
 import './Card.css';
-
-{/* add a selected course to cart */}
-handleAdd = (id)=>{
-    this.props.add(id);
-}
+import { connect } from 'react-redux'
 
 {/* To connect with database??? Allowed with MERN stack?? */}
 {/* Multi-part tutorial on shopping cart functionality:
   https://medium.com/@ayabellazreg/make-a-simple-shopping-cart-app-using-react-redux-1-3-fefde93e80c7 */}
-import { connect } from 'react-redux'
 
 function Card(course) {
     return (
@@ -31,11 +26,3 @@ function Card(course) {
 }
 
 export default Card;
-
-const mapStateToProps = (state)=>{
-    return{course: state.addedCourse}
-}
-const mapDispatchToProps = (dispatch)=>{
-    return{add: (id)=>{dispatch(add(id))}}
-}
-export default connect(mapStateToProps,mapDispatchToProps)(Cart)
