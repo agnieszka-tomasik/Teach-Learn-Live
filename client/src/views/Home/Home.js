@@ -1,8 +1,38 @@
-import React from 'react';
+import React, { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import './Home.css';
+import axios from 'axios';
+import { store } from '../../store/store';
 
 function Home() {
+
+    const [message, setMessage] = useState(null);
+    const { dispatch, state } = useContext(store);
+
+    const logoutAction = () => {
+        axios.post('/logout').then(response => {
+            if (response.status === 200) {
+                dispatch({ type: 'LOGOUT' });
+            } 
+        });
+    }
+    const submit = (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+
+        axios.post('/signup-newsletter', Object.fromEntries(formData))
+            .then(response => {
+                if (response.status === 200) {
+                    setMessage(["Sign up successful!", "is-success"]);
+
+                } else {
+                    setMessage(["Wasn't able to sign up", "is-danger"]);
+                }
+            })
+            .catch(e => {
+                setMessage(["Wasn't able to sign up", "is-danger"]);
+            })
+    };
     return (
         <div>
             <section className="hero is-primary is-bold is-fullheight">
@@ -21,8 +51,9 @@ function Home() {
                             <div id="navbarMenuHeroA" class="navbar-menu">
                                 <div class="navbar-end">
                                     <Link to="courses" className="navbar-item">Courses</Link>
-                                    <Link to="register" className="navbar-item">Register</Link>
-                                    <Link to="login" className="navbar-item">Login</Link>
+                                    {!state.authenticated && <Link to="register" className="navbar-item">Register</Link>}
+                                    {!state.authenticated && <Link to="login" className="navbar-item">Login</Link>}
+                                    {state.authenticated && <a className="navbar-item" onClick={logoutAction}>Logout</a>}
                                 </div>
                             </div>
                         </div>
@@ -34,12 +65,14 @@ function Home() {
                         <h2 className="subtitle">Teach your heart out, leave work at work, and live life with intention.</h2>
 
 
-                        <div className="field">
-                            <div className="sign-up control">
-                                <input class="input is-medium" placeholder="email" type="email"></input>
-                                <button class="is-one-fifth button is-link">Sign Up</button>
+                        <form onSubmit={submit}>
+                            <div className="field">
+                                <div className="sign-up control">
+                                    <input className="input is-medium" placeholder="email" type="email" />
+                                    <input className="is-one-fifth button is-link" value="Sign Up" type="submit" />
+                                </div>
                             </div>
-                        </div>
+                        </form>
                     </div>
                 </div>
                 <div className="hero-foot">

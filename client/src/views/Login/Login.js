@@ -1,29 +1,33 @@
-import React, { useState } from 'react';
-import { Link, useHistory} from 'react-router-dom';
+import React, { useState, useContext } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import { Field } from '../../components/Field';
 import axios from 'axios';
+import { store } from '../../store/store';
 
 function Login(props) {
 
     const history = useHistory();
     const [error, setError] = useState(null);
+    const appState = useContext(store);
+    const { dispatch } = appState;
 
     const submit = (e) => {
         e.preventDefault();
         const formData = new FormData(e.target);
 
         axios.post('/login', Object.fromEntries(formData))
-        .then(response => {
-            if(response.status === 200) {
-                console.log("Login success");
-                history.push('/home');
-            } else {
-                setError(response.data);
-            }
-        }).catch(e => {
-            console.log("Login fail");
-            setError("Login failed.");
-        });
+            .then(response => {
+                if (response.status === 200) {
+                    console.log("Login success");
+                    dispatch({ type: 'AUTHENTICATED' });
+                    history.push('/home');
+                } else {
+                    setError(response.data);
+                }
+            }).catch(e => {
+                console.log(`Login fail ${e}`);
+                setError("Login failed.");
+            });
     }
 
     return <div>

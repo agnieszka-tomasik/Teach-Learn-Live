@@ -2,7 +2,7 @@
 import React, { createContext, useReducer } from 'react';
 
 const initialState = {
-
+    authenticated: false,
 };
 const store = createContext(initialState);
 const { Provider } = store;
@@ -10,9 +10,10 @@ const { Provider } = store;
 const StateProvider = ({ children }) => {
     const [state, dispatch] = useReducer((state, action) => {
         switch (action.type) {
-            case 'action description':
-                const newState = 1;// do something with the action
-                return newState;
+            case 'AUTHENTICATED':
+                return {...state, authenticated: true};
+            case 'LOGOUT':
+                return {...state, authenticated: false};
             default:
                 throw new Error(`Invalid action was received: ${action}`);
         };

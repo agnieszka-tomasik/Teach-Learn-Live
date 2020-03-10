@@ -24,6 +24,11 @@ router.route('/login').post((req, res) => {
     });
 });
 
+router.post('/logout', (req, res) => {
+    req.session.destroy();
+    return res.sendStatus(200);
+})
+
 router.route('/register').post((req, res) => {
     const { username, email, password } = req.body;
 
