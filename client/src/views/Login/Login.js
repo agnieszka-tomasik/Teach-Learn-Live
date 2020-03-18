@@ -3,6 +3,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { Field } from '../../components/Field';
 import axios from 'axios';
 import { store } from '../../store/store';
+import './Forms.css';
 
 function Login(props) {
 
@@ -30,22 +31,22 @@ function Login(props) {
             });
     }
 
-    return <div>
-        <h1>Login</h1>
-        <form method='post' action='/login' onSubmit={submit}>
-            <Field label="Username">
-                <input name='username' placeholder='Username' required />
-            </Field>
-            <Field label="Password">
-                <input type='password' name='password' placeholder='Password' required />
-            </Field>
-            <input type='submit' />
-        </form>
-        {error && <p className="is-danger">{error}</p>}
-        <div className="level">
-            <Link className="level-item" to="/register">Register</Link>
-            <Link className="level-item" to="/home">Go back</Link>
-        </div>
+    return <div className="centered">
+            <div className="fill-form" >
+            <h1 className="title">Login</h1>
+            <form method='post' action='/login' onSubmit={submit}>
+                <Field label="Username">
+                    <input className="input" name='username' placeholder='Username' required />
+                </Field>
+                <Field label="Password">
+                    <input className="input" type='password' name='password' placeholder='Password' required />
+                </Field>
+                <input className="button is-primary" type='submit' />
+            </form>
+            {error && <p className="is-danger">{error}</p>}
+            </div>
+            <Link to="/register">Register</Link>
+            <Link to="/home">Go back</Link>
     </div>
 }
 

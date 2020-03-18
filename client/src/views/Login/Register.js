@@ -3,6 +3,7 @@ import { useHistory, Link } from 'react-router-dom';
 import { Field } from '../../components/Field';
 import axios from 'axios';
 import { store } from '../../store/store';
+import './Forms.css';
 
 function Login(props) {
 
@@ -30,25 +31,26 @@ function Login(props) {
             });
     }
 
-    return <div>
-        <h1>Register</h1>
+    return <div className="centered">
+        <div className="fill-form">
+
+        <h1 className="title">Register</h1>
         <form onSubmit={submit}>
             <Field label="Username">
-                <input name='username' placeholder='Username' required />
+                <input className="input" name='username' placeholder='Username' required />
             </Field>
             <Field label="Email">
-                <input type='email' name='email' placeholder='Email' required />
+                <input className="input" type='email' name='email' placeholder='Email' required />
             </Field>
             <Field label="Password">
-                <input type='password' name='password' placeholder='Password' required />
+                <input className="input" type='password' name='password' placeholder='Password' required />
             </Field>
-            <input type='submit' />
+            <input className="button is-primary" type='submit' />
         </form>
         {error && <p className="is-danger">{error}</p>}
-        <div className="level">
-            <Link className="level-item" to="/login">Login</Link>
-            <Link className="level-item" to="/home">Go back</Link>
         </div>
+        <Link to="/login">Login</Link>
+        <Link to="/home">Go back</Link>
     </div>
 }
 
