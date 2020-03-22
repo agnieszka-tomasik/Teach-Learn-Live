@@ -7,6 +7,7 @@ import Register from "./views/Login/Register";
 import Login from "./views/Login/Login";
 import NotFound from "./views/NotFound";
 import { StateProvider } from './store/store';
+import "./App.css";
 
 const App = (props) => {
   return (

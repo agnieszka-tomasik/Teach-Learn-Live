@@ -1,6 +1,7 @@
 import React, { useState, useReducer, useContext } from 'react';
 import { useHistory, Link } from 'react-router-dom';
 import { Field } from '../../components/Field';
+import { WithBanner } from '../../components/Banner';
 import axios from 'axios';
 import { store } from '../../store/store';
 import './Forms.css';
@@ -54,4 +55,4 @@ function Login(props) {
     </div>
 }
 
-export default Login;
+export default WithBanner(Login);

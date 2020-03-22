@@ -1,7 +1,3 @@
-html {
-    background-image: linear-gradient(to bottom right, #01FFFF, #8FBFE0);
-}
-
 .centered {
     display: flex;
     height:100vh;
