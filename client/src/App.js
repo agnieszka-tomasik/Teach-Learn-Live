@@ -19,8 +19,8 @@ const App = (props) => {
         <Route exact path="/">
           <Redirect to="/home" />
         </Route>
-        <Route exact path="/Forum" component={Forum}/>
-        <Route exact path="/courses" component={Courses} />
+        <Route path="/Forum" component={Forum}/>
+        <Route path="/courses" component={Courses} />
         <Route component={NotFound}/>
       </Switch>
     </StateProvider>

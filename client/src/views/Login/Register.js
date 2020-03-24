@@ -46,6 +46,9 @@ function Login(props) {
             <Field label="Password">
                 <input className="input" type='password' name='password' placeholder='Password' required />
             </Field>
+            <Field label="Confirm Password">
+                <input className="input" type='password' name='passwordConfirm' placeholder='Confirm Password' required />
+            </Field>
             <input className="button is-primary" type='submit' />
         </form>
         {error && <p className="is-danger">{error}</p>}

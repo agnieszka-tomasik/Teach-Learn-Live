@@ -13,7 +13,7 @@ function Home() {
         axios.post('/logout').then(response => {
             if (response.status === 200) {
                 dispatch({ type: 'LOGOUT' });
-            } 
+            }
         });
     }
     const submit = (e) => {
@@ -23,14 +23,14 @@ function Home() {
         axios.post('/signup-newsletter', Object.fromEntries(formData))
             .then(response => {
                 if (response.status === 200) {
-                    setMessage({message: "Sign up successful!", class: "is-success"});
+                    setMessage({ message: "Sign up successful!", class: "is-success" });
 
                 } else {
-                    setMessage({message: "Wasn't able to sign up", class: "is-danger"});
+                    setMessage({ message: "Wasn't able to sign up", class: "is-danger" });
                 }
             })
             .catch(e => {
-                setMessage({message: "Wasn't able to sign up", class: "is-danger"});
+                setMessage({ message: "Wasn't able to sign up", class: "is-danger" });
             })
     };
     return (
@@ -50,11 +50,13 @@ function Home() {
                             </div>
                             <div id="navbarMenuHeroA" className="navbar-menu">
                                 <div className="navbar-end">
-                                    <Link to="courses" className="navbar-item">Courses</Link>
-                                    {state.authenticated && <Link to="forum" className="navbar-item">Forum</Link>}
-                                    {!state.authenticated && <Link to="register" className="navbar-item">Register</Link>}
-                                    {!state.authenticated && <Link to="login" className="navbar-item">Login</Link>}
-                                    {state.authenticated && <a href="#" className="navbar-item" onClick={logoutAction}>Logout</a>}
+                                    <div class="buttons">
+                                        <Link to="courses" className="button is-light navbar-item">Courses</Link>
+                                        {!state.authenticated && <Link to="login" className="button is-light navbar-item">Login</Link>}
+                                        {!state.authenticated && <Link to="register" className="button is-primary navbar-item"><strong>Register</strong></Link>}
+                                        {state.authenticated && <Link to="forum" className="button navbar-item">Forum</Link>}
+                                        {state.authenticated && <a href="#" className="button navbar-item" onClick={logoutAction}>Logout</a>}
+                                    </div>
                                 </div>
                             </div>
                         </div>
