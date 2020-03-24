@@ -2,7 +2,7 @@ import React from 'react';
 import Card from '../../components/Card/Card.js';
 import './Courses.css';
 import { WithBanner } from '../../components/Banner/index.js';
-import { Route, Switch, Link} from 'react-router-dom';
+import { Route, Switch, Link } from 'react-router-dom';
 
 const courses = [
     {
@@ -23,12 +23,16 @@ const courses = [
     }
 ];
 
-function CourseHomePage() {
+function NavButtons() {
+    return <div class="buttons">
+        <Link className="button" to="/courses/cart">My Cart</Link>
+        <Link className="button" to="/courses/">Courses</Link>
+    </div>
+}
+
+function CourseHomePage(props) {
     return <div>
-        <div class="buttons">
-            <Link className="button" to="/courses/cart">My Cart</Link>
-            <Link className="button" to="/courses/cart">Courses</Link>
-        </div>
+        <NavButtons />
         <div class="course-list">
             {/* Temporary, just to display the course info. */}
             {courses.map(Card)}
@@ -37,7 +41,10 @@ function CourseHomePage() {
 }
 
 function Cart(props) {
-    return <div>Cart here</div>;
+    return <div>
+        <NavButtons />
+    Cart here
+    </div>;
 }
 
 function Courses(props) {

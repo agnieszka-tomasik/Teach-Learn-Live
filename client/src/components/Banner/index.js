@@ -19,8 +19,8 @@ function Banner(props) {
         <div id="navbarBasicExample" class="navbar-menu">
             <div class="navbar-start">
                 <div class="buttons">
-                    <Link to="home" class="navbar-item">Home</Link>
-                    <Link to="courses" className="navbar-item">Courses</Link>
+                    <Link to="/home" class="navbar-item">Home</Link>
+                    <Link to="/courses" className="navbar-item">Courses</Link>
                 </div>
             </div>
         </div>
