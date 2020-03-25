@@ -1,6 +1,8 @@
 const User = require('../schemas/UserSchema.js');
 const Newsletter = require('../schemas/NewsletterSchema.js');
-const lmsController = require('../controllers/lmsContentController.js');
+const Courses = require('../schemas/CourseSchema.js');
+const adminController = require('../controllers/AdminContentController.js');
+const lmsController = require('../controllers/LMSContentController.js');
 const express = require('express');
 const router = express.Router();
 
@@ -64,6 +66,57 @@ router.route('/register').post((req, res) => {
             console.log(`Saved user -> ${user}`);
             console.log(`Binded session id -> ${req.session.userID}`);
             return res.sendStatus(200);
+        }
+    });
+});
+
+router.route('/admin').get(adminController);
+
+router.route('/admin').post(adminController);
+
+router.route('/admin/courses').get(adminController);
+
+router.route('/admin/courses/courseslist').get((req,res) => {
+    Courses.find((err, docs) => {
+        if(err){
+            return res.sendStatus(400);
+        }else{
+            return res.status(200).send(docs);
+        }
+    });
+});
+
+router.route('/admin/courses/add').post( (req, res) => {
+    let {courseTitle, courseDesc} = req.body;
+    console.log(courseTitle, courseDesc);
+    Courses.create({courseTitle:courseTitle, courseDesc:courseDesc}, (err, doc) => {
+        if(err){
+            return res.sendStatus(400);
+        }else{
+            Courses.find((err, docs) => {
+                if(err){
+                    return res.sendStatus(400);
+                }else{
+                    return res.status(200).send(docs);
+                }
+            });
+        }
+    });
+});
+
+router.route('/admin/courses/delete').post( (req, res) => {
+    let {courseTitle} = req.body;
+    Courses.findOneAndRemove({courseTitle:courseTitle}, (err, doc) =>{
+        if(err){
+            return res.sendStatus(400);
+        }else{
+            Courses.find((err, docs) => {
+                if(err){
+                    return res.sendStatus(400);
+                }else{
+                    return res.status(200).send(docs);
+                }
+            });
         }
     });
 });

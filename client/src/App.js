@@ -6,7 +6,10 @@ import Courses from "./views/Courses/Courses";
 import Register from "./views/Login/Register";
 import Login from "./views/Login/Login";
 import NotFound from "./views/NotFound";
+import CoursesAdmin from "./views/Admin/Courses/CoursesAdmin";
 import { StateProvider } from './store/store';
+
+// const courses = get courseslist
 
 const App = (props) => {
   return (
@@ -20,6 +23,10 @@ const App = (props) => {
         </Route>
         <Route exact path="/Forum" component={Forum}/>
         <Route exact path="/courses" component={Courses} />
+        <Route 
+          exact path="/admin/courses" 
+          render={() => <CoursesAdmin courses={props.courses}/>} 
+        />
         <Route component={NotFound}/>
       </Switch>
     </StateProvider>
