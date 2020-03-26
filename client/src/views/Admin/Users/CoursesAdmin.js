@@ -69,10 +69,9 @@ const CoursesAdmin = (props) => {
                         <ViewCourse
                             data={courses}
                             title={selectedCourse}
-                            coursesUpdate={coursesUpdate}
                         />
                     </div>
-                    <div className="column2">
+                    <div className="column2Under">
                         <AddCourse 
                             className='AddCourse' 
                             addCourse={addCourse} 

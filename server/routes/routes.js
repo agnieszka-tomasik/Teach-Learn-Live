@@ -121,4 +121,21 @@ router.route('/admin/courses/delete').post( (req, res) => {
     });
 });
 
+router.route('/admin/courses/update').post( (req, res) => {
+    let course = req.body;
+    Courses.findByIdAndUpdate(course._id, course, (err, doc) =>{
+        if(err){
+            return res.sendStatus(400);
+        }else{
+            Courses.find((err, docs) => {
+                if(err){
+                    return res.sendStatus(400);
+                }else{
+                    return res.status(200).send(docs);
+                }
+            });
+        }
+    });
+});
+
 module.exports = router;
