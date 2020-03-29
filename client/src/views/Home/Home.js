@@ -13,7 +13,7 @@ function Home() {
         axios.post('/logout').then(response => {
             if (response.status === 200) {
                 dispatch({ type: 'LOGOUT' });
-            } 
+            }
         });
     }
     const submit = (e) => {

@@ -1,50 +1,44 @@
-import React, { Component } from 'react';
-
-{/***************** JUNK CODE TRYING TO UNDERSTAND HOW REDUX AND REACT WORK TOGETHER*****************************/}
-
-[/* To connect with database??? Allowed with MERN stack?? */]
+import React from 'react'
 import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
-import { Courses } from '../../views/Courses/Courses.js'
-class Cart extends Component{
+import { Courses } from '../../views/courses.js'
+import { removeFromCart } from '../../store/actions.js'
 
-    {/* add a selected course to cart */}
-    handleAdd = (id)=>{
-        this.props.add(id);
-    }
-
-    render(){
-        let addedItems = this.props.items.length ?
-            (
-                this.props.items.map(item=>{
-                    return(
-                        <div className="item-desc">
-                            <div className="add">
-                                <Link to="/cart"><i className="material-icons" onClick={()=>{this.handleAdd(item.id)}}>arrow_drop_up</i></Link>
-                            </div>
-                            <button onClick={()=>{this.handleAdd(item.id)} /}>
-                        </div>
-                    )
-                })
-            )
-       return(
-            <div className="container">
-                <div className="cart">
-                    <h5>You have ordered:</h5>
-                    <ul className="collection">
-                        {addedItems}
-                    </ul>
+function Cart(props) {
+    let collection = props.addedCourses.map(course => {
+        return (
+            <div class="card-wrapper">
+                <div class="card">
+                    <div class="card-content">
+                        <div class="content-course">{course.title}</div>
+                        <div class="content-description">{course.description}</div>
+                        <div class="content-price">{course.price}</div>
+                        <button onClick={()=>{removeFromCart(course.course_id)}}>Remove from cart</button>
+                    </div>
                 </div>
             </div>
-       )
+        )
+    })
+    return (
+        <div className="container">
+            <div className="cart">
+                <ul className="displayedCourses">{collection}</ul>
+            </div>
+        </div>
+    )
+}
+
+// takes the state in the reducer, passes addedCourses into props in the file
+const mapState = (state) => {
+    return {
+        addedCourses: state.addedCourses
     }
 }
-const mapStateToProps = (state)=>{
-    return{items: state.addedItems}
-}
-const mapDispatchToProps = (dispatch)=>{
-    return{
-        add: (id)=>{dispatch(add(id))}
+
+// updates the reducer every time that the remove from cart button is pressed
+const mapDispatch = (dispatch) => {
+    return {
+        removeFromCart: (id) => {dispatch(removeFromCart(id))}
     }
 }
-export default connect(mapStateToProps,mapDispatchToProps)(Cart)
+
+export default connect( mapState, mapDispatch )(Cart)
