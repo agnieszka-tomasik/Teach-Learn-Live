@@ -166,12 +166,50 @@ router.post('/forum', (req, res) => {
                     console.log(err);
                 }
                 else {
-                    res.json(p);
+                    ForumPost.find((err, docs) => {
+                        if(err){
+                            return res.sendStatus(400);
+                        }
+                        else{
+                            return res.status(200).send(docs);
+                        }
+                    });
                 }
             });
         }
     })
     
+    router.route('/forum/comment').post((req, res) => {
+        console.log("I am here");
+        console.log(req);
+        ForumPost.findById(req.body.post._id, (err, doc) => {
+            if (err) {
+                res.status(403).send("Comment not posted");
+            }
+            else {
+                post = new ForumPost( {
+                    authUname: req.session.userID,
+                    postText: req.body.text
+                });
+                doc.comments.append(post);
+                ForumPost.findByIdAndUpdate(req.body.post._id, doc, (err, doc) => {
+                    if (err) {
+                        res.status(403).send("Comment not posted");
+                    }
+                    else {
+                        ForumPost.find((err, doc) => {
+                            if (err) {
+                                res.status(403).send("Comment not posted");
+                            }
+                            else {
+                                res.status(200).send(doc);
+                            }
+                        })
+                    }
+                });
+            }
+        });
+    })
 });
 
 

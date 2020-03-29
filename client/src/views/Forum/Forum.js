@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import './Forum.css'
 import ForumSubmit from './ForumSubmit'
-import data from '../../data'
+import CommentController from './CommentController';
 
 const Forum = (props) => {
         //for sprint 3: get rid of this hook so that we don't potentially
@@ -13,11 +13,6 @@ const Forum = (props) => {
                 }
         );
         const [posts, setPosts] = useState(props.posts);
-
-        if(newPost != null){
-                data.push(newPost);
-                setNewPost();
-        }
 
         const updatePosts = (posts) => {
                 setPosts(posts);
@@ -33,18 +28,11 @@ const Forum = (props) => {
                                         </div>
                                 </div>
                         </div>
-                        <div className = "field is-grouped is-grouped-right">
-                                <div className = "Comment-box control">
-                                        <input className = "input is-black" type = "text" placeholder = "comment input"/>
-                                </div>
-                                <button className = "button is-success"
-                                        onClick = {(e) => {
-                                                console.log("watashi ga kita");
-                                        }}>
-                                Comment
-                                </button>
+                        <div>
+                               <CommentController 
+                                post = {post}
+                                updatePosts = {updatePosts}/>
                         </div>
-                        
                 </div>
                 );
         })

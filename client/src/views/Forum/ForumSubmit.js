@@ -51,7 +51,6 @@ const ForumSubmit = (props) => {
                 Post</button>
                 </div>
             </form>
-        
     )
 }
 
