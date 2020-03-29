@@ -21,7 +21,10 @@ const App = (props) => {
         <Route exact path="/">
           <Redirect to="/home" />
         </Route>
-        <Route exact path="/Forum" component={Forum}/>
+        <Route 
+          exact path="/forum" 
+          render={() => <Forum posts={props.posts}/>} 
+        />
         <Route exact path="/courses" component={Courses} />
         <Route 
           exact path="/admin/courses" 

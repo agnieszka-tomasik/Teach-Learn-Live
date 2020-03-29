@@ -1,6 +1,7 @@
 const User = require('../schemas/UserSchema.js');
 const Newsletter = require('../schemas/NewsletterSchema.js');
 const Courses = require('../schemas/CourseSchema.js');
+const ForumPost = require('../schemas/ForumPostSchema.js')
 const adminController = require('../controllers/AdminContentController.js');
 const lmsController = require('../controllers/LMSContentController.js');
 const express = require('express');
@@ -76,6 +77,27 @@ router.route('/admin').post(adminController);
 
 router.route('/admin/courses').get(adminController);
 
+//make this prettier
+router.route('/initdata').get((req,res) => {
+    Courses.find((err, coursesDocs) => {
+        if(err){
+            return res.sendStatus(400);
+        }else{
+            ForumPost.find((err, postDocs) => {
+                if (err) {
+                    return res.sendStatus(400);
+                }
+                else {
+                    return res.status(200).send({
+                        courses: coursesDocs,
+                        posts: postDocs
+                    });
+                }
+            })
+        }
+    });
+});
+
 router.route('/admin/courses/courseslist').get((req,res) => {
     Courses.find((err, docs) => {
         if(err){
@@ -120,5 +142,38 @@ router.route('/admin/courses/delete').post( (req, res) => {
         }
     });
 });
+
+//The following is for routing the forum posts
+router.post('/forum', (req, res) => {
+    console.log('You are posting');
+
+    User.findById(req.session.userID, (err, user) => {
+        if (err) {
+            res.status(403).send("Not authorized");
+        }
+        else {
+            let Post = new ForumPost(
+                {
+                    authUname: user.uname,
+                    postTitle: req.body.postTitle,
+                    postText: req.body.postText,
+                }
+            );
+            
+            Post.save((err, p) => {
+                if (err) {
+                    console.log('Error saving post');
+                    console.log(err);
+                }
+                else {
+                    res.json(p);
+                }
+            });
+        }
+    })
+    
+});
+
+
 
 module.exports = router;

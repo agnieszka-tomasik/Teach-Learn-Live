@@ -4,20 +4,32 @@ import ForumSubmit from './ForumSubmit'
 import data from '../../data'
 
 const Forum = (props) => {
-        const [newPost, setNewPost] = useState();
+        //for sprint 3: get rid of this hook so that we don't potentially
+        const [newPost, setNewPost] = useState(
+                {
+                        authUName: "",
+                        postTitle: "",
+                        postText: ""
+                }
+        );
+        const [posts, setPosts] = useState(props.posts);
 
         if(newPost != null){
                 data.push(newPost);
                 setNewPost();
         }
 
-        const forum = data.map(post => {
+        const updatePosts = (posts) => {
+                setPosts(posts);
+        }
+
+        const forum = posts.map(post => {
                 return (
                 <div>
                         <div className = "container is-fluid">
                                 <div className = "Post-box control">
                                         <div className = "box">
-                                                {post.text}
+                                                {post.postText}
                                         </div>
                                 </div>
                         </div>
@@ -41,7 +53,7 @@ const Forum = (props) => {
                 <div>
                         {forum}
                         <ForumSubmit
-                        setNewPost = {setNewPost}/>
+                        updatePosts = {updatePosts}/>
                 </div>
         </section>);                
 
