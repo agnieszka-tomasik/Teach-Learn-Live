@@ -1,19 +1,20 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Home.css';
 import axios from 'axios';
-import { store } from '../../store/store';
+import { useDispatch, useSelector } from 'react-redux';
 
 function Home() {
 
     const [message, setMessage] = useState(null);
-    const { dispatch, state } = useContext(store);
+    const authenticated = useSelector(store => store.authenticated)
+    const dispatch = useDispatch();
 
     const logoutAction = () => {
         axios.post('/logout').then(response => {
             if (response.status === 200) {
                 dispatch({ type: 'LOGOUT' });
-            } 
+            }
         });
     }
     const submit = (e) => {
@@ -51,10 +52,10 @@ function Home() {
                             <div id="navbarMenuHeroA" className="navbar-menu">
                                 <div className="navbar-end">
                                     <Link to="courses" className="navbar-item">Courses</Link>
-                                    {state.authenticated && <Link to="forum" className="navbar-item">Forum</Link>}
-                                    {!state.authenticated && <Link to="register" className="navbar-item">Register</Link>}
-                                    {!state.authenticated && <Link to="login" className="navbar-item">Login</Link>}
-                                    {state.authenticated && <a href="#" className="navbar-item" onClick={logoutAction}>Logout</a>}
+                                    {authenticated && <Link to="forum" className="navbar-item">Forum</Link>}
+                                    {!authenticated && <Link to="register" className="navbar-item">Register</Link>}
+                                    {!authenticated && <Link to="login" className="navbar-item">Login</Link>}
+                                    {authenticated && <a href="#" className="navbar-item" onClick={logoutAction}>Logout</a>}
                                 </div>
                             </div>
                         </div>
