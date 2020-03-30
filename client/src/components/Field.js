@@ -1,9 +1,16 @@
 import React from 'react';
-export function Field(props) {
-    return <div className="field">
-        <label className="label">{props.label}</label>
-        <div className="control">
-            {props.children}
+
+function Field({ label, children }) {
+    return (
+        <div className="field">
+            <label className="label">
+                {label}
+                <div className="control">
+                    {children}
+                </div>
+            </label>
         </div>
-    </div>;
+    );
 }
+
+export default Field;
