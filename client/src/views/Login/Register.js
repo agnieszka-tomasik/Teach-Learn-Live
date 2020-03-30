@@ -1,16 +1,15 @@
-import React, { useState, useContext } from 'react';
+import React, { useState} from 'react';
 import { useHistory, Link } from 'react-router-dom';
 import axios from 'axios';
 import Field from '../../components/Field';
 import { WithBanner } from '../../components/Banner';
-import { store } from '../../store/store';
 import './Forms.css';
+import { useDispatch } from 'react-redux';
 
 function Login() {
     const history = useHistory();
     const [error, setError] = useState(null);
-    const appState = useContext(store);
-    const { dispatch } = appState;
+    const dispatch = useDispatch();
 
     const submit = (e) => {
         e.preventDefault();

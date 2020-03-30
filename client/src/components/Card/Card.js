@@ -1,12 +1,10 @@
 import React from 'react';
 import './Card.css';
-import { connect } from 'react-redux'
-
-{/* To connect with database??? Allowed with MERN stack?? */}
-{/* Multi-part tutorial on shopping cart functionality:
-  https://medium.com/@ayabellazreg/make-a-simple-shopping-cart-app-using-react-redux-1-3-fefde93e80c7 */}
+import { addToCart } from '../../store/actions.js'
+import { useDispatch } from 'react-redux';
 
 function Card(course) {
+    const dispatch = useDispatch();
     return (
         <div class="card-wrapper">
             <div class="card">
@@ -16,9 +14,7 @@ function Card(course) {
                     <div class="content-traditional-seats">{course.traditional}</div>
                     <div class="content-online-seats">{course.online}</div>
                     <div class="content-schedule">{course.schedule}</div>
-                    {/* // <button onClick={change style of button to embedded}>Add to cart</button>
-                    // button or footer from card component??? dev choice */}
-                    <button>Add to cart</button>
+                    <button onClick={() => dispatch(addToCart(course.course_id))}>Add to cart</button>
                 </div>
             </div>
         </div>

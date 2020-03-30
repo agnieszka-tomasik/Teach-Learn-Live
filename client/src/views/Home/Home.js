@@ -1,12 +1,13 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Home.css';
 import axios from 'axios';
-import { store } from '../../store/store';
+import { useDispatch, useSelector } from 'react-redux';
 
 function Home() {
     const [message, setMessage] = useState(null);
-    const { dispatch, state } = useContext(store);
+    const authenticated = useSelector(store => store.authenticated)
+    const dispatch = useDispatch();
 
     const logoutAction = () => {
         axios.post('/logout').then((response) => {
@@ -49,12 +50,12 @@ function Home() {
                             <div id="navbarMenuHeroA" className="navbar-menu">
                                 <div className="navbar-end">
                                     <div className="buttons">
-                                        <Link to="courses" className="button is-light navbar-item">Courses</Link>
-                                        {!state.authenticated && <Link to="login" className="button is-light navbar-item">Login</Link>}
-                                        {!state.authenticated && <Link to="register" className="button is-primary navbar-item"><strong>Register</strong></Link>}
-                                        {state.authenticated && <Link to="forum" className="button navbar-item">Forum</Link>}
-                                        {state.authenticated && <button href="#" type="button" className="button navbar-item" onClick={logoutAction}>Logout</button>}
-                                    </div>
+                                         <Link to="courses" className="button is-light navbar-item">Courses</Link>
+                                         {!authenticated && <Link to="login" className="button is-light navbar-item">Login</Link>}
+                                         {!authenticated && <Link to="register" className="button is-primary navbar-item"><strong>Register</strong></Link>}
+                                         {authenticated && <Link to="forum" className="button navbar-item">Forum</Link>}
+                                         {authenticated && <button href="#" type="button" className="button navbar-item" onClick={logoutAction}>Logout</button>}
+                                     </div>
                                 </div>
                             </div>
                         </div>

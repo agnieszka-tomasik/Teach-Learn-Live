@@ -1,5 +1,5 @@
 import React from 'react';
-export function Field(props) {
+function Field(props) {
     return <div className="field">
         <label className="label">{props.label}</label>
         <div className="control">
@@ -7,3 +7,5 @@ export function Field(props) {
         </div>
     </div>;
 }
+
+export default Field;

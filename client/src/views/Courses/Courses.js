@@ -3,6 +3,7 @@ import Card from '../../components/Card/Card.js';
 import './Courses.css';
 import { WithBanner } from '../../components/Banner/index.js';
 import { Route, Switch, Link } from 'react-router-dom';
+import { connect } from 'react-redux'
 
 const courses = [
     {
@@ -57,10 +58,14 @@ function Courses(props) {
             </Switch>
         </div>
     )
-    return (
-        <div class="container">
-        </div>
-    )
 }
 
-export default WithBanner(Courses);
+// takes the state in the reducer and passes it as props to the file
+const mapState = (state) => {
+    return {
+        courses: state.courses
+    }
+}
+
+// connects this Card component to the data in our store and passes in the two functions
+export default WithBanner(connect(mapState)(Courses))
