@@ -1,9 +1,10 @@
 import React from 'react';
 import './Card.css';
-import { connect } from 'react-redux'
 import { addToCart } from '../../store/actions.js'
+import { useDispatch } from 'react-redux';
 
 function Card(course) {
+    const dispatch = useDispatch();
     return (
         <div class="card-wrapper">
             <div class="card">
@@ -13,7 +14,7 @@ function Card(course) {
                     <div class="content-traditional-seats">{course.traditional}</div>
                     <div class="content-online-seats">{course.online}</div>
                     <div class="content-schedule">{course.schedule}</div>
-                    <button onClick={()=>{addToCart(course.course_id)}}>Add to cart</button>
+                    <button onClick={() => dispatch(addToCart(course.course_id))}>Add to cart</button>
                 </div>
             </div>
         </div>

@@ -1,8 +1,6 @@
 // store.js
-import React, { createContext, useReducer } from 'react'
-import ReactDOM from 'react-dom';
-// import { Provider } from 'react-redux';
-import { addToCart, removeFromCart } from './actions.js'
+import React from 'react'
+import {Provider} from 'react-redux';
 import { createStore } from 'redux'
 
 // AS THE CODE STANDS RIGHT NOW: two reducers, one for adding / removing courses,
@@ -36,10 +34,9 @@ const initialState = {
     total: 0
 }
 
-// const store = createStore(cartReducer)
-// const Provider = store
 
-const cartReducer = (state = initialState, action) => {
+const stateReducer = (state = initialState, action) => {
+    console.log(action);
     if(action.type === 'AUTHENTICATED'){
         return {...state, authenticated: true}
     }
@@ -76,36 +73,10 @@ const cartReducer = (state = initialState, action) => {
     }
 }
 
-// const MyContext = React.createContext(defaultValue);
-// When React renders a component that subscribes to this Context
-// object it will read the current context value from the closest
-// matching Provider above it in the tree
-// the defaultValue is only used when a component does not have
-// a matching Provider above it in the tree
-const store = createContext(initialState)
-const { Provider } = store
+const store = createStore(stateReducer);
 
 const StateProvider = ({ children }) => {
-    // reducers specify how the app's state changes in response to actions sent to the store
-    // const[state, dispatch] = useReducer(reducer, initialArg, init);
-    // alternative to useState
-    // accepts a reducer of type (state, action) => newState
-    // returns the current state paired with a dispatch method
-    const [state, dispatch] = useReducer((state, action) => {
-        switch (action.type) {
-            case 'AUTHENTICATED':
-                return {...state, authenticated: true};
-            case 'LOGOUT':
-                return {...state, authenticated: false};
-            default:
-                throw new Error(`Invalid action was received: ${action}`);
-        };
-    }, initialState);
-
-    // All Consumers that are descendants of a Provider will re-render whenever
-    // the Provider's value prop changes value
-    return <Provider value={{ state, dispatch }}>{children}</Provider>;
+    return <Provider store={store}>{children}</Provider>;
 };
 
-//ReactDOM.render(<Provider store = {store}><App /></Provider>, document.getElementById('root'))
 export { store, StateProvider }

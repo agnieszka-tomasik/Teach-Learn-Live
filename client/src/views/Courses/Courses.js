@@ -2,7 +2,6 @@ import React from 'react'
 import './Courses.css'
 import Card from '../../components/Card/Card.js'
 import { connect } from 'react-redux'
-import { addToCart } from '../../store/actions.js'
 
 export function Courses(props) {
     return (
@@ -23,13 +22,5 @@ const mapState = (state) => {
     }
 }
 
-// An addToCart function (taking in the id of the targetted item as a parameter) was called from props.
-// mapDispatchToCourses function connects the addToCart action to the reducer.
-const mapDispatch = (dispatch) => {
-    return {
-        addToCart: (id) => {dispatch(addToCart(id))}
-    }
-}
-
 // connects this Card component to the data in our store and passes in the two functions
-export default connect( mapState, mapDispatch )(Courses)
+export default connect( mapState)(Courses)
