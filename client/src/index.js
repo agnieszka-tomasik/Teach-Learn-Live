@@ -9,21 +9,7 @@ import axios from 'axios';
 
 axios.get('/admin/courses/courseslist')
             .then(response => {
-                if (response.status === 200) {
-                    ReactDOM.render(
-                        <Router>
-                            <App 
-                                data = {data}
-                                courses = {response.data}
-                            />
-                        </Router>, document.getElementById('root')
-                    );
-                } else {
-                    ReactDOM.render(
-                        <Router>
-                            <App 
-                                data = {data}
-                                courses = {[]}
+                                courses = {response.data || []}
                             />
                         </Router>, document.getElementById('root')
                     );
