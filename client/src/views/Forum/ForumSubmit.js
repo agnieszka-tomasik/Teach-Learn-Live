@@ -1,6 +1,6 @@
 import React from 'react';
 import './ForumSubmit.css'
-import Axios from 'axios';
+import axios from 'axios';
 
 const ForumSubmit = (props) => {
     let newText;
@@ -15,7 +15,7 @@ const ForumSubmit = (props) => {
     }
 
     const addPost = (post) => {
-        Axios.post('/forum', post)
+        axios.post('/forum', post)
             .then(res => {
                 if (res.status === 200) {
                     props.updatePosts(res.data);

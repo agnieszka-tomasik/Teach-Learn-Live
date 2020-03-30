@@ -26,7 +26,7 @@ const CommentController = (props) => {
 
     return (
         <div className = "field is-grouped is-grouped-right">
-            <div className = "Comment-box control">
+            <div className = "Comment-box control box">
                 {props.post.comments.map((comment) => {
                     return (
                         <div>

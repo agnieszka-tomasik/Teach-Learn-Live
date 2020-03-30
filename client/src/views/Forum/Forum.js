@@ -5,13 +5,6 @@ import CommentController from './CommentController';
 
 const Forum = (props) => {
         //for sprint 3: get rid of this hook so that we don't potentially
-        const [newPost, setNewPost] = useState(
-                {
-                        authUName: "",
-                        postTitle: "",
-                        postText: ""
-                }
-        );
         const [posts, setPosts] = useState(props.posts);
 
         const updatePosts = (posts) => {
@@ -30,8 +23,9 @@ const Forum = (props) => {
                         </div>
                         <div>
                                <CommentController 
-                                post = {post}
-                                updatePosts = {updatePosts}/>
+                                        post = {post}
+                                        updatePosts = {updatePosts}
+                                />
                         </div>
                 </div>
                 );
@@ -41,7 +35,8 @@ const Forum = (props) => {
                 <div>
                         {forum}
                         <ForumSubmit
-                        updatePosts = {updatePosts}/>
+                                updatePosts = {updatePosts}
+                        />
                 </div>
         </section>);                
 
