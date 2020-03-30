@@ -4,6 +4,11 @@ const lmsController = require('../controllers/lmsContentController.js');
 const express = require('express');
 const router = express.Router();
 
+function saveSession(req, doc) {
+    req.session.userID = doc._id;
+    req.session.user = doc;
+}
+
 router.route('/').get((req, res) => {
     return res.redirect("/home");
 });
@@ -12,12 +17,12 @@ router.route('/').get((req, res) => {
 
 router.route('/login').post((req, res) => {
     const { username, password } = req.body;
-    User.findOne({ uname: username}, (err, doc) => {
+    User.findOne({ uname: username }, (err, doc) => {
         if (err) {
             return res.sendStatus(500);
         } else if (doc) {
             if (doc.validPassword(password)) {
-                req.session.userID = doc._id;
+                saveSession(req, doc);
                 return res.sendStatus(200);
             }
         }
@@ -27,7 +32,7 @@ router.route('/login').post((req, res) => {
 
 router.post('/logout', (req, res) => {
     req.session.destroy(err => {
-        if(err) {
+        if (err) {
             return res.sendStatus(500);
         } else {
             return res.sendStatus(200);
@@ -36,9 +41,9 @@ router.post('/logout', (req, res) => {
 })
 
 router.post('/signup-newsletter', (req, res) => {
-    const {email} = req.body;
-    Newsletter.create({email}, (err, doc) => {
-        if(err) {
+    const { email } = req.body;
+    Newsletter.create({ email }, (err, doc) => {
+        if (err) {
             return res.sendStatus(400);
         } else {
             return res.sendStatus(200);
@@ -60,12 +65,31 @@ router.route('/register').post((req, res) => {
             console.log(`Error saving user -> ${err}`);
             return res.sendStatus(400);
         } else {
-            req.session.userID = user._id;
+            saveSession(req, user);
             console.log(`Saved user -> ${user}`);
             console.log(`Binded session id -> ${req.session.userID}`);
             return res.sendStatus(200);
         }
     });
 });
+
+
+router.get('/session', (req, res) => {
+    if (req.session && req.session.userID) {
+        const user = req.session.user
+        return res.send({
+            valid: true,
+            user: {
+                username: user.uname,
+                email: user.email,
+                courses: user.courses,
+                isAdmin: user.isAdmin,
+                joinDate: user.joinDate,
+            }
+        });
+    } else {
+        return res.send({ valid: false });
+    }
+})
 
 module.exports = router;

@@ -5,33 +5,31 @@ import axios from 'axios';
 import { store } from '../../store/store';
 
 function Home() {
-
     const [message, setMessage] = useState(null);
     const { dispatch, state } = useContext(store);
 
     const logoutAction = () => {
-        axios.post('/logout').then(response => {
+        axios.post('/logout').then((response) => {
             if (response.status === 200) {
                 dispatch({ type: 'LOGOUT' });
             }
         });
-    }
+    };
     const submit = (e) => {
         e.preventDefault();
         const formData = new FormData(e.target);
 
         axios.post('/signup-newsletter', Object.fromEntries(formData))
-            .then(response => {
+            .then((response) => {
                 if (response.status === 200) {
-                    setMessage({ message: "Sign up successful!", class: "is-success" });
-
+                    setMessage({ message: 'Sign up successful!', class: 'is-success' });
                 } else {
-                    setMessage({ message: "Wasn't able to sign up", class: "is-danger" });
+                    setMessage({ message: "Wasn't able to sign up", class: 'is-danger' });
                 }
             })
-            .catch(e => {
-                setMessage({ message: "Wasn't able to sign up", class: "is-danger" });
-            })
+            .catch(() => {
+                setMessage({ message: "Wasn't able to sign up", class: 'is-danger' });
+            });
     };
     return (
         <div>
@@ -40,22 +38,22 @@ function Home() {
                     <nav className="navbar">
                         <div className="container">
                             <div className="navbar-brand">
-                                <img className="nav-logo navbar-item" src={"/tll_logo_no_bg.svg"} alt="Teach Leave Live" />
+                                <img className="nav-logo navbar-item" src="/tll_logo_no_bg.svg" alt="Teach Leave Live" />
 
                                 <span className="navbar-burger burger" data-target="navbarMenuHeroA">
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
+                                    <span />
+                                    <span />
+                                    <span />
                                 </span>
                             </div>
                             <div id="navbarMenuHeroA" className="navbar-menu">
                                 <div className="navbar-end">
-                                    <div class="buttons">
+                                    <div className="buttons">
                                         <Link to="courses" className="button is-light navbar-item">Courses</Link>
                                         {!state.authenticated && <Link to="login" className="button is-light navbar-item">Login</Link>}
                                         {!state.authenticated && <Link to="register" className="button is-primary navbar-item"><strong>Register</strong></Link>}
                                         {state.authenticated && <Link to="forum" className="button navbar-item">Forum</Link>}
-                                        {state.authenticated && <a href="#" className="button navbar-item" onClick={logoutAction}>Logout</a>}
+                                        {state.authenticated && <button href="#" type="button" className="button navbar-item" onClick={logoutAction}>Logout</button>}
                                     </div>
                                 </div>
                             </div>
@@ -79,9 +77,7 @@ function Home() {
                         {message && <p className={message.class}>{message.message}</p>}
                     </div>
                 </div>
-                <div className="hero-foot">
-
-                </div>
+                <div className="hero-foot" />
             </section>
         </div>
     );
