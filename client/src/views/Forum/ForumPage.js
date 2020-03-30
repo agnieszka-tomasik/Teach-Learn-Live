@@ -1,20 +1,22 @@
 import React, { useState } from 'react';
 import './Forum.css';
-import ForumList from './ForumList.js'
-import ForumMain from './ForumMain.js'
+import ForumList from './ForumList.js';
+import ForumMain from './ForumMain.js';
+import axios from 'axios';
 
 const ForumPage = (props) => {
 
-    const [mainContent, setMainContents] = useState(0);
+    /********** Hiding the forum list *********
+    ** This code will be finished in the future
+    ** and will allow the user to click a button
+    ** that hides the forum list so the contents
+    ** of the main box fill the entire screen.
+    */
 
     // const [left, setLeft] = useState(true);
 
     //const [moving, setMoving] = useState(false);
-
-    const updateMain = (newContents) => { setMainContents(newContents) };
-
-    const [data, setData] = useState( props.data );
-
+    
     // const shift = () => {
     //     /****** TODO: animation to shift the post list depending on the left state hook ******/
     // };
@@ -31,37 +33,63 @@ const ForumPage = (props) => {
     //     }
     // };
 
-    const addComment = (text, id) => {
-        /******* Add to database *******/
-        props.data
-        .filter( item => item._id === id )[0]
-        .comments.push( {postText: text} );
+    /** Contains the data corresponding to what should be in the main box of the forum page **/
+    const [mainContent, setMainContents] = useState(0);
 
-        /********* Update main contents *********/
-        setData(props.data);
-    }
+    /** Wrapper **/
+    const updateMain = (newContents) => { setMainContents(newContents) };
 
-    const createPost = (title, body) => {
-        /******* Add to database *******/
-        props.data.push( 
-            {
-                authUname: "user",
-                postTitle: title ,
-                postText: body,
-                comments:   []
+
+    /** Contains the data for all of the forum posts **/
+    const [data, setData] = useState( props.posts );
+
+
+    /*************************** Axios post to create a new comment ************************************/
+    const addComment = (text, orig) => {
+
+        axios.post('/forum/comment',
+        {post: orig, text: text} )
+        .then( response => {
+            if (response.status === 200) {
+                setData(response.data);
+                setMainContents(response.data.filter( item => item._id === orig._id )[0] )
+            } else {
+                console.log("Comment failed");
             }
-            )
+        }).catch(e => {
+            console.log(`Comment failed with error: ${e}`);
+        });
 
-        /********* Update list *********/
-        setData(props.data);
     }
 
+    /*************************** Axios post to create a new post ************************************/
+    const createPost = (title, body) => {
+
+        axios.post('/forum',
+        {postTitle: title, PostText: body} )
+        .then( response => {
+            if (response.status === 200) {
+                setData(response.data);
+                setMainContents(0);
+            } else {
+                console.log(`Failed to add post: ${response.data}`);
+            }
+        }).catch(err => {
+            console.log(`Failed to add post with error: ${err}`);
+        });
+
+    }
+
+
+    /************ Renders the forum page consisting of a list of the forum posts and a dynamic main box ************/
     return (
         <div>
             
             <div className = "left-side">
 
-                <ForumList data = {data} updateMain = {updateMain} />
+                <ForumList 
+                data = {data} 
+                updateMain = {updateMain} />
 
                 <button
                 onClick = { () => { setMainContents(-1) } }

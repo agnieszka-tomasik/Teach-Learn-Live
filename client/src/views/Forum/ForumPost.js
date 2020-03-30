@@ -7,9 +7,9 @@ import OriginalPost from './OriginalPost.js';
 const Forum = (props) => {
 
         /* Reference to the SubmitComment box.          **
-        ** Is needed to add reference to comments       **
+        ** Is needed to add reference to comment(s)     **
         ** the user wants to respond to.                **
-        **************************************************/
+        */
        const newCommentRef = useRef(null);
 
 
@@ -22,26 +22,27 @@ const Forum = (props) => {
                newCommentRef.current.value += commentId + "\n";
        }
 
-
+       /**************** Comments to list: **************
+       ** takes an array of comments and turns them into
+       ** an html list to be printed below the original post
+       */
         const commentsToList = (comments) => {
                 return (
                         <ul>
                                 {
                                         comments.map( 
                                         comment =>
-                                                <li className = "Comment-box" key = {comment._id} >
+                                        <div className = "Comment-box" >
+                                                <li key = {comment._id} >
                                                         {comment.postText}
                                                 </li>
+                                        </div>
                                                 
                                         )
                                 }
                         </ul>
                 );
         }
-
-        const orig = <OriginalPost data = {props.data} />;
-        const comments = commentsToList(props.data.comments);
-
 
         /******************* Add Comment **********************
         ** Adds a new comment to the database containing the **
@@ -51,16 +52,16 @@ const Forum = (props) => {
                 /* Will need to access authUname and create postId
                 ** Set parentId with props.id (?)
                 */
-                props.addComment( text, props.data._id );
+                props.addComment( text, props.data );
         }
 
-        /******** Print Original Post and Comments *********/
 
+        /******** Print Original Post and Comments *********/
         return(
         <section className = "hero is-primary is-bold is-fullheight"> 
                 <div>
-                        {orig}
-                        {comments}
+                        <OriginalPost data = {props.data} />
+                        { commentsToList(props.data.comments) }
                         <SubmitComment
                         ref = {newCommentRef} 
                         addComment = {addComment} />
