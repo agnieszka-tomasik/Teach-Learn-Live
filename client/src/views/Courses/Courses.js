@@ -1,6 +1,7 @@
 import React from 'react';
 import Card from '../../components/Card/Card.js';
 import './Courses.css';
+import Payment from './Payment'
 
 const courses = [
     {
@@ -28,6 +29,9 @@ function Courses(props) {
             <div class="course-list">
                 {/* Temporary, just to display the course info. */}
                 {courses.map(Card)}
+            </div>
+            <div>
+                <Payment/>
             </div>
         </div>
     )

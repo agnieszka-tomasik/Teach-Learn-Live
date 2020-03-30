@@ -3,5 +3,6 @@
 }
 
 .Comment-box{
+    align-items: bottom;
     width: 500px;
 }

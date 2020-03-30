@@ -17,6 +17,13 @@ const Forum = (props) => {
                         <div className = "container is-fluid">
                                 <div className = "Post-box control">
                                         <div className = "box">
+                                                <h1 className = "title">
+                                                       {post.title} 
+                                                </h1>
+                                                <h1 className = "subtitle">
+                                                        By {post.author}
+                                                </h1>
+                                                <br></br>
                                                 {post.text}
                                         </div>
                                 </div>
@@ -39,9 +46,9 @@ const Forum = (props) => {
         return(
         <section className = "hero is-primary is-bold is-fullheight"> 
                 <div>
-                        {forum}
-                        <ForumSubmit
-                        setNewPost = {setNewPost}/>
+                    {forum}
+                    <ForumSubmit
+                    setNewPost = {setNewPost}/>
                 </div>
         </section>);                
 

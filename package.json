@@ -21,6 +21,7 @@
   "author": "Dakota Rennemann",
   "license": "MIT",
   "dependencies": {
+    "axios": "^0.19.2",
     "body-parser": "^1.19.0",
     "bulma": "^0.8.0",
     "concurrently": "^4.1.0",
@@ -32,6 +33,8 @@
     "morgan": "^1.9.1",
     "node-sass": "^4.13.1",
     "nodemon": "^1.18.10",
+    "react-redux": "^7.2.0",
+    "redux": "^4.0.5",
     "should": "^13.2.3",
     "supertest": "^4.0.2"
   },
