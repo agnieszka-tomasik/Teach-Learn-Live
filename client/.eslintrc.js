@@ -1,4 +1,5 @@
 module.exports = {
+  root: true,
   env: {
     browser: true,
     es6: true,
@@ -23,10 +24,10 @@ module.exports = {
   ],
   rules: {
     "linebreak-style": "off",
+    "no-console": "off",
     "react/jsx-indent": ["warn", 4],
     "indent": "off",
     "react/jsx-filename-extension": "off",
-    "no-console": "off",
     "react/prop-types": "off",
     "jsx-a11y/control-has-associated-label": "off",
     "jsx-a11y/click-events-have-key-events": "off",

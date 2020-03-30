@@ -1,26 +1,26 @@
+const express = require('express');
 const User = require('../schemas/UserSchema.js');
 const Newsletter = require('../schemas/NewsletterSchema.js');
-const lmsController = require('../controllers/lmsContentController.js');
-const express = require('express');
+// const lmsController = require('../controllers/lmsContentController.js');
+
 const router = express.Router();
 
 function saveSession(req, doc) {
+    // eslint-disable-next-line no-underscore-dangle
     req.session.userID = doc._id;
     req.session.user = doc;
 }
 
-router.route('/').get((req, res) => {
-    return res.redirect("/home");
-});
+router.route('/').get((req, res) => res.redirect('/home'));
 
-//router.route('/modules/:module').get(lmsController, serveModule);
+// router.route('/modules/:module').get(lmsController, serveModule);
 
 router.route('/login').post((req, res) => {
     const { username, password } = req.body;
     User.findOne({ uname: username }, (err, doc) => {
         if (err) {
             return res.sendStatus(500);
-        } else if (doc) {
+        } if (doc) {
             if (doc.validPassword(password)) {
                 saveSession(req, doc);
                 return res.sendStatus(200);
@@ -31,52 +31,48 @@ router.route('/login').post((req, res) => {
 });
 
 router.post('/logout', (req, res) => {
-    req.session.destroy(err => {
+    req.session.destroy((err) => {
         if (err) {
             return res.sendStatus(500);
-        } else {
-            return res.sendStatus(200);
         }
+        return res.sendStatus(200);
     });
-})
+});
 
 router.post('/signup-newsletter', (req, res) => {
     const { email } = req.body;
-    Newsletter.create({ email }, (err, doc) => {
+    Newsletter.create({ email }, (err) => {
         if (err) {
             return res.sendStatus(400);
-        } else {
-            return res.sendStatus(200);
         }
+        return res.sendStatus(200);
     });
-})
+});
 
 router.route('/register').post((req, res) => {
     const { username, email, password } = req.body;
 
-    let newUser = new User({
+    const newUser = new User({
         uname: username,
-        email: email
-    }
-    );
+        email,
+    });
     newUser.setPassword(password);
     newUser.save((err, user) => {
         if (err) {
             console.log(`Error saving user -> ${err}`);
             return res.sendStatus(400);
-        } else {
-            saveSession(req, user);
-            console.log(`Saved user -> ${user}`);
-            console.log(`Binded session id -> ${req.session.userID}`);
-            return res.sendStatus(200);
         }
+        saveSession(req, user);
+        console.log(`Saved user -> ${user}`);
+        console.log(`Binded session id -> ${req.session.userID}`);
+        return res.sendStatus(200);
     });
 });
 
 
 router.get('/session', (req, res) => {
     if (req.session && req.session.userID) {
-        const user = req.session.user
+        const { user } = req.session;
         return res.send({
             valid: true,
             user: {
@@ -85,11 +81,10 @@ router.get('/session', (req, res) => {
                 courses: user.courses,
                 isAdmin: user.isAdmin,
                 joinDate: user.joinDate,
-            }
+            },
         });
-    } else {
-        return res.send({ valid: false });
     }
-})
+    return res.send({ valid: false });
+});
 
 module.exports = router;
