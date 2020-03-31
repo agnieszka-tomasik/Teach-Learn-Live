@@ -36,6 +36,11 @@ const initialState = {
 }
 
 
+    // reducers specify how the app's state changes in response to actions sent to the store
+    // const[state, dispatch] = useReducer(reducer, initialArg, init);
+    // alternative to useState
+    // accepts a reducer of type (state, action) => newState
+    // returns the current state paired with a dispatch method
 const stateReducer = (state = initialState, action) => {
     console.log(action);
     if(action.type === 'AUTHENTICATED'){
@@ -74,6 +79,12 @@ const stateReducer = (state = initialState, action) => {
     }
 }
 
+// const MyContext = React.createContext(defaultValue);
+// When React renders a component that subscribes to this Context
+// object it will read the current context value from the closest
+// matching Provider above it in the tree
+// the defaultValue is only used when a component does not have
+// a matching Provider above it in the tree
 const store = createStore(stateReducer);
 
 const StateProvider = ({ children }) => {
