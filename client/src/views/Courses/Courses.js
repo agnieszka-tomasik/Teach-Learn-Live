@@ -26,7 +26,7 @@ const courses = [
 ];
 
 function NavButtons() {
-    return <div class="buttons">
+    return <div className="buttons">
         <Link className="button" to="/courses/cart">My Cart</Link>
         <Link className="button" to="/courses/">Courses</Link>
     </div>
@@ -35,7 +35,7 @@ function NavButtons() {
 function CourseHomePage(props) {
     return <div>
         <NavButtons />
-        <div class="course-list">
+        <div className="course-list">
             {/* Temporary, just to display the course info. */}
             {courses.map(Card)}
         </div>
@@ -51,8 +51,8 @@ function Cart(props) {
 
 function Courses(props) {
     return (
-        <div class="container">
-            <h1 class="title">Courses</h1>
+        <div className="container">
+            <h1 className="title">Courses</h1>
             <Switch>
                 <Route exact path="/courses/" component={CourseHomePage} />
                 <Route path="/courses/cart" component={Cart} />
