@@ -7,6 +7,11 @@ const lmsController = require('../controllers/LMSContentController.js');
 const express = require('express');
 const router = express.Router();
 
+function saveSession(req, doc) {
+    req.session.userID = doc._id;
+    req.session.user = doc;
+}
+
 router.route('/').get((req, res) => {
     return res.redirect("/home");
 });
@@ -20,7 +25,7 @@ router.route('/login').post((req, res) => {
             return res.sendStatus(400);
         } else if (doc) {
             if (doc.validPassword(password)) {
-                req.session.userID = doc._id;
+                saveSession(req, doc);
                 return res.sendStatus(200);
             }
             res.status(201);
@@ -81,13 +86,32 @@ router.route('/register').post((req, res) => {
             }
             return res.sendStatus(400);
         } else {
-            req.session.userID = user._id;
+            saveSession(req, user);
             console.log(`Saved user -> ${user}`);
             console.log(`Binded session id -> ${req.session.userID}`);
             return res.sendStatus(200);
         }
     });
 });
+
+
+router.get('/session', (req, res) => {
+    if (req.session && req.session.userID) {
+        const user = req.session.user
+        return res.send({
+            valid: true,
+            user: {
+                username: user.uname,
+                email: user.email,
+                courses: user.courses,
+                isAdmin: user.isAdmin,
+                joinDate: user.joinDate,
+            }
+        });
+    } else {
+        return res.send({ valid: false });
+    }
+})
 
 router.route('/admin').get(adminController);
 

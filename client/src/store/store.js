@@ -1,5 +1,6 @@
 // store.js
-import React from 'react'
+import axios from 'axios';
+import React, {useEffect} from 'react'
 import {Provider} from 'react-redux';
 import { createStore } from 'redux'
 
@@ -38,10 +39,10 @@ const initialState = {
 const stateReducer = (state = initialState, action) => {
     console.log(action);
     if(action.type === 'AUTHENTICATED'){
-        return {...state, authenticated: true}
+        return {...state, authenticated: true, user: action.payload}
     }
     if(action.type === 'LOGOUT'){
-        return {...state, authenticated: false}
+        return {...state, authenticated: false, user: null}
     }
     if(action.type === 'ADD_TO_CART' && state.authenticated === true){
         // saves the course used in the action as addedCourse
@@ -76,6 +77,15 @@ const stateReducer = (state = initialState, action) => {
 const store = createStore(stateReducer);
 
 const StateProvider = ({ children }) => {
+    useEffect(() => {
+        axios.get('/session').then((response) => {
+            if (response.data && response.data.valid) {
+                store.dispatch({ type: 'AUTHENTICATED', payload: response.data });
+            } else {
+                console.error(response.data);
+            }
+        });
+    }, []);
     return <Provider store={store}>{children}</Provider>;
 };
 

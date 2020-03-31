@@ -1,11 +1,12 @@
 import React, { useState} from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { Field } from '../../components/Field';
 import axios from 'axios';
+import Field from '../../components/Field';
+import { WithBanner } from '../../components/Banner';
+import './Forms.css';
 import { useDispatch } from 'react-redux';
 
-function Login(props) {
-
+function Login() {
     const history = useHistory();
     const [error, setError] = useState(null);
     const dispatch = useDispatch();
@@ -15,37 +16,39 @@ function Login(props) {
         const formData = new FormData(e.target);
 
         axios.post('/login', Object.fromEntries(formData))
-            .then(response => {
+            .then((response) => {
                 if (response.status === 200) {
-                    console.log("Login success");
-                    dispatch({ type: 'AUTHENTICATED' });
+                    console.log('Login success');
+                    dispatch({ type: 'AUTHENTICATED', payload: response.data });
                     history.push('/home');
                 } else {
                     setError(response.data);
                 }
-            }).catch(e => {
-                console.log(`Login fail ${e}`);
-                setError("Login failed.");
+            }).catch((err) => {
+                console.log(`Login fail ${err}`);
+                setError('Login failed.');
             });
-    }
+    };
 
-    return <div>
-        <h1>Login</h1>
-        <form method='post' action='/login' onSubmit={submit}>
-            <Field label="Username">
-                <input name='username' placeholder='Username' required />
-            </Field>
-            <Field label="Password">
-                <input type='password' name='password' placeholder='Password' required />
-            </Field>
-            <input type='submit' />
-        </form>
-        {error && <p className="is-danger">{error}</p>}
-        <div className="level">
-            <Link className="level-item" to="/register">Register</Link>
-            <Link className="level-item" to="/home">Go back</Link>
+    return (
+        <div className="centered">
+            <div className="fill-form">
+                <h1 className="title">Login</h1>
+                <form method="post" action="/login" onSubmit={submit}>
+                    <Field label="Username">
+                        <input className="input" name="username" placeholder="Username" required />
+                    </Field>
+                    <Field label="Password">
+                        <input className="input" type="password" name="password" placeholder="Password" required />
+                    </Field>
+                    <input className="button is-primary" type="submit" />
+                </form>
+                {error && <p className="is-danger">{error}</p>}
+            </div>
+            <Link to="/register">Register</Link>
+            <Link to="/home">Go back</Link>
         </div>
-    </div>
+    );
 }
 
-export default Login;
+export default WithBanner(Login);

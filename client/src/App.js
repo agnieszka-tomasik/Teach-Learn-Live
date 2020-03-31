@@ -8,6 +8,7 @@ import Login from "./views/Login/Login";
 import NotFound from "./views/NotFound";
 import CoursesAdmin from "./views/Admin/Courses/CoursesAdmin";
 import { StateProvider } from './store/store';
+import "./App.css";
 
 // const courses = get courseslist
 
