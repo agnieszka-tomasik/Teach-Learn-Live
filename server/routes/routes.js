@@ -168,12 +168,12 @@ router.route('/admin/users/userslist').get((req,res) => {
 });
 
 router.route('/admin/users/add').post( (req, res) => {
-    const { uname, email, password, admin} = req.body;
+    const { uname, email, password, isAdmin} = req.body;
 
     let newUser = new User({
         uname: uname,
         email: email,
-        isAdmin: admin
+        isAdmin: isAdmin
     }
     );
     newUser.setPassword(password);
@@ -194,9 +194,6 @@ router.route('/admin/users/add').post( (req, res) => {
             }
             return res.sendStatus(400);
         } else {
-            req.session.userID = user._id;
-            console.log(`Saved user -> ${user}`);
-            console.log(`Binded session id -> ${req.session.userID}`);
             User.find((err, docs) => {
                 if(err){
                     return res.sendStatus(400);
@@ -227,17 +224,26 @@ router.route('/admin/users/delete').post( (req, res) => {
 
 router.route('/admin/users/update').post( (req, res) => {
     let user = req.body;
-    User.findByIdAndUpdate(user._id, user, (err, doc) =>{
+    User.findById(user._id, (err, doc) =>{
         if(err){
             return res.sendStatus(400);
         }else{
-            User.find((err, docs) => {
+            if(user.password != null || user.password != ""){
+                doc.setPassword(user.password);
+            }
+            User.findByIdAndUpdate(user._id, user, (err,data) =>{
                 if(err){
                     return res.sendStatus(400);
                 }else{
-                    return res.status(200).send(docs);
+                    User.find((err, docs) => {
+                        if(err){
+                            return res.sendStatus(400);
+                        }else{
+                            return res.status(200).send(docs);
+                        }
+                    });
                 }
-            });
+            })
         }
     });
 });

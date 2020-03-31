@@ -9,7 +9,7 @@ import axios from 'axios';
 
 axios.get('/admin/courses/courseslist')
             .then(response => {
-                axios.get('/admin/courses/courseslist')
+                axios.get('/admin/users/userslist')
                     .then(res => {
                         ReactDOM.render(
                             <Router>

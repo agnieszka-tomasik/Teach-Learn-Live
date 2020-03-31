@@ -22,6 +22,7 @@ const ViewUser = (props) => {
                 <h2>{selectedUser[0].uname}</h2>
                 <p>Email: {selectedUser[0].email}</p>
                 <p>Join Date: {selectedUser[0].joinDate}</p>
+                <p>Admin: {selectedUser[0].isAdmin ? "Yes" : "No"}</p>
                 <p>Courses: {selectedUser[0].courses}</p>
                 <UpdateUser
                     selectedUser={selectedUser[0]}

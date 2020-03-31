@@ -7,6 +7,7 @@ import Register from "./views/Login/Register";
 import Login from "./views/Login/Login";
 import NotFound from "./views/NotFound";
 import CoursesAdmin from "./views/Admin/Courses/CoursesAdmin";
+import UsersAdmin from "./views/Admin/Users/UsersAdmin";
 import { StateProvider } from './store/store';
 
 // const courses = get courseslist

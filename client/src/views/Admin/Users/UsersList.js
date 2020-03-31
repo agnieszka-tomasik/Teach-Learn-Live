@@ -5,7 +5,7 @@ import "../Admin.css"
 const UsersList = (props) => {
 
     const updateSelectedUser = (uname) => {
-        props.updateSelectedUser(uname);
+        props.selectedUpdate(uname);
     };
 
     const rendList = props.data.filter((user) => {
@@ -18,7 +18,7 @@ const UsersList = (props) => {
                 <td onClick={() => updateSelectedUser(user.uname)}>{user.email} </td>
                 <DeleteUser
                     uname={user.uname}
-                    userListUpdate={props.userListUpdate}
+                    usersUpdate={props.usersUpdate}
                     setDelError={props.setDelError}
                 />
             </tr>

@@ -26,6 +26,12 @@ const UpdateUser = (props) => {
         setUpdatedUser(newUser);
     }
 
+    const handleCheckChange = () => {
+        let newUser = updatedUser;
+        newUser.isAdmin = !newUser.isAdmin;
+        setUpdatedUser(newUser);
+    }
+
     const handleClick = () => {
         axios.post('/admin/users/update', updatedUser)
             .then(response => {
@@ -48,9 +54,18 @@ const UpdateUser = (props) => {
         <form>
             <input type='text' id='title' placeholder={props.selectedUser.uname} onChange={handleUnameChange}/>
             <input type='text' placeholder={props.selectedUser.email} onChange={handleEmailChange}/>
-            <input type='text' placeholder='New Password' onChange={handlePassChange}/>
-        </form>
+            <input type='password' placeholder='New Password' onChange={handlePassChange}/>
+            <label>
+                Admin:
+                <input
+                    name="isAdmin"
+                    type="checkbox"
+                    checked={updatedUser.isAdmin}
+                    onChange={handleCheckChange} />
+            </label>
+            <br/>
             <button onClick={handleClick}>Update</button>
+        </form>
         </div>
     );
 

@@ -5,18 +5,18 @@ import "../Admin.css"
 const DeleteUser = (props) => {
 
     const handleClick = () => {
-        axios.post('/admin/users/delete', {courseTitle:props.uname})
+        axios.post('/admin/users/delete', {uname:props.uname})
             .then(response => {
                 if (response.status === 200) {
-                    props.userListUpdate(response.data);
+                    props.usersUpdate(response.data);
                     props.setDelError(null);
                 } else {
-                    console.log(`Delete Course fail ${response.data}`);
+                    console.log(`Delete User fail ${response.data}`);
                     props.setDelError(response.data)
                 }
             }).catch(e => {
-                console.log(`Delete Course fail ${e}`);
-                props.setDelError("Delete Course fail");
+                console.log(`Delete User fail ${e}`);
+                props.setDelError("Delete User fail");
             });
     }
 

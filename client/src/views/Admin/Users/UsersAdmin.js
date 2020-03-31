@@ -9,7 +9,7 @@ import axios from 'axios';
 const UsersAdmin = (props) => {
     const [filterText, setFilterText] = useState('');
     const [selectedUser, setSelectedUser] = useState('');
-    const [users, setUsers] = useState(props.courses);
+    const [users, setUsers] = useState(props.users);
     const [addError, setAddError] = useState(null);
     const [delError, setDelError] = useState(null);
     const [upError, setUpError] = useState(null);
