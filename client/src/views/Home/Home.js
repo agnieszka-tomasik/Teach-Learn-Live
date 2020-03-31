@@ -2,17 +2,18 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Home.css';
 import axios from 'axios';
+import { logout } from '../../store/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
 
 function Home() {
     const [message, setMessage] = useState(null);
-    const authenticated = useSelector(store => store.authenticated)
+    const authenticated = useSelector(store => store.user.authenticated)
     const dispatch = useDispatch();
 
     const logoutAction = () => {
         axios.post('/logout').then((response) => {
             if (response.status === 200) {
-                dispatch({ type: 'LOGOUT' });
+                dispatch(logout());
             }
         });
     };

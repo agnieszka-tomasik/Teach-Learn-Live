@@ -5,6 +5,7 @@ import Field from '../../components/Field';
 import { WithBanner } from '../../components/Banner';
 import './Forms.css';
 import { useDispatch } from 'react-redux';
+import { authenticated } from '../../store/userSlice';
 
 function Login() {
     const history = useHistory();
@@ -23,7 +24,7 @@ function Login() {
             .then((response) => {
                 if (response.status === 200) {
                     console.log('Registration success');
-                    dispatch({ type: 'AUTHENTICATED', payload: response.data });
+                    dispatch(authenticated(response.data));
                     history.push('/home');
                 } else {
                     setError(response.data);

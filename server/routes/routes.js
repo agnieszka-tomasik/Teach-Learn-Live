@@ -12,6 +12,19 @@ function saveSession(req, doc) {
     req.session.user = doc;
 }
 
+function sendProfileInfo(res, user) {
+    return res.send({
+        valid: true,
+        user: {
+            username: user.uname,
+            email: user.email,
+            courses: user.courses,
+            isAdmin: user.isAdmin,
+            joinDate: user.joinDate,
+        }
+    });
+}
+
 router.route('/').get((req, res) => {
     return res.redirect("/home");
 });
@@ -26,7 +39,7 @@ router.route('/login').post((req, res) => {
         } else if (doc) {
             if (doc.validPassword(password)) {
                 saveSession(req, doc);
-                return res.sendStatus(200);
+                return sendProfileInfo(res, doc);
             }
             res.status(201);
             res.write("Incorrect password.");
@@ -89,7 +102,7 @@ router.route('/register').post((req, res) => {
             saveSession(req, user);
             console.log(`Saved user -> ${user}`);
             console.log(`Binded session id -> ${req.session.userID}`);
-            return res.sendStatus(200);
+            return sendProfileInfo(res, user);
         }
     });
 });
@@ -98,16 +111,7 @@ router.route('/register').post((req, res) => {
 router.get('/session', (req, res) => {
     if (req.session && req.session.userID) {
         const user = req.session.user
-        return res.send({
-            valid: true,
-            user: {
-                username: user.uname,
-                email: user.email,
-                courses: user.courses,
-                isAdmin: user.isAdmin,
-                joinDate: user.joinDate,
-            }
-        });
+        return sendProfileInfo(res, user);
     } else {
         return res.send({ valid: false });
     }

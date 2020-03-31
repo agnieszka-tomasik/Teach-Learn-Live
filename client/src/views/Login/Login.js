@@ -3,6 +3,7 @@ import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
 import Field from '../../components/Field';
 import { WithBanner } from '../../components/Banner';
+import { authenticated } from '../../store/userSlice';
 import './Forms.css';
 import { useDispatch } from 'react-redux';
 
@@ -19,7 +20,7 @@ function Login() {
             .then((response) => {
                 if (response.status === 200) {
                     console.log('Login success');
-                    dispatch({ type: 'AUTHENTICATED', payload: response.data });
+                    dispatch(authenticated(response.data));
                     history.push('/home');
                 } else {
                     setError(response.data);
