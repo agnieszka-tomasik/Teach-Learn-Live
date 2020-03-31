@@ -9,27 +9,21 @@ import axios from 'axios';
 
 axios.get('/initdata')
             .then(response => {
-                if (response.status === 200) {
-                    ReactDOM.render(
-                        <Router>
-                            <App 
-                                data = {data}
-                                courses = {response.data.courses}
-                                posts = {response.data.posts}
-                            />
-                        </Router>, document.getElementById('root')
-                    );
-                } else {
-                    ReactDOM.render(
-                        <Router>
-                            <App 
-                                data = {data}
-                                courses = {[]}
-                                posts = {[]}
-                            />
-                        </Router>, document.getElementById('root')
-                    );
-                }
+                axios.get('/admin/users/userslist')
+                    .then(res => {
+                        ReactDOM.render(
+                            <Router>
+                                <App 
+                                    data = {data}
+                                    courses = {response.data || []}
+                                    posts = {response.posts || []}
+                                    users = {res.data || []}
+                                />
+                            </Router>, document.getElementById('root')
+                        );    
+                    }).catch(e => {
+                        console.log(`Init fail ${e}`);
+                    });
             }).catch(e => {
                 console.log(`Init fail ${e}`);
             });

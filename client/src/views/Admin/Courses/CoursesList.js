@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import DeleteCourse from './DeleteCourse';
-import "./CoursesAdmin.css"
+import "../Admin.css"
 
 const CoursesList = (props) => {
 
@@ -19,6 +19,7 @@ const CoursesList = (props) => {
                 <DeleteCourse
                     title={course.courseTitle}
                     courseListUpdate={props.coursesUpdate}
+                    setDelError={props.setDelError}
                 />
             </tr>
         );

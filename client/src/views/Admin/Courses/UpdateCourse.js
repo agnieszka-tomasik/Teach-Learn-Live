@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import axios from 'axios';
-import "./CoursesAdmin.css"
+import "../Admin.css"
 
 const UpdateCourse = (props) => {
     const [updatedCourse, setUpdatedCourse] = useState(props.selectedCourse);
@@ -24,11 +24,14 @@ const UpdateCourse = (props) => {
             .then(response => {
                 if (response.status === 200) {
                     props.coursesUpdate(response.data);
+                    props.setUpError(null);
                 } else {
                     console.log(`Update Course fail ${response.data}`);
+                    props.setUpError(response.data);
                 }
             }).catch(e => {
                 console.log(`Update Course fail ${e}`);
+                props.setUpError('Update Course fail');
             });
     }
 
