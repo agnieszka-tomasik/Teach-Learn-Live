@@ -48,7 +48,7 @@ router.post('/logout', (req, res) => {
 router.post('/signup-newsletter', (req, res) => {
     const { email } = req.body;
     Newsletter.create({ email }, (err, doc) => {
-        if (err) {
+        if (err || !doc) {
             return res.sendStatus(400);
         } else {
             return res.sendStatus(200);
@@ -164,7 +164,7 @@ router.route('/admin/courses/delete').post((req, res) => {
 router.route('/admin/courses/update').post((req, res) => {
     let course = req.body;
     Courses.findByIdAndUpdate(course._id, course, (err, doc) => {
-        if (err) {
+        if (err || !doc) {
             return res.sendStatus(400);
         } else {
             Courses.find((err, docs) => {
@@ -182,7 +182,7 @@ router.post('/forum', (req, res) => {
     console.log('You are posting');
 
     User.findById(req.session.userID, (err, user) => {
-        if (err) {
+        if (err || !user) {
             res.status(403).send("Not authorized");
         }
         else {
