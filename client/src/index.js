@@ -9,11 +9,20 @@ import axios from 'axios';
 
 axios.get('/admin/courses/courseslist')
             .then(response => {
-                                courses = {response.data || []}
-                            />
-                        </Router>, document.getElementById('root')
-                    );
-                }
+                axios.get('/admin/courses/courseslist')
+                    .then(res => {
+                        ReactDOM.render(
+                            <Router>
+                                <App 
+                                    data = {data}
+                                    courses = {response.data || []}
+                                    users = {res.data || []}
+                                />
+                            </Router>, document.getElementById('root')
+                        );    
+                    }).catch(e => {
+                        console.log(`Init fail ${e}`);
+                    });
             }).catch(e => {
                 console.log(`Init fail ${e}`);
             });
