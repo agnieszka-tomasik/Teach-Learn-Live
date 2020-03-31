@@ -53,8 +53,8 @@ function Home() {
                                          <Link to="courses" className="button is-light navbar-item">Courses</Link>
                                          {!authenticated && <Link to="login" className="button is-light navbar-item">Login</Link>}
                                          {!authenticated && <Link to="register" className="button is-primary navbar-item"><strong>Register</strong></Link>}
-                                         {authenticated && <Link to="forum" className="button navbar-item">Forum</Link>}
-                                         {authenticated && <button href="#" type="button" className="button navbar-item" onClick={logoutAction}>Logout</button>}
+                                         {authenticated && <Link to="forum" className="button is-primary navbar-item">Forum</Link>}
+                                         {authenticated && <a href="#" type="button" className="button is-light navbar-item" onClick={logoutAction}>Logout</a>}
                                      </div>
                                 </div>
                             </div>
