@@ -1,5 +1,5 @@
 import React from 'react';
-import "./CoursesAdmin.css"
+import "../Admin.css"
 
 const Search = (props) => {
     const filterUpdate = (text) => {

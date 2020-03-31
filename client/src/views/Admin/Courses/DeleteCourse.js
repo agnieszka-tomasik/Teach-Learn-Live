@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import "./CoursesAdmin.css"
+import "../Admin.css"
 
 const DeleteCourse = (props) => {
 
@@ -9,11 +9,14 @@ const DeleteCourse = (props) => {
             .then(response => {
                 if (response.status === 200) {
                     props.courseListUpdate(response.data);
+                    props.setDelError(null);
                 } else {
                     console.log(`Delete Course fail ${response.data}`);
+                    props.setDelError(response.data)
                 }
             }).catch(e => {
                 console.log(`Delete Course fail ${e}`);
+                props.setDelError("Delete Course fail");
             });
     }
 

@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import "./CoursesAdmin.css"
+import "../Admin.css"
 
 const AddCourse = (props) => {
     const [newCourse, setNewCourse] = useState(

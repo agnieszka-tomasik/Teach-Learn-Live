@@ -1,5 +1,5 @@
 import React from 'react';
-import "./CoursesAdmin.css"
+import "../Admin.css"
 import UpdateCourse from './UpdateCourse';
 
 const ViewCourse = (props) => {
@@ -24,6 +24,7 @@ const ViewCourse = (props) => {
                 <UpdateCourse
                     selectedCourse={selectedCourse[0]}
                     coursesUpdate={props.coursesUpdate}
+                    setUpError={props.setUpError}
                 />
             </div>
         );

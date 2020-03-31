@@ -30,6 +30,10 @@ const App = (props) => {
           exact path="/admin/courses" 
           render={() => <CoursesAdmin courses={props.courses}/>} 
         />
+        <Route 
+          exact path="/admin/users" 
+          render={() => <UsersAdmin users={props.users}/>} 
+        />
         <Route component={NotFound}/>
       </Switch>
     </StateProvider>
