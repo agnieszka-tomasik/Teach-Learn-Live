@@ -23,7 +23,7 @@ const App = (props) => {
         </Route>
         <Route 
           exact path="/forum" 
-          render={() => <ForumPage posts={props.posts}/>} 
+          render={() => <Forum posts={props.posts}/>} 
         />
         <Route exact path="/courses" component={Courses} />
         <Route 

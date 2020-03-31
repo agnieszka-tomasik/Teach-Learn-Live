@@ -42,8 +42,6 @@ const AddCourse = (props) => {
             <button onClick={handleClick}>Add</button>
         </div>
     );
-
-
 };
 
 export default AddCourse;
