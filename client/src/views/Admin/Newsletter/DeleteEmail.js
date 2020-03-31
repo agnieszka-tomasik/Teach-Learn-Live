@@ -2,21 +2,21 @@ import React from 'react';
 import axios from 'axios';
 import "../Admin.css"
 
-const DeleteUser = (props) => {
+const DeleteEmail = (props) => {
 
     const handleClick = () => {
-        axios.post('/admin/users/delete', {uname:props.uname})
+        axios.post('/admin/newsletter/delete', {id:props.id})
             .then(response => {
                 if (response.status === 200) {
-                    props.usersUpdate(response.data);
+                    props.emailsUpdate(response.data);
                     props.setDelError(null);
                 } else {
-                    console.log(`Delete User fail ${response.data}`);
+                    console.log(`Delete Email fail ${response.data}`);
                     props.setDelError(response.data)
                 }
             }).catch(e => {
-                console.log(`Delete User fail ${e}`);
-                props.setDelError("Delete User fail");
+                console.log(`Delete Email fail ${e}`);
+                props.setDelError("Delete Email fail");
             });
     }
 
@@ -26,4 +26,4 @@ const DeleteUser = (props) => {
 
 };
 
-export default DeleteUser;
+export default DeleteEmail;

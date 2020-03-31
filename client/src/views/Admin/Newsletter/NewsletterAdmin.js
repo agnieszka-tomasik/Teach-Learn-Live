@@ -1,37 +1,34 @@
 import React, {useState, useEffect} from 'react';
 import Search from './Search';
-import ViewUser from './ViewUser';
-import UsersList from './UsersList';
-import AddUser from "./AddUser";
+import EmailList from './EmailList';
+import AddEmail from "./AddEmail";
 import "../Admin.css"
 import axios from 'axios';
 
-const UsersAdmin = (props) => {
+const NewsletterAdmin = (props) => {
     const [filterText, setFilterText] = useState('');
-    const [selectedUser, setSelectedUser] = useState('');
-    const [users, setUsers] = useState(props.users);
+    const [emails, setEmails] = useState(props.emails);
     const [addError, setAddError] = useState(null);
     const [delError, setDelError] = useState(null);
-    const [upError, setUpError] = useState(null);
 
 
-    const usersUpdate = (newUsers) => {
-        setUsers(newUsers);
+    const emailsUpdate = (newEmails) => {
+        setEmails(newEmails);
     };
 
-    const addUser = (user) => {
-        axios.post('/admin/users/add', user)
+    const addEmail = (email) => {
+        axios.post('/admin/newsletter/add', email)
             .then(response => {
                 if (response.status === 200) {
-                    setUsers(response.data);
+                    setEmails(response.data);
                     setAddError(null);
                 } else {
-                    console.log(`Add User fail ${response.data}`);
+                    console.log(`Add Email fail ${response.data}`);
                     setAddError(response.data);
                 }
             }).catch(e => {
-                console.log(`Add User fail ${e}`);
-                setAddError("Add User fail");
+                console.log(`Add Email fail ${e}`);
+                setAddError("Add Email fail");
             });
     };
 
@@ -39,14 +36,10 @@ const UsersAdmin = (props) => {
         setFilterText(value);
     };
 
-    const selectedUpdate = (uname) => {
-        setSelectedUser(uname);
-    };
-
     return (
         <div className="bg">
             <div className="row">
-                <h1>Manage Site Users</h1>
+                <h1>Manage Newsletter Signups</h1>
             </div>
 
             <Search
@@ -58,15 +51,14 @@ const UsersAdmin = (props) => {
                         <div className="tableWrapper">
                             <table className="table table-striped table-hover">
                                 <tr className='tr'>
-                                    <td className='tr'>
-                                        <b>Username Email</b>
+                                    <td className='td'>
+                                        <b>Email</b>
                                     </td>
                                 </tr>
-                                <UsersList
-                                    data={users}
-                                    selectedUpdate={selectedUpdate}
+                                <EmailList
+                                    data={emails}
                                     filterText={filterText}
-                                    usersUpdate={usersUpdate}
+                                    emailsUpdate={emailsUpdate}
                                     setDelError={setDelError}
                                 />
                                 {delError && <p className="is-danger">{delError}</p>}
@@ -74,19 +66,10 @@ const UsersAdmin = (props) => {
                         </div>
                     </div>
                     <div className="column2">
-                        <ViewUser
-                            data={users}
-                            uname={selectedUser}
-                            usersUpdate={usersUpdate}
-                            setUpError={setUpError}
-                        />
-                        {upError && <p className="is-danger">{delError}</p>}
-                    </div>
-                    <div className="column2">
-                        <AddUser 
+                        <AddEmail 
                             className='AddCourse' 
-                            addUser={addUser} 
-                            data={users}
+                            addEmail={addEmail} 
+                            data={emails}
                         />
                         {addError && <p className="is-danger">{addError}</p>}
                     </div>
@@ -97,4 +80,4 @@ const UsersAdmin = (props) => {
 };
 
 
-export default UsersAdmin;
+export default NewsletterAdmin;

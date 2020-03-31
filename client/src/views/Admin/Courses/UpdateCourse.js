@@ -39,10 +39,10 @@ const UpdateCourse = (props) => {
         <div>
             <h1>Update Course:</h1>
         <form>
-            <input type='text' id='title' placeholder={props.selectedCourse.courseTitle} onChange={handleTitleChange}/>
-            <input type='text' placeholder={props.selectedCourse.courseDesc} onChange={handleDescChange}/>
+            <input type='text' className='inputtext' id='title' placeholder={props.selectedCourse.courseTitle} onChange={handleTitleChange}/>
+            <input type='text' className='inputtext' placeholder={props.selectedCourse.courseDesc} onChange={handleDescChange}/>
+            <button className='button' onClick={handleClick}>Update</button>
         </form>
-            <button onClick={handleClick}>Update</button>
         </div>
     );
 

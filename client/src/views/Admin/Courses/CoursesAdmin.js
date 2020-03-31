@@ -52,13 +52,13 @@ const CoursesAdmin = (props) => {
             <Search
                 filterUpdate={filterUpdate}
             />
-            <main>
+            <main className='main'>
                 <div className="row">
                     <div className="column1">
                         <div className="tableWrapper">
                             <table className="table table-striped table-hover">
-                                <tr>
-                                    <td>
+                                <tr className='tr'>
+                                    <td className='td'>
                                         <b>Title Description</b>
                                     </td>
                                 </tr>

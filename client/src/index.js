@@ -11,16 +11,28 @@ axios.get('/initdata')
             .then(response => {
                 axios.get('/admin/users/userslist')
                     .then(res => {
-                        ReactDOM.render(
-                            <Router>
-                                <App 
-                                    data = {data}
-                                    courses = {response.data || []}
-                                    posts = {response.posts || []}
-                                    users = {res.data || []}
-                                />
-                            </Router>, document.getElementById('root')
-                        );    
+                        axios.get('/admin/blog/posts')
+                            .then(resb => {
+                                axios.get('/admin/newsletter/emails')
+                                    .then(resn =>{
+                                        ReactDOM.render(
+                                            <Router>
+                                                <App 
+                                                    data = {data}
+                                                    courses = {response.data.courses || []}
+                                                    posts = {response.data.posts || []}
+                                                    users = {res.data || []}
+                                                    blogPosts = {resb.data || []}
+                                                    emails = {resn.data || []}
+                                                />
+                                            </Router>, document.getElementById('root')
+                                        ); 
+                                    }).catch(e => {
+                                        console.log(`Init fail ${e}`);
+                                    });
+                            }).catch(e => {
+                                console.log(`Init fail ${e}`);
+                            });    
                     }).catch(e => {
                         console.log(`Init fail ${e}`);
                     });

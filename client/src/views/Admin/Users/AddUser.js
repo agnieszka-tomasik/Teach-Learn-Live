@@ -59,9 +59,9 @@ const AddUser = (props) => {
         <div>
             <h1>Add New User:</h1>
         <form>
-            <input type='text' id='title' placeholder='Username' onChange={handleUnameChange}/>
-            <input type='text' placeholder='Email' onChange={handleEmailChange}/>
-            <input type='password' placeholder='Password' onChange={handlePassChange}/>
+            <input type='text' className='inputtext' id='title' placeholder='Username' onChange={handleUnameChange}/>
+            <input type='text' className='inputtext' placeholder='Email' onChange={handleEmailChange}/>
+            <input type='password' className='inputpass' placeholder='Password' onChange={handlePassChange}/>
             <label>
                 Admin:
                 <input
@@ -71,7 +71,7 @@ const AddUser = (props) => {
                     onChange={handleCheckChange} />
             </label>
             <br/>
-            <button onClick={handleClick}>Add</button>
+            <button className='button' onClick={handleClick}>Add</button>
         </form>
         </div>
     );

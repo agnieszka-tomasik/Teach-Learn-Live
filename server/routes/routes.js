@@ -1,5 +1,6 @@
 const User = require('../schemas/UserSchema.js');
 const Newsletter = require('../schemas/NewsletterSchema.js');
+const Blog = require('../schemas/BlogPostSchema.js');
 const Courses = require('../schemas/CourseSchema.js');
 const ForumPost = require('../schemas/ForumPostSchema.js')
 const adminController = require('../controllers/AdminContentController.js');
@@ -150,11 +151,10 @@ router.route('/admin/courses/courseslist').get((req, res) => {
     });
 });
 
-router.route('/admin/courses/add').post((req, res) => {
-    let { courseTitle, courseDesc } = req.body;
-    console.log(courseTitle, courseDesc);
-    Courses.create({ courseTitle: courseTitle, courseDesc: courseDesc }, (err, doc) => {
-        if (err) {
+router.route('/admin/courses/add').post( (req, res) => {
+    let {courseTitle, courseDesc} = req.body;
+    Courses.create({courseTitle:courseTitle, courseDesc:courseDesc}, (err, doc) => {
+        if(err){
             return res.sendStatus(400);
         } else {
             Courses.find((err, docs) => {
@@ -355,6 +355,117 @@ router.route('/admin/users/update').post( (req, res) => {
                     });
                 }
             })
+        }
+    });
+});
+
+router.route('/admin/blog/posts').get((req,res) => {
+    Blog.find((err, docs) => {
+        if(err){
+            return res.sendStatus(400);
+        }else{
+            return res.status(200).send(docs);
+        }
+    });
+});
+
+router.route('/admin/blog/add').post( (req, res) => {
+    let {postTitle, postText} = req.body;
+    Blog.create({
+        authUname: req.session.uname || "Anonymous",
+        postTitle:postTitle, 
+        postText:postText
+    }, (err, doc) => {
+        if(err){
+            return res.sendStatus(400);
+        }else{
+            Blog.find((err, docs) => {
+                if(err){
+                    return res.sendStatus(400);
+                }else{
+                    return res.status(200).send(docs);
+                }
+            });
+        }
+    });
+});
+
+router.route('/admin/blog/delete').post( (req, res) => {
+    let {id} = req.body;
+    Blog.findByIdAndRemove(id, (err, doc) =>{
+        if(err){
+            return res.sendStatus(400);
+        }else{
+            Blog.find((err, docs) => {
+                if(err){
+                    return res.sendStatus(400);
+                }else{
+                    return res.status(200).send(docs);
+                }
+            });
+        }
+    });
+});
+
+router.route('/admin/blog/update').post( (req, res) => {
+    let post = req.body;
+    Blog.findByIdAndUpdate(post._id, post, (err, doc) =>{
+        if(err){
+            return res.sendStatus(400);
+        }else{
+            Blog.find((err, docs) => {
+                if(err){
+                    return res.sendStatus(400);
+                }else{
+                    return res.status(200).send(docs);
+                }
+            });
+        }
+    });
+});
+
+router.route('/admin/newsletter/emails').get((req,res) => {
+    Newsletter.find((err, docs) => {
+        if(err){
+            return res.sendStatus(400);
+        }else{
+            return res.status(200).send(docs);
+        }
+    });
+});
+
+router.route('/admin/newsletter/add').post( (req, res) => {
+    let {email} = req.body;
+    Newsletter.create({
+        email:email
+    }, (err, doc) => {
+        if(err){
+            return res.sendStatus(400);
+        }else{
+            Newsletter.find((err, docs) => {
+                if(err){
+                    return res.sendStatus(400);
+                }else{
+                    return res.status(200).send(docs);
+                }
+            });
+        }
+    });
+});
+
+router.route('/admin/newsletter/delete').post( (req, res) => {
+    let {id} = req.body;
+    Newsletter.findByIdAndRemove(id, (err, doc) =>{
+        if(err){
+            return res.sendStatus(400);
+        }else{
+            Newsletter.find((err, docs) => {
+                if(err){
+                    return res.sendStatus(400);
+                }else{
+                    return res.status(200).send(docs);
+                }
+            });
         }
     });
 });

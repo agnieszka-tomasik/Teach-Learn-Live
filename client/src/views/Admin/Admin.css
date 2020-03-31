@@ -1,4 +1,4 @@
-body {
+.body {
 	margin: 0;
 	padding: 0;
 	font-family: sans-serif;
@@ -8,17 +8,17 @@ body {
 * {
 	box-sizing: border-box;
 }
-main {
+.main {
 	padding: 0 2rem;
 }
 
 /* ##### Search ##### */
-header {
+.header {
 	background: #3498db;
 	margin-bottom: 2rem;
 }
 
-input[type='text'] {
+.inputtext {
 	margin: 1rem;
 	background: #fff;
 	font-size: 1.3rem;
@@ -30,7 +30,7 @@ input[type='text'] {
 	height: 4rem;
 }
 
-input[type='password'] {
+.inputpass {
 	margin: 1rem;
 	background: #fff;
 	font-size: 1.3rem;
@@ -43,20 +43,15 @@ input[type='password'] {
 }
 
 /* ##### NamesList ##### */
-tr {
+.tr {
 	padding: 0;
 }
-th {
+.th {
 	position: left;
 	list-style: none;
 	padding: 0.25rem 0.75rem;
 	margin: 2px;
 	border-radius: 3px;
-}
-td:hover {
-	position: left;
-	cursor: pointer;
-	background-color: #ddd;
 }
 
 /* ##### Columns ##### */
@@ -98,7 +93,7 @@ td:hover {
 .credit a {
 	color: #3498bb;
 }
-button {
+.button {
 	background: #d7d7d7;
 	color: #3b3b3b;
 	padding: 0.6rem 1rem;
@@ -108,7 +103,4 @@ button {
 	box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
 	border-radius: 3px;
 	outline: none;
-}
-button:hover {
-	background: #ddd;
 }
