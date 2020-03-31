@@ -14,14 +14,21 @@ router.route('/login').post((req, res) => {
     const { username, password } = req.body;
     User.findOne({ uname: username}, (err, doc) => {
         if (err) {
-            return res.sendStatus(500);
+            return res.sendStatus(400);
         } else if (doc) {
             if (doc.validPassword(password)) {
                 req.session.userID = doc._id;
                 return res.sendStatus(200);
             }
+            res.status(201);
+            res.write("Incorrect password.");
+            res.end();
+            return res.send();
         }
-        return res.sendStatus(400);
+        res.status(201);
+        res.write("Username not found.");
+        res.end();
+        return res.send();
     });
 });
 
@@ -58,6 +65,18 @@ router.route('/register').post((req, res) => {
     newUser.save((err, user) => {
         if (err) {
             console.log(`Error saving user -> ${err}`);
+            if (err.name === 'ValidationError')
+            {
+                res.status(201);
+                if (err.errors.uname) {
+                    res.write('Username is already taken. ');
+                }
+                if (err.errors.email) {
+                    res.write('Email is already taken. ');
+                }
+                res.end();
+                return res.send();
+            }
             return res.sendStatus(400);
         } else {
             req.session.userID = user._id;
