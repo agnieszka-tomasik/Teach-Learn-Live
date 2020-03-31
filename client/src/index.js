@@ -11,15 +11,21 @@ axios.get('/admin/courses/courseslist')
             .then(response => {
                 axios.get('/admin/users/userslist')
                     .then(res => {
-                        ReactDOM.render(
-                            <Router>
-                                <App 
-                                    data = {data}
-                                    courses = {response.data || []}
-                                    users = {res.data || []}
-                                />
-                            </Router>, document.getElementById('root')
-                        );    
+                        axios.get('/admin/blog/posts')
+                            .then(resb => {
+                                ReactDOM.render(
+                                    <Router>
+                                        <App 
+                                            data = {data}
+                                            courses = {response.data || []}
+                                            users = {res.data || []}
+                                            posts = {resb.data || []}
+                                        />
+                                    </Router>, document.getElementById('root')
+                                );
+                            }).catch(e => {
+                                console.log(`Init fail ${e}`);
+                            });    
                     }).catch(e => {
                         console.log(`Init fail ${e}`);
                     });

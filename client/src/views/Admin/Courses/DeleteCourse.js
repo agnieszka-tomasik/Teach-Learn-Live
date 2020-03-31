@@ -21,7 +21,7 @@ const DeleteCourse = (props) => {
     }
 
     return (
-        <button onClick={handleClick}>Remove</button>
+        <button className='button' onClick={handleClick}>Remove</button>
     );
 
 };

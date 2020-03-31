@@ -1,37 +1,37 @@
 import React, {useState, useEffect} from 'react';
 import Search from './Search';
-import ViewUser from './ViewUser';
-import UsersList from './UsersList';
-import AddUser from "./AddUser";
+import ViewBlog from './ViewBlog';
+import BlogList from './BlogList';
+import AddBlog from "./AddBlog";
 import "../Admin.css"
 import axios from 'axios';
 
-const UsersAdmin = (props) => {
+const BlogAdmin = (props) => {
     const [filterText, setFilterText] = useState('');
-    const [selectedUser, setSelectedUser] = useState('');
-    const [users, setUsers] = useState(props.users);
+    const [selectedPost, setSelectedPost] = useState('');
+    const [posts, setPosts] = useState(props.posts);
     const [addError, setAddError] = useState(null);
     const [delError, setDelError] = useState(null);
     const [upError, setUpError] = useState(null);
 
 
-    const usersUpdate = (newUsers) => {
-        setUsers(newUsers);
+    const postsUpdate = (newPosts) => {
+        setPosts(newPosts);
     };
 
-    const addUser = (user) => {
-        axios.post('/admin/users/add', user)
+    const addPost = (post) => {
+        axios.post('/admin/blog/add', post)
             .then(response => {
                 if (response.status === 200) {
-                    setUsers(response.data);
+                    setPosts(response.data);
                     setAddError(null);
                 } else {
-                    console.log(`Add User fail ${response.data}`);
+                    console.log(`Add Blog Post fail ${response.data}`);
                     setAddError(response.data);
                 }
             }).catch(e => {
-                console.log(`Add User fail ${e}`);
-                setAddError("Add User fail");
+                console.log(`Add Blog Post fail ${e}`);
+                setAddError("Add Blog Post fail");
             });
     };
 
@@ -39,14 +39,14 @@ const UsersAdmin = (props) => {
         setFilterText(value);
     };
 
-    const selectedUpdate = (uname) => {
-        setSelectedUser(uname);
+    const selectedUpdate = (id) => {
+        setSelectedPost(id);
     };
 
     return (
         <div className="bg">
             <div className="row">
-                <h1>Manage Site Users</h1>
+                <h1>Manage Site Blog Posts</h1>
             </div>
 
             <Search
@@ -58,15 +58,15 @@ const UsersAdmin = (props) => {
                         <div className="tableWrapper">
                             <table className="table table-striped table-hover">
                                 <tr className='tr'>
-                                    <td className='tr'>
-                                        <b>Username Email</b>
+                                    <td className='td'>
+                                        <b>Author Title Date</b>
                                     </td>
                                 </tr>
-                                <UsersList
-                                    data={users}
+                                <BlogList
+                                    data={posts}
                                     selectedUpdate={selectedUpdate}
                                     filterText={filterText}
-                                    usersUpdate={usersUpdate}
+                                    postsUpdate={postsUpdate}
                                     setDelError={setDelError}
                                 />
                                 {delError && <p className="is-danger">{delError}</p>}
@@ -74,19 +74,19 @@ const UsersAdmin = (props) => {
                         </div>
                     </div>
                     <div className="column2">
-                        <ViewUser
-                            data={users}
-                            uname={selectedUser}
-                            usersUpdate={usersUpdate}
+                        <ViewBlog
+                            data={posts}
+                            id={selectedPost}
+                            postsUpdate={postsUpdate}
                             setUpError={setUpError}
                         />
                         {upError && <p className="is-danger">{delError}</p>}
                     </div>
                     <div className="column2">
-                        <AddUser 
+                        <AddBlog 
                             className='AddCourse' 
-                            addUser={addUser} 
-                            data={users}
+                            addPost={addPost} 
+                            data={posts}
                         />
                         {addError && <p className="is-danger">{addError}</p>}
                     </div>
@@ -97,4 +97,4 @@ const UsersAdmin = (props) => {
 };
 
 
-export default UsersAdmin;
+export default BlogAdmin;
