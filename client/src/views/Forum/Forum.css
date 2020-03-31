@@ -1,19 +1,11 @@
-.Post-box{
-    width: 1000px;
-}
-
-.Comment-box{
-    width: 500px;
+.forum {
+	display: flex
 }
 
 .left-side{
-	float: left;
-	width: 10%;
-	padding: 10px;
+	flex-grow: 1;
 }
 
 .right-side{
-	float: left;
-	width: 90%;
-	padding: 20px;
+	flex-grow: 2;
 }

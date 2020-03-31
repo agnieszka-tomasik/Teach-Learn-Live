@@ -4,7 +4,8 @@ import React, { useEffect } from 'react'
 import { Provider } from 'react-redux';
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import cart from './cartSlice';
-import course from './courseSlice';
+import forum, { populateForum } from './forumSlice';
+import course, { populateCourses } from './courseSlice';
 import user, { authenticated } from './userSlice';
 
 
@@ -31,7 +32,8 @@ import user, { authenticated } from './userSlice';
 const rootReducer = combineReducers({
     cart,
     user,
-    course
+    course,
+    forum
 });
 
 const store = configureStore({
@@ -47,6 +49,14 @@ const StateProvider = ({ children }) => {
                 console.error(response.data);
             }
         });
+
+        // TODO split store hydration to respective components.
+        axios.get('/initdata').then((response) => {
+            if (response.status === 200) {
+                store.dispatch(populateCourses(response.data.courses));
+                store.dispatch(populateForum(response.data.posts));
+            }
+        })
     }, []);
     return <Provider store={store}>{children}</Provider>;
 };

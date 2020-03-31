@@ -15,6 +15,9 @@ function NavButtons() {
 
 function CourseHomePage() {
     const courses = useSelector(state => state.course.availableCourses);
+    if(!courses) {
+        return <>Loading</>
+    }
     return <div>
         <NavButtons />
         <div className="course-list">
