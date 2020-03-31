@@ -1,37 +1,37 @@
 import React, {useState, useEffect} from 'react';
 import Search from './Search';
-import ViewCourse from './ViewCourse';
-import CoursesList from './CoursesList';
-import AddCourse from "./AddCourse";
+import ViewBlog from './ViewBlog';
+import BlogList from './BlogList';
+import AddBlog from "./AddBlog";
 import "../Admin.css"
 import axios from 'axios';
 
-const CoursesAdmin = (props) => {
+const BlogAdmin = (props) => {
     const [filterText, setFilterText] = useState('');
-    const [selectedCourse, setSelectedCourse] = useState('');
-    const [courses, setCourses] = useState(props.courses);
+    const [selectedPost, setSelectedPost] = useState('');
+    const [posts, setPosts] = useState(props.posts);
     const [addError, setAddError] = useState(null);
     const [delError, setDelError] = useState(null);
     const [upError, setUpError] = useState(null);
 
 
-    const coursesUpdate = (newCourses) => {
-        setCourses(newCourses);
+    const postsUpdate = (newPosts) => {
+        setPosts(newPosts);
     };
 
-    const addCourse = (course) => {
-        axios.post('/admin/courses/add', course)
+    const addPost = (post) => {
+        axios.post('/admin/blog/add', post)
             .then(response => {
                 if (response.status === 200) {
-                    setCourses(response.data);
+                    setPosts(response.data);
                     setAddError(null);
                 } else {
-                    console.log(`Add Course fail ${response.data}`);
+                    console.log(`Add Blog Post fail ${response.data}`);
                     setAddError(response.data);
                 }
             }).catch(e => {
-                console.log(`Add Course fail ${e}`);
-                setAddError("Add Course fail");
+                console.log(`Add Blog Post fail ${e}`);
+                setAddError("Add Blog Post fail");
             });
     };
 
@@ -39,14 +39,14 @@ const CoursesAdmin = (props) => {
         setFilterText(value);
     };
 
-    const selectedUpdate = (title) => {
-        setSelectedCourse(title);
+    const selectedUpdate = (id) => {
+        setSelectedPost(id);
     };
 
     return (
         <div className="bg">
             <div className="row">
-                <h1>Manage Site Courses</h1>
+                <h1>Manage Site Blog Posts</h1>
             </div>
 
             <Search
@@ -59,14 +59,14 @@ const CoursesAdmin = (props) => {
                             <table className="table table-striped table-hover">
                                 <tr className='tr'>
                                     <td className='td'>
-                                        <b>Title Description</b>
+                                        <b>Author Title Date</b>
                                     </td>
                                 </tr>
-                                <CoursesList
-                                    data={courses}
+                                <BlogList
+                                    data={posts}
                                     selectedUpdate={selectedUpdate}
                                     filterText={filterText}
-                                    coursesUpdate={coursesUpdate}
+                                    postsUpdate={postsUpdate}
                                     setDelError={setDelError}
                                 />
                                 {delError && <p className="is-danger">{delError}</p>}
@@ -74,19 +74,19 @@ const CoursesAdmin = (props) => {
                         </div>
                     </div>
                     <div className="column2">
-                        <ViewCourse
-                            data={courses}
-                            title={selectedCourse}
-                            coursesUpdate={coursesUpdate}
+                        <ViewBlog
+                            data={posts}
+                            id={selectedPost}
+                            postsUpdate={postsUpdate}
                             setUpError={setUpError}
                         />
                         {upError && <p className="is-danger">{delError}</p>}
                     </div>
                     <div className="column2">
-                        <AddCourse 
+                        <AddBlog 
                             className='AddCourse' 
-                            addCourse={addCourse} 
-                            data={courses}
+                            addPost={addPost} 
+                            data={posts}
                         />
                         {addError && <p className="is-danger">{addError}</p>}
                     </div>
@@ -97,4 +97,4 @@ const CoursesAdmin = (props) => {
 };
 
 
-export default CoursesAdmin;
+export default BlogAdmin;

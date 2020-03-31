@@ -1,37 +1,37 @@
 import React, {useState, useEffect} from 'react';
 import Search from './Search';
-import ViewCourse from './ViewCourse';
-import CoursesList from './CoursesList';
-import AddCourse from "./AddCourse";
+import ViewUser from './ViewUser';
+import UsersList from './UsersList';
+import AddUser from "./AddUser";
 import "../Admin.css"
 import axios from 'axios';
 
-const CoursesAdmin = (props) => {
+const UsersAdmin = (props) => {
     const [filterText, setFilterText] = useState('');
-    const [selectedCourse, setSelectedCourse] = useState('');
-    const [courses, setCourses] = useState(props.courses);
+    const [selectedUser, setSelectedUser] = useState('');
+    const [users, setUsers] = useState(props.users);
     const [addError, setAddError] = useState(null);
     const [delError, setDelError] = useState(null);
     const [upError, setUpError] = useState(null);
 
 
-    const coursesUpdate = (newCourses) => {
-        setCourses(newCourses);
+    const usersUpdate = (newUsers) => {
+        setUsers(newUsers);
     };
 
-    const addCourse = (course) => {
-        axios.post('/admin/courses/add', course)
+    const addUser = (user) => {
+        axios.post('/admin/users/add', user)
             .then(response => {
                 if (response.status === 200) {
-                    setCourses(response.data);
+                    setUsers(response.data);
                     setAddError(null);
                 } else {
-                    console.log(`Add Course fail ${response.data}`);
+                    console.log(`Add User fail ${response.data}`);
                     setAddError(response.data);
                 }
             }).catch(e => {
-                console.log(`Add Course fail ${e}`);
-                setAddError("Add Course fail");
+                console.log(`Add User fail ${e}`);
+                setAddError("Add User fail");
             });
     };
 
@@ -39,14 +39,14 @@ const CoursesAdmin = (props) => {
         setFilterText(value);
     };
 
-    const selectedUpdate = (title) => {
-        setSelectedCourse(title);
+    const selectedUpdate = (uname) => {
+        setSelectedUser(uname);
     };
 
     return (
         <div className="bg">
             <div className="row">
-                <h1>Manage Site Courses</h1>
+                <h1>Manage Site Users</h1>
             </div>
 
             <Search
@@ -58,15 +58,15 @@ const CoursesAdmin = (props) => {
                         <div className="tableWrapper">
                             <table className="table table-striped table-hover">
                                 <tr className='tr'>
-                                    <td className='td'>
-                                        <b>Title Description</b>
+                                    <td className='tr'>
+                                        <b>Username Email</b>
                                     </td>
                                 </tr>
-                                <CoursesList
-                                    data={courses}
+                                <UsersList
+                                    data={users}
                                     selectedUpdate={selectedUpdate}
                                     filterText={filterText}
-                                    coursesUpdate={coursesUpdate}
+                                    usersUpdate={usersUpdate}
                                     setDelError={setDelError}
                                 />
                                 {delError && <p className="is-danger">{delError}</p>}
@@ -74,19 +74,19 @@ const CoursesAdmin = (props) => {
                         </div>
                     </div>
                     <div className="column2">
-                        <ViewCourse
-                            data={courses}
-                            title={selectedCourse}
-                            coursesUpdate={coursesUpdate}
+                        <ViewUser
+                            data={users}
+                            uname={selectedUser}
+                            usersUpdate={usersUpdate}
                             setUpError={setUpError}
                         />
                         {upError && <p className="is-danger">{delError}</p>}
                     </div>
                     <div className="column2">
-                        <AddCourse 
+                        <AddUser 
                             className='AddCourse' 
-                            addCourse={addCourse} 
-                            data={courses}
+                            addUser={addUser} 
+                            data={users}
                         />
                         {addError && <p className="is-danger">{addError}</p>}
                     </div>
@@ -97,4 +97,4 @@ const CoursesAdmin = (props) => {
 };
 
 
-export default CoursesAdmin;
+export default UsersAdmin;

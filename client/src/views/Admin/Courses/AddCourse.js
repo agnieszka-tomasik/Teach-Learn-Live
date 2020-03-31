@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import "./CoursesAdmin.css"
+import "../Admin.css"
 
 const AddCourse = (props) => {
     const [newCourse, setNewCourse] = useState(
@@ -36,10 +36,10 @@ const AddCourse = (props) => {
         <div>
             <h1>Add New Course:</h1>
         <form>
-            <input type='text' id='title' placeholder='Course Title' onChange={handleTitleChange}/>
-            <input type='text' placeholder='Description' onChange={handleDescChange}/>
+            <input type='text' id='title' className='inputtext' placeholder='Course Title' onChange={handleTitleChange}/>
+            <input type='text' className='inputtext' placeholder='Description' onChange={handleDescChange}/>
+            <button className='button' onClick={handleClick}>Add</button>
         </form>
-            <button onClick={handleClick}>Add</button>
         </div>
     );
 };

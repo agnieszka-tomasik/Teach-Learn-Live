@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import DeleteCourse from './DeleteCourse';
-import "./CoursesAdmin.css"
+import "../Admin.css"
 
 const CoursesList = (props) => {
 
@@ -13,12 +13,13 @@ const CoursesList = (props) => {
     })
     .map(course => {
         return (
-            <tr key={course.id}>
-                <td onClick={() => updateSelectedCourse(course.courseTitle)}>{course.courseTitle} </td>
-                <td onClick={() => updateSelectedCourse(course.courseTitle)}>{course.courseDesc} </td>
+            <tr className='tr' key={course.id}>
+                <td className='td' onClick={() => updateSelectedCourse(course.courseTitle)}>{course.courseTitle} </td>
+                <td className='td' onClick={() => updateSelectedCourse(course.courseTitle)}>{course.courseDesc} </td>
                 <DeleteCourse
                     title={course.courseTitle}
                     courseListUpdate={props.coursesUpdate}
+                    setDelError={props.setDelError}
                 />
             </tr>
         );

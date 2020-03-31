@@ -1,37 +1,34 @@
 import React, {useState, useEffect} from 'react';
 import Search from './Search';
-import ViewCourse from './ViewCourse';
-import CoursesList from './CoursesList';
-import AddCourse from "./AddCourse";
+import EmailList from './EmailList';
+import AddEmail from "./AddEmail";
 import "../Admin.css"
 import axios from 'axios';
 
-const CoursesAdmin = (props) => {
+const NewsletterAdmin = (props) => {
     const [filterText, setFilterText] = useState('');
-    const [selectedCourse, setSelectedCourse] = useState('');
-    const [courses, setCourses] = useState(props.courses);
+    const [emails, setEmails] = useState(props.emails);
     const [addError, setAddError] = useState(null);
     const [delError, setDelError] = useState(null);
-    const [upError, setUpError] = useState(null);
 
 
-    const coursesUpdate = (newCourses) => {
-        setCourses(newCourses);
+    const emailsUpdate = (newEmails) => {
+        setEmails(newEmails);
     };
 
-    const addCourse = (course) => {
-        axios.post('/admin/courses/add', course)
+    const addEmail = (email) => {
+        axios.post('/admin/newsletter/add', email)
             .then(response => {
                 if (response.status === 200) {
-                    setCourses(response.data);
+                    setEmails(response.data);
                     setAddError(null);
                 } else {
-                    console.log(`Add Course fail ${response.data}`);
+                    console.log(`Add Email fail ${response.data}`);
                     setAddError(response.data);
                 }
             }).catch(e => {
-                console.log(`Add Course fail ${e}`);
-                setAddError("Add Course fail");
+                console.log(`Add Email fail ${e}`);
+                setAddError("Add Email fail");
             });
     };
 
@@ -39,14 +36,10 @@ const CoursesAdmin = (props) => {
         setFilterText(value);
     };
 
-    const selectedUpdate = (title) => {
-        setSelectedCourse(title);
-    };
-
     return (
         <div className="bg">
             <div className="row">
-                <h1>Manage Site Courses</h1>
+                <h1>Manage Newsletter Signups</h1>
             </div>
 
             <Search
@@ -59,14 +52,13 @@ const CoursesAdmin = (props) => {
                             <table className="table table-striped table-hover">
                                 <tr className='tr'>
                                     <td className='td'>
-                                        <b>Title Description</b>
+                                        <b>Email</b>
                                     </td>
                                 </tr>
-                                <CoursesList
-                                    data={courses}
-                                    selectedUpdate={selectedUpdate}
+                                <EmailList
+                                    data={emails}
                                     filterText={filterText}
-                                    coursesUpdate={coursesUpdate}
+                                    emailsUpdate={emailsUpdate}
                                     setDelError={setDelError}
                                 />
                                 {delError && <p className="is-danger">{delError}</p>}
@@ -74,19 +66,10 @@ const CoursesAdmin = (props) => {
                         </div>
                     </div>
                     <div className="column2">
-                        <ViewCourse
-                            data={courses}
-                            title={selectedCourse}
-                            coursesUpdate={coursesUpdate}
-                            setUpError={setUpError}
-                        />
-                        {upError && <p className="is-danger">{delError}</p>}
-                    </div>
-                    <div className="column2">
-                        <AddCourse 
+                        <AddEmail 
                             className='AddCourse' 
-                            addCourse={addCourse} 
-                            data={courses}
+                            addEmail={addEmail} 
+                            data={emails}
                         />
                         {addError && <p className="is-danger">{addError}</p>}
                     </div>
@@ -97,4 +80,4 @@ const CoursesAdmin = (props) => {
 };
 
 
-export default CoursesAdmin;
+export default NewsletterAdmin;

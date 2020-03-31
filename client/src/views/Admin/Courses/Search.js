@@ -1,5 +1,5 @@
 import React from 'react';
-import "./CoursesAdmin.css"
+import "../Admin.css"
 
 const Search = (props) => {
     const filterUpdate = (text) => {
@@ -8,7 +8,7 @@ const Search = (props) => {
 
     return (
         <form>
-            <input type="text" placeholder="Type to Filter" onChange={filterUpdate} />
+            <input type="text" placeholder="Type to Filter" className='inputtext' onChange={filterUpdate} />
         </form>
     );
 

@@ -2,21 +2,21 @@ import React from 'react';
 import axios from 'axios';
 import "../Admin.css"
 
-const DeleteCourse = (props) => {
+const DeleteEmail = (props) => {
 
     const handleClick = () => {
-        axios.post('/admin/courses/delete', {courseTitle:props.title})
+        axios.post('/admin/newsletter/delete', {id:props.id})
             .then(response => {
                 if (response.status === 200) {
-                    props.courseListUpdate(response.data);
+                    props.emailsUpdate(response.data);
                     props.setDelError(null);
                 } else {
-                    console.log(`Delete Course fail ${response.data}`);
+                    console.log(`Delete Email fail ${response.data}`);
                     props.setDelError(response.data)
                 }
             }).catch(e => {
-                console.log(`Delete Course fail ${e}`);
-                props.setDelError("Delete Course fail");
+                console.log(`Delete Email fail ${e}`);
+                props.setDelError("Delete Email fail");
             });
     }
 
@@ -26,4 +26,4 @@ const DeleteCourse = (props) => {
 
 };
 
-export default DeleteCourse;
+export default DeleteEmail;
