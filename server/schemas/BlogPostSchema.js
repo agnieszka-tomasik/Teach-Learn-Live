@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+const mongoose = require('mongoose');
 
 const BlogPostSchema = new mongoose.Schema({
   authUname: { type: String, required: true },
@@ -7,4 +7,4 @@ const BlogPostSchema = new mongoose.Schema({
   postDate: { type: Date, default: Date.now }
 });
 
-export default mongoose.model('blogPosts', BlogPostSchema);
+module.exports = mongoose.model('blogPosts', BlogPostSchema);
