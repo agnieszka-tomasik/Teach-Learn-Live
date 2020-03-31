@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './Forum.css';
 import ForumList from './ForumList.js';
+import { WithBanner } from '../../components/Banner/index.js';
 import ForumMain from './ForumMain.js';
 import axios from 'axios';
 
@@ -114,4 +115,4 @@ const ForumPage = (props) => {
     );
 }
 
-export default ForumPage;
+export default WithBanner(ForumPage);
