@@ -1,10 +1,11 @@
 import React from 'react'
-import { connect } from 'react-redux'
-import { Courses } from '../../views/courses.js'
+import { connect, useDispatch, useSelector } from 'react-redux'
 import { removeFromCart } from '../../store/actions.js'
 
 function Cart(props) {
-    let collection = props.addedCourses.map(course => {
+    const addedCourses = useSelector(state => state.addedCourses);
+    const dispatch = useDispatch();
+    let collection = addedCourses.map(course => {
         return (
             <div class="card-wrapper">
                 <div class="card">
@@ -12,7 +13,7 @@ function Cart(props) {
                         <div class="content-course">{course.title}</div>
                         <div class="content-description">{course.description}</div>
                         <div class="content-price">{course.price}</div>
-                        <button onClick={()=>{removeFromCart(course.course_id)}}>Remove from cart</button>
+                        <button onClick={()=>{dispatch(removeFromCart(course.course_id))}}>Remove from cart</button>
                     </div>
                 </div>
             </div>
@@ -27,18 +28,6 @@ function Cart(props) {
     )
 }
 
-// takes the state in the reducer, passes addedCourses into props in the file
-const mapState = (state) => {
-    return {
-        addedCourses: state.addedCourses
-    }
-}
-
 // updates the reducer every time that the remove from cart button is pressed
-const mapDispatch = (dispatch) => {
-    return {
-        removeFromCart: (id) => {dispatch(removeFromCart(id))}
-    }
-}
 
-export default connect( mapState, mapDispatch )(Cart)
+export default Cart;

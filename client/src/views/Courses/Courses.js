@@ -1,5 +1,6 @@
 import React from 'react';
 import Card from '../../components/Card/Card.js';
+import CartComponent from '../../components/Cart/Cart'
 import './Courses.css';
 import { WithBanner } from '../../components/Banner/index.js';
 import { Route, Switch, Link } from 'react-router-dom';
@@ -44,7 +45,7 @@ function CourseHomePage(props) {
 function Cart(props) {
     return <div>
         <NavButtons />
-    Cart here
+        <CartComponent/>
     </div>;
 }
 

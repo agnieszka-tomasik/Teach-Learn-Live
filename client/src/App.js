@@ -26,7 +26,7 @@ const App = (props) => {
           exact path="/forum" 
           render={() => <ForumPage posts={props.posts}/>} 
         />
-        <Route exact path="/courses" component={Courses} />
+        <Route path="/courses" component={Courses} />
         <Route 
           exact path="/admin/courses" 
           render={() => <CoursesAdmin courses={props.courses}/>} 
