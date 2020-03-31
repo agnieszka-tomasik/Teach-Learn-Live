@@ -315,4 +315,50 @@ router.route('/admin/blog/update').post( (req, res) => {
     });
 });
 
+router.route('/admin/newsletter/emails').get((req,res) => {
+    Newsletter.find((err, docs) => {
+        if(err){
+            return res.sendStatus(400);
+        }else{
+            return res.status(200).send(docs);
+        }
+    });
+});
+
+router.route('/admin/newsletter/add').post( (req, res) => {
+    let {email} = req.body;
+    Newsletter.create({
+        email:email
+    }, (err, doc) => {
+        if(err){
+            return res.sendStatus(400);
+        }else{
+            Newsletter.find((err, docs) => {
+                if(err){
+                    return res.sendStatus(400);
+                }else{
+                    return res.status(200).send(docs);
+                }
+            });
+        }
+    });
+});
+
+router.route('/admin/newsletter/delete').post( (req, res) => {
+    let {id} = req.body;
+    Newsletter.findByIdAndRemove(id, (err, doc) =>{
+        if(err){
+            return res.sendStatus(400);
+        }else{
+            Newsletter.find((err, docs) => {
+                if(err){
+                    return res.sendStatus(400);
+                }else{
+                    return res.status(200).send(docs);
+                }
+            });
+        }
+    });
+});
+
 module.exports = router;

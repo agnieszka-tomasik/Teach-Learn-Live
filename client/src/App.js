@@ -10,6 +10,7 @@ import CoursesAdmin from "./views/Admin/Courses/CoursesAdmin";
 import UsersAdmin from "./views/Admin/Users/UsersAdmin";
 import BlogAdmin from "./views/Admin/Blog/BlogAdmin";
 import { StateProvider } from './store/store';
+import NewsletterAdmin from './views/Admin/Newsletter/NewsletterAdmin';
 
 // const courses = get courseslist
 
@@ -39,6 +40,10 @@ const App = (props) => {
         <Route 
           exact path="/admin/blog" 
           render={() => <BlogAdmin posts={props.posts}/>} 
+        />
+        <Route 
+          exact path="/admin/newsletter" 
+          render={() => <NewsletterAdmin emails={props.emails}/>} 
         />
         <Route component={NotFound}/>
       </Switch>

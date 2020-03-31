@@ -13,16 +13,22 @@ axios.get('/admin/courses/courseslist')
                     .then(res => {
                         axios.get('/admin/blog/posts')
                             .then(resb => {
-                                ReactDOM.render(
-                                    <Router>
-                                        <App 
-                                            data = {data}
-                                            courses = {response.data || []}
-                                            users = {res.data || []}
-                                            posts = {resb.data || []}
-                                        />
-                                    </Router>, document.getElementById('root')
-                                );
+                                axios.get('/admin/newsletter/emails')
+                                    .then(resn =>{
+                                        ReactDOM.render(
+                                            <Router>
+                                                <App 
+                                                    data = {data}
+                                                    courses = {response.data || []}
+                                                    users = {res.data || []}
+                                                    posts = {resb.data || []}
+                                                    emails = {resn.data || []}
+                                                />
+                                            </Router>, document.getElementById('root')
+                                        ); 
+                                    }).catch(e => {
+                                        console.log(`Init fail ${e}`);
+                                    });
                             }).catch(e => {
                                 console.log(`Init fail ${e}`);
                             });    
