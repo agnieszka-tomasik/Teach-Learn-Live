@@ -66,7 +66,7 @@ const ForumPage = (props) => {
     const createPost = (title, body) => {
 
         axios.post('/forum',
-        {postTitle: title, PostText: body} )
+        {postTitle: title, postText: body} )
         .then( response => {
             if (response.status === 200) {
                 setData(response.data);
