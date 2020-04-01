@@ -5,7 +5,7 @@ import "../Admin.css"
 const DeleteCourse = (props) => {
 
     const handleClick = () => {
-        axios.post('/admin/courses/delete', {courseTitle:props.title})
+        axios.post('/admin/courses/delete', {title:props.title})
             .then(response => {
                 if (response.status === 200) {
                     props.courseListUpdate(response.data);

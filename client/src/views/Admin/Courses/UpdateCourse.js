@@ -8,14 +8,14 @@ const UpdateCourse = (props) => {
     const handleTitleChange = (text) => {
         text.persist();
         let newCourse = updatedCourse;
-        newCourse.courseTitle = text.target.value;
+        newCourse.title = text.target.value;
         setUpdatedCourse(newCourse);
     }
 
     const handleDescChange = (text) => {
         text.persist();
         let newCourse = updatedCourse;
-        newCourse.courseDesc = text.target.value;
+        newCourse.description = text.target.value;
         setUpdatedCourse(newCourse);
     }
 
@@ -39,8 +39,8 @@ const UpdateCourse = (props) => {
         <div>
             <h1 className="title">Update Course:</h1>
         <form>
-            <input type='text' className='inputtext' id='title' placeholder={props.selectedCourse.courseTitle} onChange={handleTitleChange}/>
-            <input type='text' className='inputtext' placeholder={props.selectedCourse.courseDesc} onChange={handleDescChange}/>
+            <input type='text' className='inputtext' id='title' placeholder={props.selectedCourse.title} onChange={handleTitleChange}/>
+            <input type='text' className='inputtext' placeholder={props.selectedCourse.description} onChange={handleDescChange}/>
             <button className='button' onClick={handleClick}>Update</button>
         </form>
         </div>

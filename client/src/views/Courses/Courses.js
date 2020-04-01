@@ -14,10 +14,12 @@ function NavButtons() {
 }
 
 function CourseHomePage() {
-    const courses = useSelector(state => state.course.availableCourses);
-    if(!courses) {
+    const available = useSelector(state => state.course.availableCourses);
+    const cart = useSelector(state => state.cart.courseList);
+    if(!available) {
         return <>Loading</>
     }
+    const courses = available.filter(c => !cart.includes(c));
     return <div>
         <NavButtons />
         <div className="course-list">

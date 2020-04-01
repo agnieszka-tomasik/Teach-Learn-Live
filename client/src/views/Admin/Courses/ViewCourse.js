@@ -3,7 +3,7 @@ import "../Admin.css"
 import UpdateCourse from './UpdateCourse';
 
 const ViewCourse = (props) => {
-    let selectedCourse = props.data.filter(course => course.courseTitle === props.title);
+    let selectedCourse = props.data.filter(course => course.title === props.title);
 
     if (!selectedCourse[0]){
         return (
@@ -19,8 +19,8 @@ const ViewCourse = (props) => {
     {
         return (
             <div>
-                <h2>{selectedCourse[0].courseTitle}</h2>
-                <p>Description: {selectedCourse[0].courseDesc}</p>
+                <h2>{selectedCourse[0].title}</h2>
+                <p>Description: {selectedCourse[0].description}</p>
                 <UpdateCourse
                     selectedCourse={selectedCourse[0]}
                     coursesUpdate={props.coursesUpdate}

@@ -4,23 +4,23 @@ import "../Admin.css"
 const AddCourse = (props) => {
     const [newCourse, setNewCourse] = useState(
         {
-            courseTitle: "",
-            courseDesc: ""
+            title: "",
+            description: ""
         }
     );
 
     const handleTitleChange = (text) => {
         text.persist();
         setNewCourse(prevState => ({
-            courseTitle: text.target.value,
-            courseDesc: prevState.courseDesc
+            title: text.target.value,
+            description: prevState.description
         }))
     };
     const handleDescChange = (text) => {
         text.persist();
         setNewCourse(prevState => ({
-            courseTitle: prevState.courseTitle,
-            courseDesc: text.target.value
+            title: prevState.title,
+            description: text.target.value
         }))
     };
 
