@@ -13,7 +13,7 @@ const BlogAdmin = (props) => {
     const [selectedPost, setSelectedPost] = useState('');
 
     //todo refactor
-    const posts = useSelector(state => state.admin.users);
+    const posts = useSelector(state => state.admin.posts);
     const dispatch = useDispatch();
     const setPosts = (x) => dispatch(populatePosts(x));
 
