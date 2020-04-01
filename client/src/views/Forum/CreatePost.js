@@ -1,22 +1,27 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { forumPostSubmit } from '../../store/forumSlice';
 
 const CreatePost = () => {
     const [title, setTitle] = useState("");
     const [bodyText, setBodyText] = useState("");
     const history = useHistory();
+    const dispatch = useDispatch();
     /*************************** Axios post to create a new post ************************************/
-    const createPost = (title, body) => {
-        if (!body || !title) {
+    const createPost = (e) => {
+        e.preventDefault();
+        if (!bodyText || !title) {
             // TODO error message.
             return;
         }
 
         axios.post('/forum',
-            { postTitle: title, postText: body })
+            { postTitle: title, postText: bodyText })
             .then(response => {
                 if (response.status === 200) {
+                    dispatch(forumPostSubmit(response.data));
                     history.goBack();
                 } else {
                     console.log(`Failed to add post: ${response.data}`);
@@ -29,7 +34,7 @@ const CreatePost = () => {
 
     return (
         <div>
-            <form>
+            <form onSubmit={createPost}>
 
                 <input
                     className="create-post-title"
@@ -44,14 +49,12 @@ const CreatePost = () => {
                     value={bodyText}
                     onChange={(e) => { setBodyText(e.target.value) }}
                     placeholder="Enter your post" />
-
+                <input
+                    className="create-post-submit"
+                    type="submit"
+                    value="Post"/>
             </form>
 
-            <button
-                className="create-post-submit"
-                onClick={createPost} >
-                Submit
-            </button>
         </div>
     );
 };

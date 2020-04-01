@@ -8,6 +8,11 @@ const forumRouter = require('./forum');
 const express = require('express');
 const router = express.Router();
 
+//Routes that contain /admin go here
+router.use('/admin', adminRouter);
+//Routes that contain /forum go here
+router.use('/forum', forumRouter);
+
 function saveSession(req, doc) {
     req.session.userID = doc._id;
     req.session.user = doc;
@@ -118,8 +123,6 @@ router.get('/session', (req, res) => {
     }
 })
 
-router.use('/admin', adminRouter);
-router.use('/forum', forumRouter);
 
 //make this prettier
 router.route('/initdata').get((req, res) => {

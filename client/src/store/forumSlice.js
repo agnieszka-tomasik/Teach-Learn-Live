@@ -13,6 +13,7 @@ const forumSlice = createSlice({
             // TODO
             // forum submit should return the JSON on success
             // state.posts.push(action.payload);
+            state.posts = action.payload
         },
         addComment(state, action) {
             // TODO
@@ -23,5 +24,5 @@ const forumSlice = createSlice({
     }
 });
 
-export const { populateForum, addComment } = forumSlice.actions;
+export const { populateForum, addComment, forumPostSubmit } = forumSlice.actions;
 export default forumSlice.reducer;
