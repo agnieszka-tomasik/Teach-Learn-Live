@@ -1,9 +1,16 @@
 const express = require('express');
 const router = express.Router();
 const adminController = require('../../controllers/AdminContentController.js');
+const User = require('../../schemas/UserSchema.js');
+const Newsletter = require('../../schemas/NewsletterSchema.js');
+const Blog = require('../../schemas/BlogPostSchema.js');
+const Courses = require('../../schemas/CourseSchema.js');
+const ForumPost = require('../../schemas/ForumPostSchema.js')
 
 router.use(adminController);
 
+//TODO -- this has similar call  as /initdata
+// refactor
 router.route('/courses/courseslist').get((req, res) => {
     Courses.find((err, docs) => {
         if (err) {
@@ -65,7 +72,7 @@ router.route('/courses/update').post((req, res) => {
     });
 });
 
-router.route('/admin/users/userslist').get((req, res) => {
+router.route('/users/userslist').get((req, res) => {
     User.find((err, docs) => {
         if (err) {
             return res.sendStatus(400);
@@ -75,7 +82,7 @@ router.route('/admin/users/userslist').get((req, res) => {
     });
 });
 
-router.route('/admin/users/add').post((req, res) => {
+router.route('/users/add').post((req, res) => {
     const { uname, email, password, isAdmin } = req.body;
 
     let newUser = new User({
@@ -112,7 +119,7 @@ router.route('/admin/users/add').post((req, res) => {
     });
 });
 
-router.route('/admin/users/delete').post((req, res) => {
+router.route('/users/delete').post((req, res) => {
     let { uname } = req.body;
     User.findOneAndRemove({ uname: uname }, (err, doc) => {
         if (err) {
@@ -129,7 +136,7 @@ router.route('/admin/users/delete').post((req, res) => {
     });
 });
 
-router.route('/admin/users/update').post((req, res) => {
+router.route('/users/update').post((req, res) => {
     let user = req.body;
     User.findById(user._id, (err, doc) => {
         if (err) {
@@ -155,7 +162,7 @@ router.route('/admin/users/update').post((req, res) => {
     });
 });
 
-router.route('/admin/blog/posts').get((req, res) => {
+router.route('/blog/posts').get((req, res) => {
     Blog.find((err, docs) => {
         if (err) {
             return res.sendStatus(400);
@@ -165,7 +172,7 @@ router.route('/admin/blog/posts').get((req, res) => {
     });
 });
 
-router.route('/admin/blog/add').post((req, res) => {
+router.route('/blog/add').post((req, res) => {
     let { postTitle, postText } = req.body;
     Blog.create({
         authUname: req.session.uname || "Anonymous",
@@ -186,7 +193,7 @@ router.route('/admin/blog/add').post((req, res) => {
     });
 });
 
-router.route('/admin/blog/delete').post((req, res) => {
+router.route('/blog/delete').post((req, res) => {
     let { id } = req.body;
     Blog.findByIdAndRemove(id, (err, doc) => {
         if (err) {
@@ -203,7 +210,7 @@ router.route('/admin/blog/delete').post((req, res) => {
     });
 });
 
-router.route('/admin/blog/update').post((req, res) => {
+router.route('/blog/update').post((req, res) => {
     let post = req.body;
     Blog.findByIdAndUpdate(post._id, post, (err, doc) => {
         if (err) {
@@ -220,7 +227,7 @@ router.route('/admin/blog/update').post((req, res) => {
     });
 });
 
-router.route('/admin/newsletter/emails').get((req, res) => {
+router.route('/newsletter/emails').get((req, res) => {
     Newsletter.find((err, docs) => {
         if (err) {
             return res.sendStatus(400);
@@ -230,7 +237,7 @@ router.route('/admin/newsletter/emails').get((req, res) => {
     });
 });
 
-router.route('/admin/newsletter/add').post((req, res) => {
+router.route('/newsletter/add').post((req, res) => {
     let { email } = req.body;
     Newsletter.create({
         email: email
@@ -249,7 +256,7 @@ router.route('/admin/newsletter/add').post((req, res) => {
     });
 });
 
-router.route('/admin/newsletter/delete').post((req, res) => {
+router.route('/newsletter/delete').post((req, res) => {
     let { id } = req.body;
     Newsletter.findByIdAndRemove(id, (err, doc) => {
         if (err) {

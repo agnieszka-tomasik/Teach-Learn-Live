@@ -7,6 +7,7 @@ import cart from './cartSlice';
 import forum, { populateForum } from './forumSlice';
 import course, { populateCourses } from './courseSlice';
 import user, { authenticated } from './userSlice';
+import admin from './adminSlice';
 
 
 // AS THE CODE STANDS RIGHT NOW: two reducers, one for adding / removing courses,
@@ -33,7 +34,8 @@ const rootReducer = combineReducers({
     cart,
     user,
     course,
-    forum
+    forum,
+    admin
 });
 
 const store = configureStore({
