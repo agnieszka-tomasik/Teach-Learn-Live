@@ -13,7 +13,8 @@ function Home() {
     }));
     const dispatch = useDispatch();
 
-    const logoutAction = () => {
+    const logoutAction = (e) => {
+        e.preventDefault();
         axios.post('/logout').then((response) => {
             if (response.status === 200) {
                 dispatch(logout());
