@@ -7,14 +7,14 @@ const UpdatePost = (props) => {
 
     const handleTitleChange = (text) => {
         text.persist();
-        let newPost = updatedPost;
+        let newPost = Object.assign({}, updatedPost);
         newPost.postTitle = text.target.value;
         setUpdatedPost(newPost);
     }
 
     const handleTextChange = (text) => {
         text.persist();
-        let newPost = updatedPost;
+        let newPost = Object.assign({}, updatedPost);
         newPost.postText = text.target.value;
         setUpdatedPost(newPost);
     }

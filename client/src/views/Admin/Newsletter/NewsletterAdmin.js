@@ -10,7 +10,7 @@ import { populateEmails } from '../../../store/adminSlice';
 const NewsletterAdmin = (props) => {
     const [filterText, setFilterText] = useState('');
 
-    const emails = useSelector(state => state.admin.users);
+    const emails = useSelector(state => state.admin.emails);
     const dispatch = useDispatch();
     const setEmails = (x) => dispatch(populateEmails(x));
 

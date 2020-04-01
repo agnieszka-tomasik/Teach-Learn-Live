@@ -7,27 +7,27 @@ const UpdateUser = (props) => {
 
     const handleUnameChange = (text) => {
         text.persist();
-        let newUser = updatedUser;
+        let newUser = Object.assign({}, updatedUser);
         newUser.uname = text.target.value;
         setUpdatedUser(newUser);
     }
 
     const handlePassChange = (text) => {
         text.persist();
-        let newUser = updatedUser;
+        let newUser = Object.assign({}, updatedUser);
         newUser.password = text.target.value;
         setUpdatedUser(newUser);
     }
 
     const handleEmailChange = (text) => {
         text.persist();
-        let newUser = updatedUser;
+        let newUser = Object.assign({}, updatedUser);
         newUser.email = text.target.value;
         setUpdatedUser(newUser);
     }
 
     const handleCheckChange = () => {
-        let newUser = updatedUser;
+        let newUser = Object.assign({}, updatedUser);
         newUser.isAdmin = !newUser.isAdmin;
         setUpdatedUser(newUser);
     }

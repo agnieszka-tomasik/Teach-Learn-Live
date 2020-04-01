@@ -7,14 +7,14 @@ const UpdateCourse = (props) => {
 
     const handleTitleChange = (text) => {
         text.persist();
-        let newCourse = updatedCourse;
+        let newCourse = Object.assign({}, updatedCourse);
         newCourse.title = text.target.value;
         setUpdatedCourse(newCourse);
     }
 
     const handleDescChange = (text) => {
         text.persist();
-        let newCourse = updatedCourse;
+        let newCourse = Object.assign({}, updatedCourse);
         newCourse.description = text.target.value;
         setUpdatedCourse(newCourse);
     }
