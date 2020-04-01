@@ -10,7 +10,7 @@ router.use(function (req, res, next) {
 });
 
 //The following is for routing the forum posts
-router.post('/forum', (req, res) => {
+router.post('/', (req, res) => {
     console.log('You are posting');
 
     User.findById(req.session.userID, (err, user) => {
@@ -46,7 +46,7 @@ router.post('/forum', (req, res) => {
     })
 });
 
-router.route('/forum/comment').post((req, res) => {
+router.route('/comment').post((req, res) => {
     ForumPost.findById(req.body.post._id, (err, doc) => {
         if (err) {
             res.status(403).send("Comment not posted");
