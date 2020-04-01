@@ -5,11 +5,18 @@ import UsersList from './UsersList';
 import AddUser from "./AddUser";
 import "../Admin.css"
 import axios from 'axios';
+import { useSelector, useDispatch } from 'react-redux';
+import { populateUsers } from '../../../store/adminSlice';
 
 const UsersAdmin = (props) => {
     const [filterText, setFilterText] = useState('');
     const [selectedUser, setSelectedUser] = useState('');
-    const [users, setUsers] = useState(props.users);
+
+    //todo refactor
+    const users = useSelector(state => state.admin.users);
+    const dispatch = useDispatch();
+    const setUsers = (x) => dispatch(populateUsers(x));
+
     const [addError, setAddError] = useState(null);
     const [delError, setDelError] = useState(null);
     const [upError, setUpError] = useState(null);
@@ -46,7 +53,7 @@ const UsersAdmin = (props) => {
     return (
         <div className="bg">
             <div className="row">
-                <h1>Manage Site Users</h1>
+                <h1 className="title">Manage Site Users</h1>
             </div>
 
             <Search

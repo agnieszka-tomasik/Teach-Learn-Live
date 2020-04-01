@@ -34,7 +34,7 @@ const AddCourse = (props) => {
 
     return (
         <div>
-            <h1>Add New Course:</h1>
+            <h1 className="title">Add New Course:</h1>
         <form>
             <input type='text' id='title' className='inputtext' placeholder='Course Title' onChange={handleTitleChange}/>
             <input type='text' className='inputtext' placeholder='Description' onChange={handleDescChange}/>

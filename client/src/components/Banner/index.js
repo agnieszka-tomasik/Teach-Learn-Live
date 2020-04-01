@@ -1,8 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+const defaultLinks = [
+    { path: '/home', name: 'Home' },
+    { path: '/courses', name: 'Courses' }
+]
 function Banner(props) {
-
+    const links = props.links || defaultLinks;
     return <nav className="navbar" role="navigation" aria-label="main navigation">
         <div className="navbar-brand">
             <Link to="home" className="navbar-item">
@@ -19,19 +23,18 @@ function Banner(props) {
         <div id="navbarBasicExample" className="navbar-menu">
             <div className="navbar-start">
                 <div className="buttons">
-                    <Link to="/home" className="navbar-item">Home</Link>
-                    <Link to="/courses" className="navbar-item">Courses</Link>
+                    {links.map(({ path, name }) => <Link key={path} to={path} className="navbar-item">{name}</Link>)}
                 </div>
             </div>
         </div>
     </nav>
 }
 
-export function WithBanner(Component) {
-    return (p) => <div>
-        <Banner />
+export function WithBanner(Component, links) {
+    return (p) => <>
+        <Banner links={links} />
         <Component {...p}></Component>
-    </div>;
+    </>;
 }
 
 export default Banner;

@@ -1,9 +1,9 @@
 import React from 'react'
-import { connect, useDispatch, useSelector } from 'react-redux'
-import { removeFromCart } from '../../store/actions.js'
+import { useDispatch, useSelector } from 'react-redux'
+import { removeFromCart } from '../../store/cartSlice'
 
-function Cart(props) {
-    const addedCourses = useSelector(state => state.addedCourses);
+function Cart() {
+    const addedCourses = useSelector(state => state.cart.courseList);
     const dispatch = useDispatch();
     let collection = addedCourses.map(course => {
         return (

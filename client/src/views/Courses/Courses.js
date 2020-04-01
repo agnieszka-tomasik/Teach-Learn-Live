@@ -4,26 +4,7 @@ import CartComponent from '../../components/Cart/Cart'
 import './Courses.css';
 import { WithBanner } from '../../components/Banner/index.js';
 import { Route, Switch, Link } from 'react-router-dom';
-import { connect } from 'react-redux'
-
-const courses = [
-    {
-        course_id: 1,
-        title: "Put class name here",
-        description: "Put class description here",
-        traditional: "Put remaining seat number here.",
-        online: "Put remaining seat number here.",
-        schedule: "Put date and time of class here."
-    },
-    {
-        course_id: 2,
-        title: "Put class name here",
-        description: "Put class description here",
-        traditional: "Put remaining seat number here.",
-        online: "Put remaining seat number here.",
-        schedule: "Put date and time of class here."
-    }
-];
+import { useSelector } from 'react-redux'
 
 function NavButtons() {
     return <div className="buttons">
@@ -32,7 +13,11 @@ function NavButtons() {
     </div>
 }
 
-function CourseHomePage(props) {
+function CourseHomePage() {
+    const courses = useSelector(state => state.course.availableCourses);
+    if(!courses) {
+        return <>Loading</>
+    }
     return <div>
         <NavButtons />
         <div className="course-list">
@@ -42,10 +27,10 @@ function CourseHomePage(props) {
     </div>
 }
 
-function Cart(props) {
+function Cart() {
     return <div>
         <NavButtons />
-        <CartComponent/>
+        <CartComponent />
     </div>;
 }
 
@@ -54,19 +39,13 @@ function Courses(props) {
         <div className="container">
             <h1 className="title">Courses</h1>
             <Switch>
-                <Route exact path="/courses/" component={CourseHomePage} />
+                <Route exact path="/courses/"
+                    render={(props) => <CourseHomePage {...props} />} />
                 <Route path="/courses/cart" component={Cart} />
             </Switch>
         </div>
     )
 }
 
-// takes the state in the reducer and passes it as props to the file
-const mapState = (state) => {
-    return {
-        courses: state.courses
-    }
-}
-
 // connects this Card component to the data in our store and passes in the two functions
-export default WithBanner(connect(mapState)(Courses))
+export default WithBanner(Courses);

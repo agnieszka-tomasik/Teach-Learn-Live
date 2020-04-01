@@ -5,11 +5,18 @@ import BlogList from './BlogList';
 import AddBlog from "./AddBlog";
 import "../Admin.css"
 import axios from 'axios';
+import { useSelector, useDispatch } from 'react-redux';
+import { populatePosts } from '../../../store/adminSlice';
 
 const BlogAdmin = (props) => {
     const [filterText, setFilterText] = useState('');
     const [selectedPost, setSelectedPost] = useState('');
-    const [posts, setPosts] = useState(props.posts);
+
+    //todo refactor
+    const posts = useSelector(state => state.admin.users);
+    const dispatch = useDispatch();
+    const setPosts = (x) => dispatch(populatePosts(x));
+
     const [addError, setAddError] = useState(null);
     const [delError, setDelError] = useState(null);
     const [upError, setUpError] = useState(null);
@@ -46,7 +53,7 @@ const BlogAdmin = (props) => {
     return (
         <div className="bg">
             <div className="row">
-                <h1>Manage Site Blog Posts</h1>
+                <h1 className="title">Manage Site Blog Posts</h1>
             </div>
 
             <Search

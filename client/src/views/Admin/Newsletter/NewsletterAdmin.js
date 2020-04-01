@@ -4,10 +4,16 @@ import EmailList from './EmailList';
 import AddEmail from "./AddEmail";
 import "../Admin.css"
 import axios from 'axios';
+import { useSelector, useDispatch } from 'react-redux';
+import { populateEmails } from '../../../store/adminSlice';
 
 const NewsletterAdmin = (props) => {
     const [filterText, setFilterText] = useState('');
-    const [emails, setEmails] = useState(props.emails);
+
+    const emails = useSelector(state => state.admin.users);
+    const dispatch = useDispatch();
+    const setEmails = (x) => dispatch(populateEmails(x));
+
     const [addError, setAddError] = useState(null);
     const [delError, setDelError] = useState(null);
 
@@ -39,7 +45,7 @@ const NewsletterAdmin = (props) => {
     return (
         <div className="bg">
             <div className="row">
-                <h1>Manage Newsletter Signups</h1>
+                <h1 className="title">Manage Newsletter Signups</h1>
             </div>
 
             <Search

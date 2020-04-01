@@ -37,7 +37,7 @@ const UpdateCourse = (props) => {
 
     return (
         <div>
-            <h1>Update Course:</h1>
+            <h1 className="title">Update Course:</h1>
         <form>
             <input type='text' className='inputtext' id='title' placeholder={props.selectedCourse.courseTitle} onChange={handleTitleChange}/>
             <input type='text' className='inputtext' placeholder={props.selectedCourse.courseDesc} onChange={handleDescChange}/>
