@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch, Redirect  } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import ForumPage from "./views/Forum/ForumPage";
 import Home from "./views/Home/Home";
 import Courses from "./views/Courses/Courses";
@@ -9,26 +9,42 @@ import NotFound from "./views/NotFound";
 import { StateProvider } from './store/store';
 import "./App.css";
 import Admin from './views/Admin';
+import { useSelector } from 'react-redux';
 
-// const courses = get courseslist
-
+//Specifies an AUTH boolean requirement to be true.
+const AuthRoute = ({ component: Component, auth, ...rest }) => {
+    return <Route {...rest}
+        render={(props) => auth
+            ? <Component {...props} />
+            : <Redirect to={{ pathname: "/login", state: { from: props.location } }} />} />;
+}
 const App = () => {
-  return (
-    <StateProvider>
-      <Switch>
+    return (
+        <StateProvider>
+            <Main />
+        </StateProvider>
+    );
+}
+
+const Main = () => {
+    const isAdmin = useSelector(state => state.user.profile.isAdmin);
+    // TODO refactor how profile data is loaded, as it stands 
+    // if user is logged in and tries to access the forum directly from link it fails to recognized them as 
+    // authenticated.
+    const isLoggedIn = useSelector(state => state.user.authenticated);
+    return <Switch>
         <Route exact path="/Home" component={Home} />
         <Route exact path="/Login" component={Login} />
         <Route exact path="/Register" component={Register} />
         <Route exact path="/">
-          <Redirect to="/home" />
+            <Redirect to="/home" />
         </Route>
-        <Route path="/forum" component={ForumPage}/>
         <Route path="/courses" component={Courses} />
-        <Route path="/admin" component={Admin}/>
-        <Route component={NotFound}/>
-      </Switch>
-    </StateProvider>
-  );
+        <Route path="/forum" component={ForumPage} />
+        <AuthRoute auth={isAdmin} path="/admin" component={Admin} />
+        <Route component={NotFound} />
+    </Switch>
+
 }
 
 export default App;
