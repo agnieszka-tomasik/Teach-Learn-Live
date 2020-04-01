@@ -41,7 +41,7 @@ const Main = () => {
         </Route>
         <Route path="/courses" component={Courses} />
         <Route path="/forum" component={ForumPage} />
-        <AuthRoute auth={isAdmin} path="/admin" component={Admin} />
+        <Route path="/admin" component={Admin} />
         <Route component={NotFound} />
     </Switch>
 
