@@ -7,7 +7,10 @@ import { useDispatch, useSelector } from 'react-redux';
 
 function Home() {
     const [message, setMessage] = useState(null);
-    const authenticated = useSelector(store => store.user.authenticated)
+    const {authenticated, isAdmin} = useSelector(store => ({
+        authenticated: store.user.authenticated,
+        isAdmin: store.user.profile.isAdmin
+    }));
     const dispatch = useDispatch();
 
     const logoutAction = () => {
@@ -52,6 +55,7 @@ function Home() {
                                 <div className="navbar-end">
                                     <div className="buttons">
                                          <Link to="courses" className="button is-light navbar-item">Courses</Link>
+                                         {authenticated && isAdmin && <Link to="admin" className="button is-primary navbar-item">Admin</Link>}
                                          {!authenticated && <Link to="login" className="button is-light navbar-item">Login</Link>}
                                          {!authenticated && <Link to="register" className="button is-primary navbar-item"><strong>Register</strong></Link>}
                                          {authenticated && <Link to="forum" className="button is-primary navbar-item">Forum</Link>}
