@@ -17,7 +17,8 @@ const forumSlice = createSlice({
         addComment(state, action) {
             // TODO
             // successfully adding a comment should update the client's state.
-            const post = state.posts.find(p => action.post === p)
+            // right now we send the entire post back but this is wasteful.
+            state.posts = action.payload
         }
     }
 });

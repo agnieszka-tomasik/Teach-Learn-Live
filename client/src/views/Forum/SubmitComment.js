@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { addComment } from '../../store/forumSlice';
+import { addComment, populateForum } from '../../store/forumSlice';
 import './ForumSubmit.css'
 import { useDispatch } from 'react-redux';
 import axios from 'axios';
@@ -8,7 +8,8 @@ const SubmitComment = (props) => {
     const [text, setText] = useState("");
     const dispatch = useDispatch();
 
-    const handleSubmit = () => {
+    const handleSubmit = (e) => {
+        e.preventDefault();
         //Do not allow empty comment submission
         if (!text)
             return;
@@ -24,7 +25,8 @@ const SubmitComment = (props) => {
             { post: props.parent, text: text })
             .then(response => {
                 if (response.status === 200) {
-                    dispatch(addComment({ post: props.parent, text }));
+                    console.log(props.parent, text);
+                    dispatch(addComment(response.data));
                 } else {
                     console.log("Comment failed");
                 }
@@ -35,24 +37,12 @@ const SubmitComment = (props) => {
     }
 
     return (
-        <form id="post-comment" className="field">
+        <form id="post-comment" className="field" onSubmit={handleSubmit}>
             <div className="submit-box control">
+                <input type="text" className="comment-input" value={text} 
+                    placeholder="Enter your comment" onChange={(e) => { setText(e.target.value); }}/>
 
-                <input
-                    type="text"
-                    className="comment-input"
-                    value={text}
-                    placeholder="Enter your comment"
-                    onChange={(e) => { setText(e.target.value); }}
-                />
-
-                <button
-                    className="button submit-comment"
-                    type="button"
-                    onClick={handleSubmit}
-                >
-                    Submit</button>
-
+                <input className="button submit-comment" type="submit" value="Submit"/>
             </div>
         </form>
 

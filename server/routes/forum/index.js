@@ -1,3 +1,5 @@
+const ForumPost = require('../../schemas/ForumPostSchema.js')
+const User = require('../../schemas/UserSchema.js');
 const express = require('express');
 const router = express.Router();
 
