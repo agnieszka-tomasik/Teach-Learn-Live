@@ -50,7 +50,7 @@ const UpdateUser = (props) => {
 
     return (
         <div>
-            <h1>Update User:</h1>
+            <h1 className="title">Update User:</h1>
         <form>
             <input type='text' className='inputtext' id='title' placeholder={props.selectedUser.uname} onChange={handleUnameChange}/>
             <input type='text' className='inputtext' placeholder={props.selectedUser.email} onChange={handleEmailChange}/>

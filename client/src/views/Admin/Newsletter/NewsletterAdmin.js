@@ -39,7 +39,7 @@ const NewsletterAdmin = (props) => {
     return (
         <div className="bg">
             <div className="row">
-                <h1>Manage Newsletter Signups</h1>
+                <h1 className="title">Manage Newsletter Signups</h1>
             </div>
 
             <Search

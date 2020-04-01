@@ -39,7 +39,7 @@ const UpdatePost = (props) => {
 
     return (
         <div>
-            <h1>Update Blog Post:</h1>
+            <h1 className="title">Update Blog Post:</h1>
         <form>
             <input type='text' className='inputtext' id='title' placeholder={props.selectedPost.postTitle} onChange={handleTitleChange}/>
             <input type='text' className='inputtext' id='textblock' placeholder={props.selectedPost.postText} onChange={handleTextChange}/>

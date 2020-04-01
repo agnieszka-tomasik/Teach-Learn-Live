@@ -25,7 +25,7 @@ const AddEmail = (props) => {
 
     return (
         <div>
-            <h1>Add New Email:</h1>
+            <h1 className="title">Add New Email:</h1>
         <form>
             <input type='text' className='inputtext' id='title' placeholder='Email' onChange={handleEmailChange}/>
             <br/>

@@ -6,16 +6,13 @@ import Courses from "./views/Courses/Courses";
 import Register from "./views/Login/Register";
 import Login from "./views/Login/Login";
 import NotFound from "./views/NotFound";
-import CoursesAdmin from "./views/Admin/Courses/CoursesAdmin";
-import UsersAdmin from "./views/Admin/Users/UsersAdmin";
-import BlogAdmin from "./views/Admin/Blog/BlogAdmin";
 import { StateProvider } from './store/store';
 import "./App.css";
-import NewsletterAdmin from './views/Admin/Newsletter/NewsletterAdmin';
+import Admin from './views/Admin';
 
 // const courses = get courseslist
 
-const App = (props) => {
+const App = () => {
   return (
     <StateProvider>
       <Switch>
@@ -25,27 +22,9 @@ const App = (props) => {
         <Route exact path="/">
           <Redirect to="/home" />
         </Route>
-        <Route 
-          path="/forum" 
-          render={() => <ForumPage posts={props.posts}/>} 
-        />
+        <Route path="/forum" component={ForumPage}/>
         <Route path="/courses" component={Courses} />
-        <Route 
-          exact path="/admin/courses" 
-          render={() => <CoursesAdmin courses={props.courses}/>} 
-        />
-        <Route 
-          exact path="/admin/users" 
-          render={() => <UsersAdmin users={props.users}/>} 
-        />
-        <Route 
-          exact path="/admin/blog" 
-          render={() => <BlogAdmin posts={props.blogPosts}/>} 
-        />
-        <Route 
-          exact path="/admin/newsletter" 
-          render={() => <NewsletterAdmin emails={props.emails}/>} 
-        />
+        <Route path="/admin" component={Admin}/>
         <Route component={NotFound}/>
       </Switch>
     </StateProvider>

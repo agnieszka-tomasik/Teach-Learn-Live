@@ -57,7 +57,7 @@ const AddUser = (props) => {
 
     return (
         <div>
-            <h1>Add New User:</h1>
+            <h1 className="title">Add New User:</h1>
         <form>
             <input type='text' className='inputtext' id='title' placeholder='Username' onChange={handleUnameChange}/>
             <input type='text' className='inputtext' placeholder='Email' onChange={handleEmailChange}/>

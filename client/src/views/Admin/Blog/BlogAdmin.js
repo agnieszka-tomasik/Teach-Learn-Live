@@ -46,7 +46,7 @@ const BlogAdmin = (props) => {
     return (
         <div className="bg">
             <div className="row">
-                <h1>Manage Site Blog Posts</h1>
+                <h1 className="title">Manage Site Blog Posts</h1>
             </div>
 
             <Search

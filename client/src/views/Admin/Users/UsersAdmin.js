@@ -46,7 +46,7 @@ const UsersAdmin = (props) => {
     return (
         <div className="bg">
             <div className="row">
-                <h1>Manage Site Users</h1>
+                <h1 className="title">Manage Site Users</h1>
             </div>
 
             <Search

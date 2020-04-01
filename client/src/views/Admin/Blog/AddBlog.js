@@ -34,7 +34,7 @@ const AddBlog = (props) => {
 
     return (
         <div>
-            <h1>Add New Blog Post:</h1>
+            <h1 className="title">Add New Blog Post:</h1>
         <form>
             <input type='text' className='inputtext' id='title' placeholder='Blog Post Title' onChange={handleTitleChange}/>
             <input type='text' className='inputtext' id='textblock' placeholder='Blog Post Title' onChange={handleTextChange}/>
