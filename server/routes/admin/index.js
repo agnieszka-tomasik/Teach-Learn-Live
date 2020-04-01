@@ -142,7 +142,7 @@ router.route('/users/update').post((req, res) => {
         if (err) {
             return res.sendStatus(400);
         } else {
-            if (user.password != null || user.password != "") {
+            if (user.password) {
                 doc.setPassword(user.password);
             }
             User.findByIdAndUpdate(user._id, user, (err, data) => {

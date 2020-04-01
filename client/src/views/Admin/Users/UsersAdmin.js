@@ -23,6 +23,7 @@ const UsersAdmin = (props) => {
 
 
     const usersUpdate = (newUsers) => {
+        console.log(newUsers);
         setUsers(newUsers);
     };
 
