@@ -1,27 +1,23 @@
-import React, {useState, useRef, useEffect} from 'react';
+import React, { useRef, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { setPaidFor, setError } from '../../store/paymentSlice';
 
 function Payment() {
-    const [paidFor, setPaidFor] = useState(false);
-    const [error, setError] = useState(null);
+    const addedCourses = useSelector(state => state.cart.courseList);
+    const stateOfPayment = useSelector(state => state.payment.paid);
+    const dispatch = useDispatch();
     const paypalRef = useRef();
-    const product = {
-        price: 100,
-        description: "Test Course",
-    }
 
     useEffect(() => {
-        window.paypal.
-        Buttons({
+        window.paypal.Buttons({
             createOrder: (data, actions) => {
                 return actions.order.create({
                     purchase_units: [
-                        {
-                            description: product.description,
-                            amount: {
-                                currency_code: 'USD',
-                                value: product.price,
-                            },
-                        },
+                        addedCourses.map(course => {
+                            title: course.title,
+                            currency: 'USD',
+                            price: course.price
+                        })
                     ],
                 });
             },
@@ -36,9 +32,9 @@ function Payment() {
             },
         })
         .render(paypalRef.current);
-    }, [product.description, product.price]);
+    }, []);
 
-    if (paidFor) {
+    if(stateOfPayment === true) {
         return(
             <div>
                 <h1>Purchase complete!</h1>
