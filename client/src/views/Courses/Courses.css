@@ -1,7 +1,9 @@
 .course-list {
-    display: inline-grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-gap: 1rem;
 }
-.course-list > * {
+/* .course-list > * {
     margin: .75rem;
-}
+} */
