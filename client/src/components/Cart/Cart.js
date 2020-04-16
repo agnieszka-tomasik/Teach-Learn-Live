@@ -13,7 +13,7 @@ function Cart() {
                         <div className="content-course">{course.title}</div>
                         <div className="content-description">{course.description}</div>
                         <div className="content-price">{course.price}</div>
-                        <button onClick={()=>{dispatch(removeFromCart(course.course_id))}}>Remove from cart</button>
+                        <button onClick={()=>{dispatch(removeFromCart(course._id))}}>Remove from cart</button>
                     </div>
                 </div>
             </div>
