@@ -9,7 +9,7 @@ function Banner(props) {
     const links = props.links || defaultLinks;
     return <nav className="navbar" role="navigation" aria-label="main navigation">
         <div className="navbar-brand">
-            <Link to="home" className="navbar-item">
+            <Link to="/home" className="navbar-item">
                 <img src={"/tll_logo_no_bg.svg"} alt="Teach Leave Live" />
             </Link>
 
