@@ -7,6 +7,25 @@ import './Forms.css';
 import { useDispatch } from 'react-redux';
 import { authenticated } from '../../store/userSlice';
 
+function validatePassword(password) {
+    const lowers = /(?=.*[a-z]).*/
+    const uppers = /(?=.*[A-Z]).*/
+    const symbols = /(?=.*[!@#$%^&'()*+",-./:;<=>?[\\\]_`{|}~]).*/
+    const length = /(?=^.{8,}$)/
+    let outputs = [];
+
+    if (password.search(lowers) === -1)
+        outputs.push(-1);
+    if (password.search(uppers) === -1)
+        outputs.push(-2);
+    if (password.search(symbols) === -1)
+        outputs.push(-3);
+    if (password.search(length) === -1)
+        outputs.push(-4);
+
+    return outputs;
+}
+
 function Login() {
     const history = useHistory();
     const [error, setError] = useState(null);
@@ -19,6 +38,44 @@ function Login() {
             setError('Passwords did not match!');
             return;
         }
+
+        /* Validating that the password is at least 8 characters long 
+         * and contains at least one lowercase, uppercase, and special 
+         * symbol character
+         */
+        let password = formData.get('password');
+        let retnums = validatePassword(password);
+        let errormsg = "";
+        console.log(`Size of retnums is: ${retnums.length}`);
+        retnums.forEach((retnum) => {
+            switch (retnum) {
+                case -1:
+                    errormsg += "Password must contain at least one lowercase letter \n";
+                    break;
+                case -2:
+                    errormsg += "Password must contain at least one uppercase letter \n";
+                    break;
+                case -3:
+                    errormsg += "Password must contain at least one special symbol \n";
+                    break;
+                case -4:
+                    errormsg += "Password must be at least 8 characters long \n";
+                    break;
+            }
+        });
+
+        if (retnums.length > 0) {
+            errormsg = new Set(errormsg.split('\n'))
+            errormsg = Array(errormsg);
+            errormsg = errormsg.map((e, key) => {
+                return (<span key={key}>
+                            {e}
+                            <br/>
+                        </span>);
+            });
+            setError(errormsg);
+            return;
+        } 
 
         axios.post('/register', Object.fromEntries(formData))
             .then((response) => {
@@ -53,9 +110,9 @@ function Login() {
                     <Field label="Confirm Password">
                         <input className="input" type="password" name="passwordConfirm" placeholder="Confirm Password" required />
                     </Field>
+                    {error && <p className="is-danger">{error}</p>}
                     <input className="button is-primary" type="submit" />
                 </form>
-                {error && <p className="is-danger">{error}</p>}
             </div>
             <Link to="/login">Login</Link>
             <Link to="/home">Go back</Link>
