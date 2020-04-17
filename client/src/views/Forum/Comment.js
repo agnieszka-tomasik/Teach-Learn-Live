@@ -3,7 +3,7 @@ import React from 'react';
 const Comment = (props) => {
     return (
         <li className = "Comment-box" key = {props.data._id} >
-            {props.data.postText}
+            {" | " + props.data.authUname + "> " + props.data.postText}
         </li>
     );
 }

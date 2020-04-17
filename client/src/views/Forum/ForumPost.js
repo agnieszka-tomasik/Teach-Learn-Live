@@ -1,13 +1,20 @@
 import React, { useRef } from 'react';
 import './Forum.css';
 import SubmitComment from './SubmitComment';
+import DeleteComment from './DeleteComment';
+import DeletePost from './DeletePost';
 import OriginalPost from './OriginalPost.js';
 import { useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 const Forum = () => {
     const { id } = useParams();
     const post = useSelector(state => state.forum.posts.find(p => p._id === id));
+    const {authenticated, isAdmin, isMod} = useSelector(store => ({
+        authenticated: store.user.authenticated,
+        isAdmin: store.user.profile.isAdmin,
+        isMod: store.user.profile.isMod
+    }));
     if(!post) {
         return <>Loading</>
     }
@@ -18,7 +25,8 @@ const Forum = () => {
     const commentsToList = post.comments.map(comment =>
         <div className="Comment-box" >
             <li key={comment._id} >
-                {comment.postText}
+                {"-- " + comment.authUname + "> " + comment.postText}
+                {authenticated && (isMod || isAdmin) && <DeleteComment post={post} comment={comment} >Remove</DeleteComment>}                        
             </li>
         </div>
     )
@@ -28,6 +36,7 @@ const Forum = () => {
         <section className="hero is-primary is-bold is-fullheight">
             <div>
                 <OriginalPost data={post} />
+                {authenticated && (isMod || isAdmin) && <DeletePost post={post} >Remove</DeletePost>}   
                 <ul>
                     {commentsToList}
                 </ul>

@@ -4,7 +4,8 @@ const OriginalPost = (props) => {
     return (
         <div className = "Post-box" >
             <div>{props.data.postTitle}</div>
-            <div>{props.data.postText}</div>
+            <div>{props.data.authUname + "> " + props.data.postText}</div>
+            {}
         </div>
     );
 }
