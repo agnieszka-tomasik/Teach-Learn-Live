@@ -55,7 +55,7 @@ router.route('/comment').post((req, res) => {
         }
         else {
             post = new ForumPost({
-                authUname: req.session.userID,
+                authUname: req.session.user.uname,
                 postText: req.body.text
             });
             doc.comments.push(post);
