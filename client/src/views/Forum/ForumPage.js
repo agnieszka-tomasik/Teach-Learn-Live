@@ -8,6 +8,8 @@ import { Switch, Route, Link } from 'react-router-dom';
 
 const ForumPage = (props) => {
 
+    const [filterText, setFilter] = useState("");
+
     /********** Hiding the forum list *********
     ** This code will be finished in the future
     ** and will allow the user to click a button
@@ -40,7 +42,11 @@ const ForumPage = (props) => {
         <div style={{ padding: '1rem' }}>
             <div className="forum">
                 <div className="left-side">
-                    <ForumList />
+                    <div className="forum-search">
+                        <input  type="text"         placeholder="Search Forum Posts by Title."
+                                value={filterText}  onChange={ (e) => {    setFilter(e.target.value)   } } />
+                    </div>
+                    <ForumList filter={filterText} />
                     <Link className="button" to="/forum/new/">Add a new post</Link>
                 </div>
 
