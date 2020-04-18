@@ -7,4 +7,5 @@ const ForumPostSchema = new mongoose.Schema({
   postDate: { type: Date, default: Date.now }
 });
 ForumPostSchema.add({comments: { type: [ForumPostSchema], default: [] }});
+ForumPostSchema.add({blacklist: { type: [Number], default: [] }});
 module.exports = mongoose.model('forumPosts', ForumPostSchema);
