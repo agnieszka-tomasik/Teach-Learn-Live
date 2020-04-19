@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import './Forum.css';
 import SubmitComment from './SubmitComment';
 import OriginalPost from './OriginalPost.js';
+import BlockedUser from './BlockedUser.js';
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 

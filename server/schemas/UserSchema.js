@@ -10,7 +10,8 @@ const userSchema = new mongoose.Schema({
   salt: { type: String, required: true },
   courses: { type: [String], default: [] },
   isAdmin: { type: Boolean, default: false },
-  joinDate: { type: Date, default: Date.now }
+  joinDate: { type: Date, default: Date.now },
+  blacklisted: { type: Boolean, default: false }
 });
 userSchema.plugin(uniqueValidator);
 

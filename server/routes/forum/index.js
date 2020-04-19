@@ -19,8 +19,9 @@ router.post('/', (req, res) => {
         if (err || !user) {
             res.status(403).send("Not authorized");
         }
-        /*else if (req.session.authUname === "Alex")
-                res.status(403).send("You are blocked from making a post");*/
+        else if (user.blacklisted) {
+            res.status(403).send("You are blocked from posting");
+        }
         else {
             let Post = new ForumPost(
                 {
@@ -54,6 +55,9 @@ router.route('/comment').post((req, res) => {
     ForumPost.findById(req.body.post._id, (err, doc) => {
         if (err) {
             res.status(403).send("Comment not posted");
+        }
+        else if (doc.blacklist.includes(req.session.userID)) {
+            res.status(403).send("You are blocked from commenting on this post");
         }
         else {
             post = new ForumPost({
