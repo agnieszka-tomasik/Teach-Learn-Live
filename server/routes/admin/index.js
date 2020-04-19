@@ -89,8 +89,8 @@ router.route('/users/add').post((req, res) => {
         uname: uname,
         email: email,
         isAdmin: isAdmin
-    }
-    );
+    });
+
     newUser.setPassword(password);
     newUser.save((err, user) => {
         if (err) {
@@ -267,53 +267,6 @@ router.route('/newsletter/delete').post((req, res) => {
                     return res.sendStatus(400);
                 } else {
                     return res.status(200).send(docs);
-                }
-            });
-        }
-    });
-});
-
-router.route('/forum/delete/post').post((req, res) => {
-    let { post } = req.body;
-    ForumPost.findByIdAndRemove(post._id, (err, doc) => {
-        if (err) {
-            return res.sendStatus(400);
-        } else {
-            ForumPost.find((err, docs) => {
-                if (err) {
-                    return res.sendStatus(400);
-                } else {
-                    return res.status(200).send(docs);
-                }
-            });
-        }
-    });
-});
-
-router.route('/forum/delete/comment').post((req, res) => {
-    let {post, comment} = req.body;
-    ForumPost.findById(post._id, (err, doc) => {
-        if (err) {
-            res.status(403).send("Comment not removed");
-        }
-        else {
-            const i = doc.comments.findIndex(c => c._id == comment._id);
-            //console.log(doc.comments);
-            //console.log(comment);
-            doc.comments.splice(i, 1);
-            ForumPost.findByIdAndUpdate(post._id, doc, (err, newDoc) => {
-                if (err) {
-                    res.status(403).send("Comment not removed");
-                }
-                else {
-                    ForumPost.find((err, docs) => {
-                        if (err) {
-                            res.status(403).send("Comment not removed");
-                        }
-                        else {
-                            res.status(200).send(docs);
-                        }
-                    })
                 }
             });
         }

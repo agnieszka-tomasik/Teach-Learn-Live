@@ -9,7 +9,7 @@ const DeletePost = (props) => {
     const dispatch = useDispatch();
 
     const handleClick = () => {
-        axios.post('/admin/forum/delete/post', {post:props.post})
+        axios.post('/forum/post/delete', {post:props.post})
             .then(response => {
                 if (response.status === 200) {
                     dispatch(delPost(response.data));
@@ -25,7 +25,7 @@ const DeletePost = (props) => {
     }
 
     return (
-        <button className='rm-button' onClick={handleClick}>Remove</button>
+        <button className='rm-button' onClick={handleClick}>Remove Post</button>
     );
 
 };
