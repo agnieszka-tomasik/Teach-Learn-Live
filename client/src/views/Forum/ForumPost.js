@@ -3,6 +3,7 @@ import './Forum.css';
 import SubmitComment from './SubmitComment';
 import DeleteComment from './DeleteComment';
 import DeletePost from './DeletePost';
+import BlockedUser from './BlockedUser';
 import OriginalPost from './OriginalPost.js';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -26,6 +27,7 @@ const Forum = () => {
     const commentsToList = post.comments.map(comment =>
         <div className="Comment-box" >
             <li key={comment._id} >
+                {authenticated && (isMod || isAdmin) && <BlockedUser post={post} username={comment.authUname} >Block</BlockedUser>}  
                 {"-- " + comment.authUname + "> " + comment.postText}
                 {authenticated && (isMod || isAdmin) && <DeleteComment post={post} comment={comment} >Remove</DeleteComment>}                        
             </li>

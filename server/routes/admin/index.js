@@ -89,8 +89,8 @@ router.route('/users/add').post((req, res) => {
         uname: uname,
         email: email,
         isAdmin: isAdmin
-    }
-    );
+    });
+
     newUser.setPassword(password);
     newUser.save((err, user) => {
         if (err) {
@@ -316,6 +316,34 @@ router.route('/forum/delete/comment').post((req, res) => {
                     })
                 }
             });
+        }
+    });
+});
+
+//Adding the route to block users from commenting on a specific post
+router.route('/forum/localblock').post((req, res) => {
+    let {post, username} = req.body;
+    ForumPost.findById(post._id, (err, doc) => {
+        if (err) {
+            res.status(400).send("Failed to block user from commenting");
+        }
+        else {
+            User.find({uname: username}, (err, user) => {
+                if (err) {
+                    res.status(400).send("Failed to block user from commenting");
+                }
+                else {
+                    doc.blacklist.append(user._id.toString());
+                    ForumPost.findByIdAndUpdate(post._id, doc, (err, newdoc) => {
+                        if (err) {
+                            res.status(400).send("Failed to block user from commenting");
+                        }
+                        else {
+                            res.status(200).send("Successfully blocked user from commenting");
+                        }
+                    });
+                }
+            })
         }
     });
 });

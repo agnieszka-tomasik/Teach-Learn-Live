@@ -25,7 +25,7 @@ const DeletePost = (props) => {
     }
 
     return (
-        <button className='rm-button' onClick={handleClick}>Remove</button>
+        <button className='rm-button' onClick={handleClick}>Remove Post</button>
     );
 
 };
