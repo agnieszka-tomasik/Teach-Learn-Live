@@ -9,7 +9,7 @@ const DeleteComent = (props) => {
     const dispatch = useDispatch();
 
     const handleClick = () => {
-        axios.post('/admin/forum/delete/comment', {post:props.post, comment:props.comment})
+        axios.post('/forum/comment/delete', {post:props.post, comment:props.comment})
             .then(response => {
                 if (response.status === 200) {
                     dispatch(delComment(response.data));

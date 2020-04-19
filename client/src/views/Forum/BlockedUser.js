@@ -4,7 +4,7 @@ import "./Forum.css"
 
 const BlockedUser = (props) => {
     const handleClick = () => {
-        axios.post('/admin/forum/localblock', {post: props.post, username: props.username})
+        axios.post('/forum/post/localblock', {post: props.post, username: props.username})
             .then(response => {
                 if (response.status === 200) {
                 } else {
