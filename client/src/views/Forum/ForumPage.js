@@ -43,7 +43,6 @@ const ForumPage = (props) => {
                     <ForumList />
                     <Link className="button" to="/forum/new/">Add a new post</Link>
                 </div>
-
                 <div className="right-side">
                     <div className="forum-body-container">
                         <Switch>
@@ -59,7 +58,14 @@ const ForumPage = (props) => {
     );
 }
 
-const DefaultPage = () => <div className="default-forum-main" >
-    Select a post to read or create a new post.
-                    </div>;
+const DefaultPage = () =>
+  <div className="default-forum-main">
+    <article class="message is-dark">
+      <div class="message-header">
+        <p>Welcome to the forum!</p>
+      </div>
+      <div class="message-body">See what others have been thinking. Share your insights by starting a conversation or commenting on another post.</div>
+    </article>
+  </div>
+
 export default WithBanner(ForumPage);
