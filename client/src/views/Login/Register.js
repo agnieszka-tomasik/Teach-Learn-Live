@@ -46,7 +46,6 @@ function Login() {
         let password = formData.get('password');
         let retnums = validatePassword(password);
         let errormsg = "";
-        console.log(`Size of retnums is: ${retnums.length}`);
         retnums.forEach((retnum) => {
             switch (retnum) {
                 case -1:

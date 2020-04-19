@@ -19,6 +19,8 @@ router.post('/', (req, res) => {
         if (err || !user) {
             res.status(403).send("Not authorized");
         }
+        /*else if (req.session.authUname === "Alex")
+                res.status(403).send("You are blocked from making a post");*/
         else {
             let Post = new ForumPost(
                 {
