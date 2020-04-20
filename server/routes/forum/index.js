@@ -3,6 +3,14 @@ const User = require('../../schemas/UserSchema.js');
 const express = require('express');
 const router = express.Router();
 
+const modController = (req, res, next) => {
+    if (req.session.user.isMod || req.session.user.isAdmin) {
+        next();
+    } else {
+        res.status(403).send("Not authorized.");
+    }
+}
+
 router.use(function (req, res, next) {
     if (req.session.user) {
         next();
@@ -174,6 +182,33 @@ router.route('/post/localblock').post((req, res) => {
                     });
                 }
             })
+        }
+    });
+});
+
+router.route('/globalblock').post((req, res) => {
+    let user = req.body;
+    User.findByIdAndUpdate(user._id, {blacklisted:user.blacklisted}, (err, data) => {
+        if(err){
+            return res.status(400).send("Block fail");
+        }else{
+            User.find((err, docs) => {
+                if(err){
+                    return res.status(201).send("Get userlist fail.");
+                }else{
+                    return res.status(200).send(docs);
+                }
+            });
+        }
+    });
+});
+
+router.route('/mod/userslist').get( modController, (req, res) => {
+    User.find((err, docs) => {
+        if(err){
+            return res.status(201).send("Get userlist fail.");
+        }else{
+            return res.status(200).send(docs);
         }
     });
 });

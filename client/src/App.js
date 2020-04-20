@@ -9,6 +9,7 @@ import NotFound from "./views/NotFound";
 import { StateProvider } from './store/store';
 import "./App.css";
 import Admin from './views/Admin';
+import Mod from './views/Forum/Mod';
 import { useSelector } from 'react-redux';
 
 //Specifies an AUTH boolean requirement to be true.
@@ -40,6 +41,7 @@ const Main = () => {
             <Redirect to="/home" />
         </Route>
         <Route path="/courses" component={Courses} />
+        <Route path="/forum/mod" component={Mod} />
         <Route path="/forum" component={ForumPage} />
         <Route path="/admin" component={Admin} />
         <Route component={NotFound} />
