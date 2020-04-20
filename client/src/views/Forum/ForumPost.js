@@ -19,7 +19,6 @@ const Forum = () => {
     if(!post) {
         return <>Loading</>
     }
-    console.log(post.comments.map(comment => comment._id));
     /**************** Comments to list: **************
     ** takes an array of comments and turns them into
     ** an html list to be printed below the original post
@@ -36,7 +35,7 @@ const Forum = () => {
 
     /******** Print Original Post and Comments *********/
     return (
-        <section className="hero is-primary is-bold is-fullheight">
+        <section className="hero is-primary is-bold is-fullheight post-view">
             <div>
                 {authenticated && (isMod || isAdmin) && <DeletePost post={post} >Remove Post</DeletePost>}
                 <OriginalPost data={post} />   
