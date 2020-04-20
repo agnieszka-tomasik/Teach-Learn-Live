@@ -51,7 +51,27 @@ router.post('/', (req, res) => {
     })
 });
 
+const addComment = (doc, post, selected) => {
+    if(doc._id == selected._id){
+        doc.comments.push(post);
+        return doc;
+    }else if(doc.comments.length <= 0){
+        return doc;
+    }else{
+        for(let i = 0; i < doc.comments.length; i++){
+            doc.comments[i] = addComment(doc.comments[i], post, selected);
+        }
+        return doc;
+    }
+}
+
 router.route('/comment').post((req, res) => {
+    const {post , text, selected} = req.body;
+    if(selected == undefined || selected == null){
+        return res.status(201).send("Comment post fail");
+    }
+    console.log(post);
+    console.log(selected);
     ForumPost.findById(req.body.post._id, (err, doc) => {
         if (err) {
             res.status(403).send("Comment not posted");
@@ -60,22 +80,22 @@ router.route('/comment').post((req, res) => {
             res.status(403).send("You are blocked from commenting on this post");
         }
         else {
-            post = new ForumPost({
+            postWrap = new ForumPost({
                 authUname: req.session.user.uname,
-                postText: req.body.text
+                postText: text
             });
-            doc.comments.push(post);
-            ForumPost.findByIdAndUpdate(req.body.post._id, doc, (err, doc) => {
+            doc = addComment(doc, postWrap, selected);
+            ForumPost.findByIdAndUpdate(req.body.post._id, doc, (err, newdoc) => {
                 if (err) {
                     res.status(403).send("Comment not posted");
                 }
                 else {
-                    ForumPost.find((err, doc) => {
+                    ForumPost.find((err, docs) => {
                         if (err) {
                             res.status(403).send("Comment not posted");
                         }
                         else {
-                            res.status(200).send(doc);
+                            res.status(200).send(docs);
                         }
                     })
                 }
