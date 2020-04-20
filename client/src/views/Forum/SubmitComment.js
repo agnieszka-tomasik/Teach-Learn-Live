@@ -28,9 +28,11 @@ const SubmitComment = (props) => {
                     console.log(props.parent, text);
                     dispatch(addComment(response.data));
                 } else {
+                    props.setError("You are blocked from commenting on this post");
                     console.log("Comment failed");
                 }
             }).catch(e => {
+                props.setError("You are blocked from commenting on this post");
                 console.log(`Comment failed with error: ${e}`);
             });
 
@@ -41,7 +43,6 @@ const SubmitComment = (props) => {
             <div className="submit-box control">
                 <input type="text" className="comment-input" value={text} 
                     placeholder="Enter your comment" onChange={(e) => { setText(e.target.value); }}/>
-
                 <input className="button submit-comment" type="submit" value="Submit"/>
             </div>
         </form>

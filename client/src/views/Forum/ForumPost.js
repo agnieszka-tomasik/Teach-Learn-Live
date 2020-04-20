@@ -1,14 +1,23 @@
 import React, { useRef } from 'react';
+import {useState} from 'react'
 import './Forum.css';
 import SubmitComment from './SubmitComment';
+import DeleteComment from './DeleteComment';
+import DeletePost from './DeletePost';
 import OriginalPost from './OriginalPost.js';
 import BlockedUser from './BlockedUser.js';
 import { useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 const Forum = () => {
     const { id } = useParams();
+    const [error, setError] = useState(null);
     const post = useSelector(state => state.forum.posts.find(p => p._id === id));
+    const {authenticated, isAdmin, isMod} = useSelector(store => ({
+        authenticated: store.user.authenticated,
+        isAdmin: store.user.profile.isAdmin,
+        isMod: store.user.profile.isMod
+    }));
     if(!post) {
         return <>Loading</>
     }
@@ -19,20 +28,24 @@ const Forum = () => {
     const commentsToList = post.comments.map(comment =>
         <div className="Comment-box" >
             <li key={comment._id} >
-                {comment.postText}
+                {authenticated && (isMod || isAdmin) && <BlockedUser post={post} username={comment.authUname} >Block</BlockedUser>}  
+                {"-- " + comment.authUname + "> " + comment.postText}
+                {authenticated && (isMod || isAdmin) && <DeleteComment post={post} comment={comment} >Remove</DeleteComment>}                        
             </li>
         </div>
     )
 
     /******** Print Original Post and Comments *********/
     return (
-        <section className="hero is-primary is-bold is-fullheight">
+        <section className="hero is-primary is-bold is-fullheight post-view">
             <div>
-                <OriginalPost data={post} />
+                {authenticated && (isMod || isAdmin) && <DeletePost post={post} >Remove Post</DeletePost>}
+                <OriginalPost data={post} />   
                 <ul>
                     {commentsToList}
                 </ul>
-                <SubmitComment parent={post} />
+                <SubmitComment parent={post} setError={setError} />
+                {error && error.split('\n').map((err, key) => <p className="is-danger" key={key} style={{color:"red", fontSize: "30px"}}> {err}</p>)}
             </div>
         </section>
     );

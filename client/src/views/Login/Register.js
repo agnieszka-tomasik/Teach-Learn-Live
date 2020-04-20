@@ -112,11 +112,11 @@ function Login() {
                     {error && <p className="is-danger">{error}</p>}
                     <input className="button is-primary" type="submit" />
                 </form>
+                {error && error.split('\n').map((err, key) => <p className="is-danger" key={key}>{err}</p>)}
             </div>
             <Link to="/login">Login</Link>
             <Link to="/home">Go back</Link>
         </div>
     );
 }
-
 export default WithBanner(Login);
