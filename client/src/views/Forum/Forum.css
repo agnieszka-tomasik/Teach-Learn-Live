@@ -9,3 +9,8 @@
 .right-side{
 	flex-grow: 2;
 }
+
+/* sets the color for the dynamic main box featuring posts to white */
+.forum-body-container {
+	background-color: #FFFFFF;
+}

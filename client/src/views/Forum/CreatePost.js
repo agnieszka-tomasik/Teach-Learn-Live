@@ -34,27 +34,53 @@ const CreatePost = () => {
 
     return (
         <div>
-            <form onSubmit={createPost}>
-
-                <input
-                    className="create-post-title"
-                    type="text"
-                    value={title}
-                    onChange={(e) => { setTitle(e.target.value) }}
-                    placeholder="Enter your title" />
-
-                <input
-                    className="create-post-body-text"
-                    type="text"
-                    value={bodyText}
-                    onChange={(e) => { setBodyText(e.target.value) }}
-                    placeholder="Enter your post" />
-                <input
-                    className="create-post-submit"
-                    type="submit"
-                    value="Post"/>
-            </form>
-
+          <form onSubmit={createPost}>
+            /*
+             * The 'Media Object' layout imported from Bulma is used here
+             * https://bulma.io/documentation/layout/media-object/
+             * displays the field where a post can be created
+             */
+            <article class="media">
+              <div class="media-content">
+                <div class="field">
+                  <p class="control">
+                    <textarea class="textarea">
+                      <input
+                          className="create-post-title"
+                          type="text"
+                          value={title}
+                          onChange={(e) => { setTitle(e.target.value) }}
+                          placeholder="Enter your title" />
+                    </textarea>
+                  </p>
+                </div>
+                <div class="field">
+                  <p class="control">
+                    <textarea class="textarea">
+                      <input
+                          className="create-post-body-text"
+                          type="text"
+                          value={bodyText}
+                          onChange={(e) => { setBodyText(e.target.value) }}
+                          placeholder="Enter your post" />
+                    </textarea>
+                  </p>
+                </div>
+                <nav class="level">
+                  <div class="level-left">
+                    <div class="level-item">
+                      <a class="button is-info">
+                        <input
+                            className="create-post-submit"
+                            type="submit"
+                            value="Post"/>
+                      </a>
+                    </div>
+                  </div>
+                </nav>
+              </div>
+            </article>
+          </form>
         </div>
     );
 };

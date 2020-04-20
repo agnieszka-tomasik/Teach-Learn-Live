@@ -6,10 +6,10 @@ const ForumList = (props) => {
     const posts = useSelector(state => state.forum.posts)
     const history = useHistory();
     /***** maps the forum posts to clickable table rows with the corresponding information needed for the list *****/
-    const items = posts.map( item => 
-        <tr key = {item._id} onClick = { () => { history.push(`/forum/${item._id}`) } } >
+    const items = posts.map( item =>
+        <tr key={item._id} onClick={ () => { history.push(`/forum/${item._id}`) } } >
             <td>
-                {item.postTitle} <br/>
+                <br>{item.postTitle} · <i>{item.authUname}</i></br>
             </td>
         </tr>
     );
