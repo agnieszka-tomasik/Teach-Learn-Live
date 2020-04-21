@@ -22,7 +22,7 @@ const SubmitComment = (props) => {
     const postComment = (text) => {
 
         axios.post('/forum/comment',
-            { post: props.parent, text: text })
+            { post: props.parent, text:text, selected:props.selected})
             .then(response => {
                 if (response.status === 200) {
                     console.log(props.parent, text);

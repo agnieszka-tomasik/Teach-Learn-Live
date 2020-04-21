@@ -20,9 +20,19 @@ const forumSlice = createSlice({
             // successfully adding a comment should update the client's state.
             // right now we send the entire post back but this is wasteful.
             state.posts = action.payload
+        },
+        delPost(state, action){
+            //TODO
+            //Similar ^^
+            state.posts = action.payload
+        },
+        delComment(state, action){
+            //TODO
+            //Similar ^^
+            state.posts = action.payload
         }
     }
 });
 
-export const { populateForum, addComment, forumPostSubmit } = forumSlice.actions;
+export const { populateForum, addComment, forumPostSubmit , delPost, delComment} = forumSlice.actions;
 export default forumSlice.reducer;

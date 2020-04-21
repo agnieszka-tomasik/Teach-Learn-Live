@@ -3,10 +3,20 @@ import './Forum.css';
 import ForumList from './ForumList.js';
 import CreatePost from './CreatePost';
 import ForumPost from './ForumPost';
+import { useParams } from 'react-router-dom';
+import { useDispatch, useSelector, ReactReduxContext } from 'react-redux';
 import { WithBanner } from '../../components/Banner/index.js';
 import { Switch, Route, Link } from 'react-router-dom';
 
 const ForumPage = (props) => {
+    const { id } = useParams();
+    const post = useSelector(state => state.forum.posts.find(p => p._id === id));
+    const [selected, setSelected] = useState(post);
+    const {authenticated, isAdmin, isMod} = useSelector(store => ({
+        authenticated: store.user.authenticated,
+        isAdmin: store.user.profile.isAdmin,
+        isMod: store.user.profile.isMod
+    }));
 
     /********** Hiding the forum list *********
     ** This code will be finished in the future
@@ -42,6 +52,7 @@ const ForumPage = (props) => {
                 <div className="left-side">
                     <ForumList />
                     <Link className="button" to="/forum/new/">Add a new post</Link>
+                    {authenticated && (isMod || isAdmin) && <Link className="button" to="/forum/mod/">Moderate Forum</Link>}
                 </div>
                 <div className="right-side">
                     <div className="forum-body-container">
