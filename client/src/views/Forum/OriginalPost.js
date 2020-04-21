@@ -4,6 +4,7 @@ import DeletePost from './DeletePost';
 import { useDispatch, useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser, faAngleRight } from '@fortawesome/free-solid-svg-icons'
+import moment from 'moment';
 import "./OriginalPost.css";
 
 const OriginalPost = (props) => {
@@ -29,7 +30,7 @@ const OriginalPost = (props) => {
                         <br/>
                         {props.data.postText}
                         <br />
-                        <small>{props.data.postDate}</small>
+                        <small>{moment(props.data.postDate).fromNow()}</small>
                         {/* {authenticated && (isMod || isAdmin) && <DeletePost post={props.data} >Remove Post</DeletePost>} */}
                     </div>
                 </div>
