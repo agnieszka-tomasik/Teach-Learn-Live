@@ -7,15 +7,19 @@ import { forumPostSubmit } from '../../store/forumSlice';
 const CreatePost = () => {
     const [title, setTitle] = useState("");
     const [bodyText, setBodyText] = useState("");
+    const [locked, setLock] = useState(false);
     const history = useHistory();
     const dispatch = useDispatch();
+
     /*************************** Axios post to create a new post ************************************/
     const createPost = (e) => {
         e.preventDefault();
-        if (!bodyText || !title) {
+        if (!bodyText || !title || locked) {
             // TODO error message.
             return;
         }
+
+        setLock(true);
 
         axios.post('/forum',
             { postTitle: title, postText: bodyText })
@@ -26,7 +30,7 @@ const CreatePost = () => {
                 } else {
                     console.log(`Failed to add post: ${response.data}`);
                 }
-            }).catch(err => {
+            }).then( () => {setLock(false);} ).catch(err => {
                 console.log(`Failed to add post with error: ${err}`);
             });
 
