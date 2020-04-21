@@ -13,11 +13,6 @@ const Forum = () => {
     const { id } = useParams();
     const post = useSelector(state => state.forum.posts.find(p => p._id === id));
     const [selected, setSelected] = useState(post);
-    const {authenticated, isAdmin, isMod} = useSelector(store => ({
-        authenticated: store.user.authenticated,
-        isAdmin: store.user.profile.isAdmin,
-        isMod: store.user.profile.isMod
-    }));
     if(!post) {
         return <>Loading</>
     }
@@ -25,48 +20,15 @@ const Forum = () => {
     ** takes an array of comments and turns them into
     ** an html list to be printed below the original post
     */
-    const levelPrefix = (level) => {
-        let acc = "";
-        for(let i = 0; i < level; i++){
-            acc += "| ";
-        }
-        return acc;
-    }
-
-    const renderComments = (comments, level) => {
-        if(comments == undefined || comments == null || comments.length == 0){
-            return [];
-        }else{
-            let acc = [];
-            for(let i = 0; i < comments.length; i++){
-                acc.push({post:comments[i], level:level});
-                acc = acc.concat(renderComments(comments[i].comments, level + 1));
-            }
-            return acc;
-        }
-    }
-
-    const comments = post.comments.map(comment =>{
-        return <Comment key={comment._id} comment={comment}/>}
-    );
-
-    const commentsToList = renderComments(post.comments, 1).map(comment =>
-        <div className="comment-box" >
-            <li onClick={() => setSelected(comment.post)} key={comment.post._id} >
-                {authenticated && (isMod || isAdmin) && <BlockedUser post={post} username={comment.authUname} >Block</BlockedUser>}  
-                {levelPrefix(comment.level) + comment.post.authUname + "> " + comment.post.postText}
-                {authenticated && (isMod || isAdmin) && <DeleteComment post={post} comment={comment.post} >Remove</DeleteComment>}          
-            </li>
-        </div>
-    )
+    const commentsToList = post.comments.map(Comment)
 
     /******** Print Original Post and Comments (with indent of 50px for comments specified in ForumPost.css) *********/
     return (
-        <section className="post-view">
-            <div> 
-                <ul>
-                    <OriginalPost data={post} setSelected={setSelected}/>
-                    {comments}
+        <section>
+            <div>
+                <OriginalPost data={post} />
+                <ul className="comment-list">
+                    {commentsToList}
                 </ul>
                 <SubmitComment parent={post} selected={selected}/>
             </div>

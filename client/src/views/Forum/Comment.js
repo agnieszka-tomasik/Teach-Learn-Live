@@ -15,11 +15,11 @@ const Comment = (props) => {
                 <div className="media-content">
                     <div className="content">
                         <p>
-                            <b>{props.comment.authUname}</b>
+                            <b>{props.authUname}</b>
                             <br/>
-                            {props.comment.postText}
+                            {props.postText}
                             <br />
-                            <small>{moment(props.comment.postDate).fromNow()}</small>
+                            <small>{moment(props.postDate).fromNow()}</small>
                         </p>
                     </div>
                 </div>
