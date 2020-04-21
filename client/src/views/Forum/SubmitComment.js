@@ -8,6 +8,7 @@ const SubmitComment = (props) => {
     const [text, setText] = useState("");
     const dispatch = useDispatch();
 
+    console.log(text);
     const handleSubmit = (e) => {
         e.preventDefault();
         //Do not allow empty comment submission
@@ -46,26 +47,20 @@ const SubmitComment = (props) => {
               <div class="media-content">
                 <div class="field">
                   <p class="control">
-                    <textarea class="textarea">
-                      <form>
                         <input
-                          className="comment-input"
+                          className=" textarea comment-input"
                           type="text"
                           value={text}
                           onChange={(e) => { setText(e.target.value) }}
                           placeholder="Enter your comment" />
-                      </form>
-                    </textarea>
                   </p>
                 </div>
                 <div class="field">
                   <p class="control">
-                    <button>
                       <input
                           className="button submit-comment"
                           type="submit"
                           value="Post"/>
-                    </button>
                   </p>
                 </div>
               </div>

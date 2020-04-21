@@ -46,6 +46,11 @@ const Forum = () => {
         }
     }
 
+    const comments = post.comments.map(comment =>{
+        console.log(comment);
+        return <Comment key={comment._id} comment={comment}/>}
+    );
+
     const commentsToList = renderComments(post.comments, 1).map(comment =>
         <div className="Comment-box" >
             <li onClick={() => setSelected(comment.post)} key={comment.post._id} >
@@ -62,7 +67,7 @@ const Forum = () => {
             <div> 
                 <ul>
                     <OriginalPost data={post} setSelected={setSelected}/>
-                    {commentsToList}
+                    {comments}
                 </ul>
                 <SubmitComment parent={post} selected={selected}/>
             </div>
