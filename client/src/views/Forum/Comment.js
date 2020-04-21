@@ -1,80 +1,84 @@
-import React, { useState } from 'react';
-import './Forum.css'
+import React, { useState, useEffect } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser, faCalendar, faEllipsisH } from '@fortawesome/free-solid-svg-icons';
+import moment from 'moment';
+import { useDispatch } from 'react-redux';
+import axios from 'axios';
+import { delComment } from '../../store/forumSlice';
+import "./Comment.css";
+import "./Common.css";
+import useErrorToast from '../../components/ErrorToast';
 
-/* Each comment has one RefBox that is not displayed unless active.
-** The box becomes active when the comment's hyperlink reference is hovered over.
-**
-** The active box displays the information of the comment whose reference
-** is being hovered over.
-*/
-const RefBox = (props) => {
-    const ref = props.commentRef;
-
-    let text;
-
-    /* Don't allow refbox to have more hyperlinks.
-    ** Instead just put the authUname without link.
-    ** This replaces the not very appealing tag that would
-    ** appear in the text of the comment being referenced
-    ** with the authUname of the comment the tag would
-    ** reference.
-    **
-    ** Kind of a middle ground between just showing the tag and making it an actual hyperlink.
-    ** I chose this because I thought it unwise to have hyperlinks to hyperlinks and so on...
-    */
-    if (ref) {
-        text = ref.postText.replace(/<replyTo:(\w*)>/g, (match, id, offset, string) => {
-            return props.commentList.find(comment => comment._id === id).authUname;
-        });
-    }
-
-    /* If there is no ref, nothing is returned, otherwise everything in the div is output */
-    return (
-        ref &&
-        <div className="Ref-box">
-            {text}
-        </div>
-    );
+/** Hyperlink to comment replying to **/
+const CommentLink = (props) => {
+  return (
+      <a  href={"#" + props.comment._id }
+          onMouseOver = {  () => {   props.select(props.comment._id)    } }
+          onMouseOut = {  () => { props.select(null)  }   } >
+          {props.comment.authUname}
+      </a>
+  );
 }
 
-/** Hyperlink reference that results from replying **/
-const CommentRef = (props) => {
-    return (
-        <a href={"#" + props.commentRef._id}
-            onMouseOver={() => { props.select(props.commentRef) }}
-            onMouseOut={() => { props.select(null) }} >
-            {props.commentRef.authUname}
-        </a>
-    );
-}
 
+/* component used in ForumPost.js to create a comment list */
 const Comment = (props) => {
-    /* Refs refer to the references to other comments made by replying
-    **
-    ** The reference appears as a hyperlink of the authUname of the person
-    ** whose comment is being referenced by a reply.
-    **
-    ** That reference is selected by hovering over the hyperlink.
-    **
-    ** Selecting the reference causes a box (RefBox) to show up, containing the information
-    ** of the comment being referenced via a reply.
-    */
-    const [selectedRef, selectRef] = useState(null);
+    let commentList;
+    if(props.parent)
+      commentList = props.parent.comments;
+    const text = props.postText;
 
-    const selectRefWrapper = (ref) => {
-        selectRef(ref);
+    const [dropdown, setDropdown] = useState(false);
+    const dispatch = useDispatch();
+    const {addError} = useErrorToast();
+    useEffect(() => {
+        const off = () => {
+            setDropdown(false);
+        }
+        document.addEventListener("click", off);
+        return () => {
+            document.removeEventListener("click", off)
+        }
+    }, []);
+    const toggleDropdown = (e) => {
+        e.stopPropagation();
+        e.nativeEvent.stopImmediatePropagation();
+        setDropdown(!dropdown);
     }
-
-    const commentList = props.parent.comments;
-    const text = props.data.postText;
-
+    const deleteComment = props.deleteComment || ((e) => {
+        e.preventDefault();
+        axios.post('/forum/comment/delete', { post: props.parent, comment: props})
+            .then(response => {
+                if (response.status === 200) {
+                    dispatch(delComment(response.data));
+                    
+                } else {
+                    console.log(`Delete comment fail ${response.data}`);
+                    addError(response.data)
+                }
+            }).catch(e => {
+                console.log(`Delete comment fail ${e}`);
+                addError("Delete comment fail");
+            });
+    });
+    const blockUser = () => {
+        axios.post('/forum/post/localblock', {post: props, username: props.authUname})
+            .then(response => {
+                if (response.status === 200) {
+                } else {
+                    console.log("Blocking user failed");
+                }
+            }).catch(e => {
+                console.log("Blocking user failed");
+            });
+    }
 
     /* I split the comment's single string around reply tags 
     ** this will break the string into chunks containing either
     ** regular text input by the user or just the _id of the
     ** comment that is supposed to have a reference at that point.
     */
-    const splitBodyText = text.split(/<replyTo:(\w*)>/);
+    const splitBodyText = text.split(  /<replyTo:(\w*)>/ );
 
 
     /* Now I map each string to the necessary component.
@@ -91,33 +95,59 @@ const Comment = (props) => {
     ** So while using indices as keys is generally discouraged, because of
     ** the static nature of the array it should be fine in this case.
     */
-    let commentToReference;
-    const bodyAsComponents = splitBodyText.map((str, index) => {
-        commentToReference = commentList.find(comment => str === comment._id);
-        if (commentToReference)
-            return <CommentRef commentRef={commentToReference} select={selectRefWrapper} key={index} />;
+    let commentToLink;
+    const bodyAsComponents = splitBodyText.map( (str, index) => {
+        if(commentList)
+          commentToLink = commentList.find( comment => str === comment._id  );
+        if(commentToLink)
+            return <CommentLink comment={commentToLink} select={props.select} key={index} />;
         else
             return <span key={index}>{str}</span>;
     });
 
+
     return (
-        <div className="Comment-box" key={props.data._id} >
-            <article class="media">
-                <div class="media-content">
-                    <div class="content">
-                        <p>
-                            <i>{props.data.authUname}</i>
-                            <br />
+        <article className="media">
+            <figure className="media-left">
+                <FontAwesomeIcon icon={faUser} />
+            </figure>
+            <div className="media-content">
+                <div className="content">
+                    <p>
+                        <b>{props.authUname}</b>
+                        <br />
+                        <span className="post-text">
                             {bodyAsComponents}
-                            <br />
-                            <small>{props.data.postDate}}</small>
-                        </p>
+                        </span>
+                        <br />
+                        <small>
+                            <FontAwesomeIcon icon={faCalendar} />
+                                &nbsp;
+                                {moment(props.postDate).fromNow()}</small>
+                    </p>
+                </div>
+            </div>
+            <div className="media-right">
+                <div className={`dropdown is-right ${dropdown ? "is-active" : ""}`}>
+                    <div className="dropdown-trigger">
+                        <FontAwesomeIcon onClick={toggleDropdown} style={{ cursor: "pointer" }} icon={faEllipsisH} />
+                    </div>
+                    <div className="dropdown-menu" id="dropdown-menu6" role="menu">
+                        <div className="dropdown-content">
+                            <a className="dropdown-item" onClick={deleteComment}>
+                                Delete
+                            </a>
+                            <a className="dropdown-item" onClick={blockUser}>
+                                Block
+                            </a>
+                            <a className="dropdown-item" onClick={props.addReplyTag}>
+                                Reply
+                            </a>
+                        </div>
                     </div>
                 </div>
-            </article>
-            <button className="Comment-reply" onClick={props.addRef}>reply</button>
-            <RefBox commentRef={selectedRef} commentList={commentList} />
-        </div>
+            </div>
+        </article >
     );
 }
 

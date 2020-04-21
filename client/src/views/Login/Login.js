@@ -1,4 +1,4 @@
-import React, { useState} from 'react';
+import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
 import Field from '../../components/Field';
@@ -6,11 +6,12 @@ import { WithBanner } from '../../components/Banner';
 import { authenticated } from '../../store/userSlice';
 import './Forms.css';
 import { useDispatch } from 'react-redux';
+import useErrorToast from '../../components/ErrorToast'
 
 function Login() {
     const history = useHistory();
-    const [error, setError] = useState(null);
     const dispatch = useDispatch();
+    const { addError } = useErrorToast();
 
     const submit = (e) => {
         e.preventDefault();
@@ -23,11 +24,11 @@ function Login() {
                     dispatch(authenticated(response.data));
                     history.push('/home');
                 } else {
-                    setError(response.data);
+                    addError(<div>{response.data}</div>);
                 }
             }).catch((err) => {
                 console.log(`Login fail ${err}`);
-                setError('Login failed.');
+                addError(<div>Login failed.</div>);
             });
     };
 
@@ -44,7 +45,6 @@ function Login() {
                     </Field>
                     <input className="button is-primary" type="submit" />
                 </form>
-                {error && <p className="is-danger">{error}</p>}
             </div>
             <Link to="/register">Register</Link>
             <Link to="/home">Go back</Link>

@@ -42,7 +42,7 @@ router.route('/login').post((req, res) => {
     User.findOne({ uname: username }, (err, doc) => {
         if (err) {
             return res.sendStatus(400);
-        } else if (doc) {
+        } else if (doc) { 
             if (doc.validPassword(password)) {
                 saveSession(req, doc);
                 return sendProfileInfo(res, doc);
@@ -80,6 +80,25 @@ router.post('/signup-newsletter', (req, res) => {
     });
 })
 
+function validatePassword(password) {
+    const lowers = /(?=.*[a-z]).*/
+    const uppers = /(?=.*[A-Z]).*/
+    const symbols = /(?=.*[!@#$%^&'()*+",-./:;<=>?[\\\]_`{|}~]).*/
+    const length = /(?=^.{8,}$)/
+    let outputs = [];
+
+    if (password.search(lowers) === -1)
+        outputs.push(-1);
+    if (password.search(uppers) === -1)
+        outputs.push(-2);
+    if (password.search(symbols) === -1)
+        outputs.push(-3);
+    if (password.search(length) === -1)
+        outputs.push(-4);
+
+    return outputs;
+}
+
 router.route('/register').post((req, res) => {
     const { username, email, password } = req.body;
 
@@ -88,6 +107,40 @@ router.route('/register').post((req, res) => {
         email: email
     }
     );
+    // let newUser = new User({
+    //     uname: "admin",
+    //     email: "admin@gmail.com"
+    // }
+    // );
+
+    /* Validating that the password is at least 8 characters long 
+        * and contains at least one lowercase, uppercase, and special 
+        * symbol character
+        */
+    let retnums = validatePassword(password);
+    let errormsg = "";
+    retnums.forEach((retnum) => {
+        switch (retnum) {
+            case -1:
+                errormsg += "Password must contain at least one lowercase letter \n";
+                break;
+            case -2:
+                errormsg += "Password must contain at least one uppercase letter \n";
+                break;
+            case -3:
+                errormsg += "Password must contain at least one special symbol \n";
+                break;
+            case -4:
+                errormsg += "Password must be at least 8 characters long \n";
+                break;
+        }
+    });
+
+    if (retnums.length > 0) {
+        console.log(errormsg);
+        return res.status(201).send(errormsg);
+    } 
+
     newUser.setPassword(password);
     newUser.save((err, user) => {
         if (err) {
@@ -112,6 +165,7 @@ router.route('/register').post((req, res) => {
         }
     });
 });
+
 
 
 router.get('/session', (req, res) => {

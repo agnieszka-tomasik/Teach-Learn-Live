@@ -1,22 +1,25 @@
 import React from 'react';
 import axios from 'axios';
 import "../Admin.css"
+import useErrorToast from '../../../components/ErrorToast';
 
 const DeleteCourse = (props) => {
+    const { addError } = useErrorToast();
 
-    const handleClick = () => {
-        axios.post('/admin/courses/delete', {title:props.title})
+    const handleClick = (e) => {
+        e.preventDefault();
+        axios.post('/admin/courses/delete', { title: props.title })
             .then(response => {
                 if (response.status === 200) {
                     props.courseListUpdate(response.data);
-                    props.setDelError(null);
+
                 } else {
                     console.log(`Delete Course fail ${response.data}`);
-                    props.setDelError(response.data)
+                    addError(response.data)
                 }
             }).catch(e => {
                 console.log(`Delete Course fail ${e}`);
-                props.setDelError("Delete Course fail");
+                addError("Delete Course fail");
             });
     }
 

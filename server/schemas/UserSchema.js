@@ -10,7 +10,9 @@ const userSchema = new mongoose.Schema({
   salt: { type: String, required: true },
   courses: { type: [String], default: [] },
   isAdmin: { type: Boolean, default: false },
-  joinDate: { type: Date, default: Date.now }
+  isMod: { type: Boolean, default: false },
+  joinDate: { type: Date, default: Date.now },
+  blacklisted: { type: Boolean, default: false }
 });
 userSchema.plugin(uniqueValidator);
 
@@ -18,7 +20,6 @@ userSchema.methods.setPassword = function (password) {
   this.salt = crypto.randomBytes(16).toString('hex');
   this.passHash = crypto.pbkdf2Sync(password, this.salt, 1000, 64, `sha512`).toString(`hex`);
 };
-
 
 userSchema.methods.validPassword = function (password) {
   let hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64, `sha512`).toString(`hex`);

@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { addComment, populateForum } from '../../store/forumSlice';
-import './ForumSubmit.css'
 import { useDispatch } from 'react-redux';
+import useErrorToast from '../../components/ErrorToast';
 import axios from 'axios';
 
 const SubmitComment = (props) => {
     const text = props.text;
     const setText = props.setText;
     const dispatch = useDispatch();
+    const { addError } = useErrorToast();
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -19,66 +20,36 @@ const SubmitComment = (props) => {
         //Finally, reset the comment input textbox
         setText("");
     }
-
     /*************************** Axios post to create a new comment ************************************/
     const postComment = (text) => {
 
         axios.post('/forum/comment',
-            { post: props.parent, text: text })
+            { post: props.parent, text: text, selected: props.selected })
             .then(response => {
                 if (response.status === 200) {
                     console.log(props.parent, text);
                     dispatch(addComment(response.data));
                 } else {
+                    addError("You are blocked from commenting on this post");
+
                     console.log("Comment failed");
                 }
             }).catch(e => {
+                addError("You are blocked from commenting on this post");
                 console.log(`Comment failed with error: ${e}`);
             });
 
     }
 
     return (
-        <form
-          id="post-comment"
-          className="field"
-          onSubmit={handleSubmit}>
-          <div className="submit-box control">
-            /*
-             * The 'Media Object' layout imported from Bulma is used here
-             * https://bulma.io/documentation/layout/media-object/
-             * displays the field where a comment can be created
-             */
-            <article class="media">
-              <div class="media-content">
-                <div class="field">
-                  <p class="control">
-                    <textarea class="textarea">
-                      <form>
-                        <input
-                          className="comment-input"
-                          type="text"
-                          value={text}
-                          onChange={(e) => { setText(e.target.value) }}
-                          placeholder="Enter your comment" />
-                      </form>
-                    </textarea>
-                  </p>
-                </div>
-                <div class="field">
-                  <p class="control">
-                    <button>
-                      <input
-                          className="button submit-comment"
-                          type="submit"
-                          value="Post"/>
-                    </button>
-                  </p>
-                </div>
-              </div>
-            </article>
-          </div>
+        <><form id="post-comment" className="field" onSubmit={handleSubmit}>
+            <div className="submit-box control">
+                <textarea type="text" className="textarea comment-input" value={text}
+                    placeholder="Add a comment" onChange={(e) => { setText(e.target.value); }} />
+                <input className="button submit-comment" type="submit" value="Comment" />
+            </div>
         </form>
+        </>
 
     )
 };

@@ -1,9 +1,11 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import "../Admin.css"
+import useErrorToast from '../../../components/ErrorToast';
 
 const UpdateUser = (props) => {
     const [updatedUser, setUpdatedUser] = useState(props.selectedUser);
+    const { addError } = useErrorToast();
 
     const handleUnameChange = (text) => {
         text.persist();
@@ -32,40 +34,41 @@ const UpdateUser = (props) => {
         setUpdatedUser(newUser);
     }
 
-    const handleClick = () => {
+    const handleClick = (e) => {
+        e.preventDefault()
         axios.post('/admin/users/update', updatedUser)
             .then(response => {
                 if (response.status === 200) {
                     props.usersUpdate(response.data);
-                    props.setUpError(null);
+
                 } else {
                     console.log(`Update User fail ${response.data}`);
-                    props.setUpError(response.data);
+                    addError(response.data);
                 }
             }).catch(e => {
                 console.log(`Update User fail ${e}`);
-                props.setUpError('Update User fail');
+                addError('Update User fail');
             });
     }
 
     return (
         <div>
             <h1 className="title">Update User:</h1>
-        <form>
-            <input type='text' className='inputtext' id='title' placeholder={props.selectedUser.uname} onChange={handleUnameChange}/>
-            <input type='text' className='inputtext' placeholder={props.selectedUser.email} onChange={handleEmailChange}/>
-            <input type='password' className='inputpass' placeholder='New Password' onChange={handlePassChange}/>
-            <label>
-                Admin:
+            <form>
+                <input type='text' className='inputtext' id='title' placeholder={props.selectedUser.uname} onChange={handleUnameChange} />
+                <input type='text' className='inputtext' placeholder={props.selectedUser.email} onChange={handleEmailChange} />
+                <input type='password' className='inputpass' placeholder='New Password' onChange={handlePassChange} />
+                <label>
+                    Admin:
                 <input
-                    name="isAdmin"
-                    type="checkbox"
-                    checked={updatedUser.isAdmin}
-                    onChange={handleCheckChange} />
-            </label>
-            <br/>
-            <button className='button' onClick={handleClick}>Update</button>
-        </form>
+                        name="isAdmin"
+                        type="checkbox"
+                        checked={updatedUser.isAdmin}
+                        onChange={handleCheckChange} />
+                </label>
+                <br />
+                <button className='button' onClick={handleClick}>Update</button>
+            </form>
         </div>
     );
 

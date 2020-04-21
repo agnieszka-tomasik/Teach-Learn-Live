@@ -6,19 +6,78 @@ import { WithBanner } from '../../components/Banner';
 import './Forms.css';
 import { useDispatch } from 'react-redux';
 import { authenticated } from '../../store/userSlice';
+import useErrorToast from '../../components/ErrorToast';
+
+function validatePassword(password) {
+    const lowers = /(?=.*[a-z]).*/
+    const uppers = /(?=.*[A-Z]).*/
+    const symbols = /(?=.*[!@#$%^&'()*+",-./:;<=>?[\\\]_`{|}~]).*/
+    const length = /(?=^.{8,}$)/
+    let outputs = [];
+
+    if (password.search(lowers) === -1)
+        outputs.push(-1);
+    if (password.search(uppers) === -1)
+        outputs.push(-2);
+    if (password.search(symbols) === -1)
+        outputs.push(-3);
+    if (password.search(length) === -1)
+        outputs.push(-4);
+
+    return outputs;
+}
 
 function Login() {
     const history = useHistory();
-    const [error, setError] = useState(null);
+    const {addError} = useErrorToast();
     const dispatch = useDispatch();
 
     const submit = (e) => {
         e.preventDefault();
         const formData = new FormData(e.target);
         if (formData.get('password') !== formData.get('passwordConfirm')) {
-            setError('Passwords did not match!');
+            addError(<div>
+                Passwords did not match!
+            </div>, {appearance: "error"});
             return;
         }
+
+        /* Validating that the password is at least 8 characters long 
+         * and contains at least one lowercase, uppercase, and special 
+         * symbol character
+         */
+        let password = formData.get('password');
+        let retnums = validatePassword(password);
+        let errormsg = [];
+        retnums.forEach((retnum) => {
+            switch (retnum) {
+                case -1:
+                    errormsg.push("Password must contain at least one lowercase letter");
+                    break;
+                case -2:
+                    errormsg.push("Password must contain at least one uppercase letter");
+                    break;
+                case -3:
+                    errormsg.push("Password must contain at least one special symbol");
+                    break;
+                case -4:
+                    errormsg.push("Password must be at least 8 characters long");
+                    break;
+            }
+        });
+
+        if (retnums.length > 0) {
+            errormsg = errormsg.map((e, key) => {
+                return (<li key={key}>
+                            {e}
+                            <br/>
+                        </li>);
+            });
+            addError(<ul>
+                {errormsg}
+            </ul>, {appearance: "error", autoDismiss: false});
+            return;
+        } 
 
         axios.post('/register', Object.fromEntries(formData))
             .then((response) => {
@@ -27,11 +86,15 @@ function Login() {
                     dispatch(authenticated(response.data));
                     history.push('/home');
                 } else {
-                    setError(response.data);
+                    addError(<div>
+                        {response.data}
+                    </div>, {appearance: "error"});
                 }
             }).catch((err) => {
                 console.log(`Registration fail ${err}`);
-                setError('Registration failed.');
+                    addError(<div>
+                        Registration failed
+                    </div>, {appearance: "error"});
             });
     };
 
@@ -55,12 +118,10 @@ function Login() {
                     </Field>
                     <input className="button is-primary" type="submit" />
                 </form>
-                {error && <p className="is-danger">{error}</p>}
             </div>
             <Link to="/login">Login</Link>
             <Link to="/home">Go back</Link>
         </div>
     );
 }
-
 export default WithBanner(Login);

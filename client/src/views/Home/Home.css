@@ -17,3 +17,9 @@
     margin: .75rem;
 }
 
+.sign-up-btn {
+    background-color: black;
+    color: white;
+    border: none;
+}
+

@@ -2,12 +2,8 @@
 https://stackoverflow.com/questions/42134731/css-change-button-style-after-click
 */
 
-.card-wrapper {
-    width: 280px;
-}
-
-.card-header {
-    /* background-color: #8FBFE0; */
+.card {
+    height: 25rem;
 }
 
 .card:hover {
@@ -15,6 +11,10 @@ https://stackoverflow.com/questions/42134731/css-change-button-style-after-click
     outline: 3px solid #8FBFE0;
 }
 
+.content-description {
+    height: 12rem;
+    overflow: auto;
+}
 /* button css styling taken from react bootcamp */
 button {
     background: #d7d7d7;
