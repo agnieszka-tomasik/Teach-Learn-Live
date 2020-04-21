@@ -22,7 +22,7 @@ const UpdateCourse = (props) => {
     }
 
     const handlePriceChange = (text) => {
-        text.persis();
+        text.persist();
         setUpdatedCourse(prevState => ({
             ...prevState,
             price: parseFloat(text.target.value)
