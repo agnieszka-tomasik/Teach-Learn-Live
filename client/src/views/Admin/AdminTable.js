@@ -1,5 +1,5 @@
 import React from 'react';
-const Table = ({ head, body, error }) => {
+const AdminTable = ({ head, body, error }) => {
     return <div className="tableWrapper">
         <table className="table is-hoverable">
             <thead>
@@ -16,4 +16,4 @@ const Table = ({ head, body, error }) => {
     </div>
 }
 
-export default Table;
+export default AdminTable;

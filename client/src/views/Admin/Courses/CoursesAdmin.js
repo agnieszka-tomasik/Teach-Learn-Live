@@ -66,7 +66,7 @@ const CoursesAdmin = (props) => {
                                     coursesUpdate={coursesUpdate}
                                     setDelError={setDelError}
                                 />}
-                            error={() => delError && <p className="is-danger">{delError}</p>}
+                            error={<p className="is-danger">{delError}</p>}
                         />
                     </div>
                     <div className="column2">
