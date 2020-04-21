@@ -3,8 +3,8 @@ import BlockedUser from './BlockedUser';
 import DeletePost from './DeletePost';
 import { useDispatch, useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUser, faAngleRight } from '@fortawesome/free-solid-svg-icons'
-import moment from 'moment';
+import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
+import Comment from "./Comment";
 import "./OriginalPost.css";
 import "./Common.css";
 
@@ -17,27 +17,11 @@ const OriginalPost = (props) => {
     return (
         <div className="original-post">
             <div className="title">
-                <FontAwesomeIcon icon={faAngleRight}/>
+                <FontAwesomeIcon icon={faAngleRight} />
                 &nbsp;
                 {props.data.postTitle}
             </div>
-            <article className="media">
-                <figure className="media-left">
-                    <FontAwesomeIcon icon={faUser} />
-                </figure>
-                <div className="media-content">
-                    <div className="content">
-                        <b>{props.data.authUname}</b>
-                        <br/>
-                        <span className="post-text">
-                            {props.data.postText}
-                        </span>
-                        <br />
-                        <small>{moment(props.data.postDate).fromNow()}</small>
-                        {/* {authenticated && (isMod || isAdmin) && <DeletePost post={props.data} >Remove Post</DeletePost>} */}
-                    </div>
-                </div>
-            </article>
+            <Comment {...props.data} />
         </div>
     )
     return (

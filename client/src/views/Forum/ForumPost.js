@@ -13,14 +13,16 @@ const Forum = () => {
     const [error, setError] = useState(null);
     const post = useSelector(state => state.forum.posts.find(p => p._id === id));
     const [selected, setSelected] = useState(post);
-    if(!post) {
+    if (!post) {
         return <>Loading</>
     }
     /**************** Comments to list: **************
     ** takes an array of comments and turns them into
     ** an html list to be printed below the original post
     */
-    const commentsToList = post.comments.map(Comment)
+    const commentsToList = post.comments.map(c => <li className="comment-box" key={c._id}>
+        <Comment {...c} />
+    </li>)
 
     /******** Print Original Post and Comments (with indent of 50px for comments specified in ForumPost.css) *********/
     return (
@@ -30,8 +32,8 @@ const Forum = () => {
                 <ul className="comment-list">
                     {commentsToList}
                 </ul>
-                <br/>
-                <SubmitComment parent={post} selected={selected}/>
+                <br />
+                <SubmitComment parent={post} selected={selected} />
             </div>
         </section>
     );
