@@ -24,7 +24,6 @@ const ViewCourse = (props) => {
                 <UpdateCourse
                     selectedCourse={selectedCourse[0]}
                     coursesUpdate={props.coursesUpdate}
-                    setUpError={props.setUpError}
                 />
             </div>
         );

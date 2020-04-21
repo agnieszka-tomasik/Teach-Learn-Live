@@ -93,14 +93,13 @@
 .credit a {
 	color: #3498bb;
 }
-.button {
-	background: #d7d7d7;
-	color: #3b3b3b;
-	padding: 0.6rem 1rem;
-	font-size: 0.8rem;
-	border: solid 1px #c7c7c7;
-	margin: 1rem 0;
-	box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-	border-radius: 3px;
-	outline: none;
+
+.card-row {
+    background: white;
+    padding: 1em;
+    margin: 1em;
+}
+.card-row:hover {
+    transition: all 150ms ease 0ms;
+    outline: 3px solid #8FBFE0;
 }

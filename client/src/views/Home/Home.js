@@ -8,7 +8,7 @@ import { SocialIcon } from 'react-social-icons';
 
 function Home() {
     const [message, setMessage] = useState(null);
-    const {authenticated, isAdmin} = useSelector(store => ({
+    const { authenticated, isAdmin } = useSelector(store => ({
         authenticated: store.user.authenticated,
         isAdmin: store.user.profile.isAdmin
     }));
@@ -46,9 +46,6 @@ function Home() {
                         <div className="container">
                             <div className="navbar-brand">
                                 <img className="nav-logo navbar-item" src="/tll_logo_no_bg.svg" alt="Teach Leave Live" />
-                                <SocialIcon url = "http://instagram.com/teachleavelive/"/>
-                                <SocialIcon url = "http://twitter.com/teachleavelive/"/>
-                                <SocialIcon url = "http://facebook.com/teachleavelive/"/>
                                 <span className="navbar-burger burger" data-target="navbarMenuHeroA">
                                     <span />
                                     <span />
@@ -58,13 +55,13 @@ function Home() {
                             <div id="navbarMenuHeroA" className="navbar-menu">
                                 <div className="navbar-end">
                                     <div className="buttons">
-                                         <Link to="courses" className="button is-light navbar-item">Courses</Link>
-                                         {authenticated && isAdmin && <Link to="admin" className="button is-primary navbar-item">Admin</Link>}
-                                         {!authenticated && <Link to="login" className="button is-light navbar-item">Login</Link>}
-                                         {!authenticated && <Link to="register" className="button is-primary navbar-item"><strong>Register</strong></Link>}
-                                         {authenticated && <Link to="forum" className="button is-primary navbar-item">Forum</Link>}
-                                         {authenticated && <a href="#" type="button" className="button is-light navbar-item" onClick={logoutAction}>Logout</a>}
-                                     </div>
+                                        <Link to="courses" className="button is-light navbar-item">Courses</Link>
+                                        {authenticated && isAdmin && <Link to="admin" className="button is-primary navbar-item">Admin</Link>}
+                                        {!authenticated && <Link to="login" className="button is-light navbar-item">Login</Link>}
+                                        {!authenticated && <Link to="register" className="button is-primary navbar-item"><strong>Register</strong></Link>}
+                                        {authenticated && <Link to="forum" className="button is-primary navbar-item">Forum</Link>}
+                                        {authenticated && <a href="#" type="button" className="button is-light navbar-item" onClick={logoutAction}>Logout</a>}
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -80,14 +77,20 @@ function Home() {
                             <div className="field">
                                 <div className="sign-up control">
                                     <input className="input is-medium" name="email" placeholder="email" type="email" />
-                                    <input className="is-one-fifth button is-link" value="Sign Up" type="submit" />
+                                    <input className="is-one-fifth button sign-up-btn" value="Sign Up" type="submit" />
                                 </div>
                             </div>
                         </form>
                         {message && <p className={message.class}>{message.message}</p>}
                     </div>
                 </div>
-                <div className="hero-foot" />
+                <div className="hero-foot">
+                    <div className="level">
+                        <SocialIcon className="level-item" url="http://instagram.com/teachleavelive/" />
+                        <SocialIcon className="level-item" url="http://twitter.com/teachleavelive/" />
+                        <SocialIcon className="level-item" url="http://facebook.com/teachleavelive/" />
+                    </div>
+                </div>
             </section>
         </div>
     );

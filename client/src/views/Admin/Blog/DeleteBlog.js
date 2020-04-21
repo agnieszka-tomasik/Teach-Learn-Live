@@ -1,22 +1,25 @@
 import React from 'react';
 import axios from 'axios';
 import "../Admin.css"
+import useErrorToast from '../../../components/ErrorToast';
 
 const DeleteUser = (props) => {
+    const {addError} = useErrorToast();
 
-    const handleClick = () => {
+    const handleClick = (e) => {
+        e.preventDefault();
         axios.post('/admin/blog/delete', {id:props.id})
             .then(response => {
                 if (response.status === 200) {
                     props.postsUpdate(response.data);
-                    props.setDelError(null);
                 } else {
                     console.log(`Delete Blog Post fail ${response.data}`);
-                    props.setDelError(response.data)
+                    addError(response.data)
                 }
             }).catch(e => {
                 console.log(`Delete Blog Post fail ${e}`);
-                props.setDelError("Delete Blog Post fail");
+                addError("Delete Blog Post fail");
+
             });
     }
 

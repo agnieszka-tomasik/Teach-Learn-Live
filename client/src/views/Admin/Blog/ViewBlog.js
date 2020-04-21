@@ -24,7 +24,6 @@ const ViewBlog = (props) => {
                 <UpdateBlog
                     selectedPost={selectedPost[0]}
                     postsUpdate={props.postsUpdate}
-                    setUpError={props.setUpError}
                 />
             </div>
         );

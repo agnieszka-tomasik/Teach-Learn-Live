@@ -3,17 +3,14 @@
 }
 
 .left-side{
-	flex-grow: 1;
+	flex: 1;
 }
 
 .right-side{
-	flex-grow: 2;
+	flex: 2;
 }
 
 /* sets the color for the dynamic main box featuring posts to white */
-.forum-body-container {
-	background-color: #FFFFFF;
-}
 .rm-button{
 	background: #d7d7d7;
 	color: #3b3b3b;
@@ -24,8 +21,4 @@
 	box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
 	border-radius: 1px;
 	outline: none;
-}
-
-.post-view{
-	padding: 1rem 1rem;
 }

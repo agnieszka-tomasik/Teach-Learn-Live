@@ -71,11 +71,11 @@ const ForumPage = (props) => {
 
 const DefaultPage = () =>
   <div className="default-forum-main">
-    <article class="message is-dark">
-      <div class="message-header">
+    <article className="message is-dark">
+      <div className="message-header">
         <p>Welcome to the forum!</p>
       </div>
-      <div class="message-body">See what others have been thinking. Share your insights by starting a conversation or commenting on another post.</div>
+      <div className="message-body">See what others have been thinking. Share your insights by starting a conversation or commenting on another post.</div>
     </article>
   </div>
 

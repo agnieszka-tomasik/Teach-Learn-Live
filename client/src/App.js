@@ -10,6 +10,8 @@ import { StateProvider } from './store/store';
 import "./App.css";
 import Admin from './views/Admin';
 import Mod from './views/Forum/Mod';
+import { ToastProvider } from 'react-toast-notifications'
+
 import { useSelector } from 'react-redux';
 
 //Specifies an AUTH boolean requirement to be true.
@@ -22,7 +24,10 @@ const AuthRoute = ({ component: Component, auth, ...rest }) => {
 const App = () => {
     return (
         <StateProvider>
-            <Main />
+            <ToastProvider
+                autoDismiss>
+                <Main />
+            </ToastProvider>
         </StateProvider>
     );
 }

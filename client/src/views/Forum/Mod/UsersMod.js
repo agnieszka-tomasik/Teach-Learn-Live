@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import Search from './Search';
 import ViewUser from './ViewUser';
 import UsersList from './UsersList';
@@ -6,6 +6,7 @@ import "../../Admin/Admin.css"
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
 import { populateUsers } from '../../../store/adminSlice';
+import Table from '../../Admin/AdminTable';
 
 const UsersMod = (props) => {
     const [filterText, setFilterText] = useState('');
@@ -46,13 +47,9 @@ const UsersMod = (props) => {
             <main className='main'>
                 <div className="row">
                     <div className="column1">
-                        <div className="tableWrapper">
-                            <table className="table table-striped table-hover">
-                                <tr className='tr'>
-                                    <td className='tr'>
-                                        <b>Username</b>
-                                    </td>
-                                </tr>
+                        <Table
+                            head={["Username"]}
+                            body={
                                 <UsersList
                                     data={users}
                                     selectedUpdate={selectedUpdate}
@@ -60,9 +57,9 @@ const UsersMod = (props) => {
                                     usersUpdate={usersUpdate}
                                     setDelError={setDelError}
                                 />
-                                {delError && <p className="is-danger">{delError}</p>}
-                            </table>
-                        </div>
+                            }
+                            error={delError && <p className="is-danger">{delError}</p>}
+                        />
                     </div>
                     <div className="column2">
                         <ViewUser

@@ -12,8 +12,9 @@ const UsersList = (props) => {
     })
     .map(user => {
         return (
-            <tr className='tr' key={user.uname}>
-                <td className='td' onClick={() => updateSelectedUser(user.uname)}>{user.uname} </td>
+            <tr  key={user.uname}>
+                <td onClick={() => updateSelectedUser(user.uname)}>{user.uname} </td>
+                <td></td>
             </tr>
         );
     });
