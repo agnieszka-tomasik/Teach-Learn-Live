@@ -25,9 +25,6 @@ const Forum = () => {
     ** takes an array of comments and turns them into
     ** an html list to be printed below the original post
     */
-<<<<<<< HEAD
-    const commentsToList = post.comments.map(Comment)
-=======
     const levelPrefix = (level) => {
         let acc = "";
         for(let i = 0; i < level; i++){
@@ -58,21 +55,13 @@ const Forum = () => {
             </li>
         </div>
     )
->>>>>>> brandon/dev
 
     /******** Print Original Post and Comments (with indent of 50px for comments specified in ForumPost.css) *********/
     return (
-<<<<<<< HEAD
-        <section className="hero is-primary is-bold is-fullheight">
-            <div>
-                <OriginalPost data={post} />
-                <ul className="comment-list">
-=======
-        <section className="hero is-primary is-bold is-fullheight post-view">
+        <section className="hero is-bold is-fullheight post-view">
             <div> 
                 <ul>
                     <OriginalPost data={post} setSelected={setSelected}/>
->>>>>>> brandon/dev
                     {commentsToList}
                 </ul>
                 <SubmitComment parent={post} selected={selected}/>

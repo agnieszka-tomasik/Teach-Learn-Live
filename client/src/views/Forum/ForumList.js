@@ -9,7 +9,7 @@ const ForumList = (props) => {
     const items = posts.map( item =>
         <tr key={item._id} onClick={ () => { history.push(`/forum/${item._id}`) } } >
             <td>
-                <br>{item.postTitle} · <i>{item.authUname}</i></br>
+                <br/>{item.postTitle} · <i>{item.authUname}</i><br/>
             </td>
         </tr>
     );

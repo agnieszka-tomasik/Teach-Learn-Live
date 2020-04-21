@@ -42,11 +42,6 @@ const SubmitComment = (props) => {
           className="field"
           onSubmit={handleSubmit}>
           <div className="submit-box control">
-            /*
-             * The 'Media Object' layout imported from Bulma is used here
-             * https://bulma.io/documentation/layout/media-object/
-             * displays the field where a comment can be created
-             */
             <article class="media">
               <div class="media-content">
                 <div class="field">
