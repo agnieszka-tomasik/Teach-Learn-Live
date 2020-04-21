@@ -47,12 +47,11 @@ const Forum = () => {
     }
 
     const comments = post.comments.map(comment =>{
-        console.log(comment);
         return <Comment key={comment._id} comment={comment}/>}
     );
 
     const commentsToList = renderComments(post.comments, 1).map(comment =>
-        <div className="Comment-box" >
+        <div className="comment-box" >
             <li onClick={() => setSelected(comment.post)} key={comment.post._id} >
                 {authenticated && (isMod || isAdmin) && <BlockedUser post={post} username={comment.authUname} >Block</BlockedUser>}  
                 {levelPrefix(comment.level) + comment.post.authUname + "> " + comment.post.postText}
@@ -63,7 +62,7 @@ const Forum = () => {
 
     /******** Print Original Post and Comments (with indent of 50px for comments specified in ForumPost.css) *********/
     return (
-        <section className="hero is-bold is-fullheight post-view">
+        <section className="post-view">
             <div> 
                 <ul>
                     <OriginalPost data={post} setSelected={setSelected}/>

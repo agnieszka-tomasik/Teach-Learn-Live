@@ -77,7 +77,7 @@ function Home() {
                             <div className="field">
                                 <div className="sign-up control">
                                     <input className="input is-medium" name="email" placeholder="email" type="email" />
-                                    <input className="is-one-fifth button is-link" value="Sign Up" type="submit" />
+                                    <input className="is-one-fifth button sign-up-btn" value="Sign Up" type="submit" />
                                 </div>
                             </div>
                         </form>

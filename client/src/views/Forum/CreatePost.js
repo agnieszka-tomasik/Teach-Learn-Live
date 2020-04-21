@@ -34,48 +34,44 @@ const CreatePost = () => {
 
     return (
         <div>
-          <form onSubmit={createPost}>
-            <article className="media">
-              <div className="media-content">
-                <div className="field">
-                  <p className="control">
-                    <textarea className="textarea">
-                      <input
-                          className="create-post-title"
-                          type="text"
-                          value={title}
-                          onChange={(e) => { setTitle(e.target.value) }}
-                          placeholder="Enter your title" />
-                    </textarea>
-                  </p>
-                </div>
-                <div className="field">
-                  <p className="control">
-                    <textarea className="textarea">
-                      <input
-                          className="create-post-body-text"
-                          type="text"
-                          value={bodyText}
-                          onChange={(e) => { setBodyText(e.target.value) }}
-                          placeholder="Enter your post" />
-                    </textarea>
-                  </p>
-                </div>
-                <nav className="level">
-                  <div className="level-left">
-                    <div className="level-item">
-                      <a className="button is-info">
-                        <input
-                            className="create-post-submit"
-                            type="submit"
-                            value="Post"/>
-                      </a>
+            <form onSubmit={createPost}>
+                <article className="media">
+                    <div className="media-content">
+                        <div className="field">
+                            <p className="control">
+                                <input
+                                    className="textarea create-post-title"
+                                    type="text"
+                                    value={title}
+                                    onChange={(e) => { setTitle(e.target.value) }}
+                                    placeholder="Enter your title" />
+                            </p>
+                        </div>
+                        <div className="field">
+                            <p className="control">
+                                <input
+                                    className="textarea create-post-body-text"
+                                    type="text"
+                                    value={bodyText}
+                                    onChange={(e) => { setBodyText(e.target.value) }}
+                                    placeholder="Enter your post" />
+                            </p>
+                        </div>
+                        <nav className="level">
+                            <div className="level-left">
+                                <div className="level-item">
+                                    <a className="button is-info">
+                                        <input
+                                            className="create-post-submit"
+                                            type="submit"
+                                            value="Post" />
+                                    </a>
+                                </div>
+                            </div>
+                        </nav>
                     </div>
-                  </div>
-                </nav>
-              </div>
-            </article>
-          </form>
+                </article>
+            </form>
         </div>
     );
 };

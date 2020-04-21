@@ -1,16 +1,15 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser } from '@fortawesome/free-solid-svg-icons'
+import "./Comment.css";
 
 /* component used in ForumPost.js to create a comment list */
 const Comment = (props) => {
     return (
-        <li className="Comment-box" key={props.key} >
+        <li className="comment-box" key={props.key} >
             <article className="media">
                 <figure className="media-left">
-                    <p className="image 64x64">
-                        <FontAwesomeIcon icon={faUser}/>
-                    </p>
+                    <FontAwesomeIcon icon={faUser}/>
                 </figure>
                 <div className="media-content">
                     <div className="content">
