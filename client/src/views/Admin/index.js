@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Switch, Route } from "react-router-dom"
+import { Switch, Route, Link } from "react-router-dom"
 import CoursesAdmin from "./Courses/CoursesAdmin";
 import UsersAdmin from "./Users/UsersAdmin";
 import BlogAdmin from "./Blog/BlogAdmin";
@@ -10,12 +10,26 @@ import { useDispatch } from 'react-redux';
 import { populateEmails, populatePosts, populateUsers } from '../../store/adminSlice';
 
 const pages = [
-    { path: "/home", name: "Home" },
-    { path: "/admin/courses", name: "Courses" },
-    { path: "/admin/users", name: "Users" },
-    { path: "/admin/blog", name: "Blog" },
-    { path: "/admin/newsletter", name: "Newsletter" },
+    { path: "/home", name: "Home", description: "Navigate back to the landing page." },
+    { path: "/admin/courses", name: "Courses", description: "View and modify course data" },
+    { path: "/admin/users", name: "Users", description: "View and modify user data" },
+    { path: "/admin/blog", name: "Blog", description: "View and modify blog data" },
+    { path: "/admin/newsletter", name: "Newsletter", description: "View and modify newsletter emails" },
 ]
+
+const Cards = () => {
+    return <div className="container">
+            <h1 className="title">Admin Panel</h1>
+            {pages.map(page => {
+                return <Link to={page.path}>
+                        <div className="card-row">
+                            <div className="title is-4">{page.name}</div>
+                            {page.description}
+                        </div>
+                    </Link>
+            })}
+        </div>
+}
 
 const Admin = () => {
 
@@ -29,7 +43,7 @@ const Admin = () => {
     }, []);
     return <Switch>
         <Route exact path="/admin/"
-            component={() => <></>} />
+            component={Cards} />
         <Route exact path="/admin/courses"
             component={CoursesAdmin} />
         <Route exact path="/admin/users"
