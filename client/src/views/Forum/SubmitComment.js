@@ -5,7 +5,8 @@ import useErrorToast from '../../components/ErrorToast';
 import axios from 'axios';
 
 const SubmitComment = (props) => {
-    const [text, setText] = useState("");
+    const text = props.text;
+    const setText = props.setText;
     const dispatch = useDispatch();
     const { addError } = useErrorToast();
 

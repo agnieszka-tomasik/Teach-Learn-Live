@@ -9,8 +9,25 @@ import "./Comment.css";
 import "./Common.css";
 import useErrorToast from '../../components/ErrorToast';
 
+/** Hyperlink to comment replying to **/
+const CommentLink = (props) => {
+  return (
+      <a  href={"#" + props.comment._id }
+          onMouseOver = {  () => {   props.select(props.comment._id)    } }
+          onMouseOut = {  () => { props.select(null)  }   } >
+          {props.comment.authUname}
+      </a>
+  );
+}
+
+
 /* component used in ForumPost.js to create a comment list */
 const Comment = (props) => {
+    let commentList;
+    if(props.parent)
+      commentList = props.parent.comments;
+    const text = props.postText;
+
     const [dropdown, setDropdown] = useState(false);
     const dispatch = useDispatch();
     const {addError} = useErrorToast();
@@ -55,6 +72,40 @@ const Comment = (props) => {
                 console.log("Blocking user failed");
             });
     }
+
+    /* I split the comment's single string around reply tags 
+    ** this will break the string into chunks containing either
+    ** regular text input by the user or just the _id of the
+    ** comment that is supposed to have a reference at that point.
+    */
+    const splitBodyText = text.split(  /<replyTo:(\w*)>/ );
+
+
+    /* Now I map each string to the necessary component.
+    ** If the string is not the _id for some comment it should
+    ** just be seen as text.
+    ** Otherwise there needs to be a hyperlink reference for the
+    ** matching comment.
+    **
+    ** Note: I use the indices as keys. This array is const so it
+    ** will not change size or contents. The strings matching comment ids
+    ** could use the comment id as a key, but the strings do not have
+    ** a unique identifier to use as a key.
+    **
+    ** So while using indices as keys is generally discouraged, because of
+    ** the static nature of the array it should be fine in this case.
+    */
+    let commentToLink;
+    const bodyAsComponents = splitBodyText.map( (str, index) => {
+        if(commentList)
+          commentToLink = commentList.find( comment => str === comment._id  );
+        if(commentToLink)
+            return <CommentLink comment={commentToLink} select={props.select} key={index} />;
+        else
+            return <span key={index}>{str}</span>;
+    });
+
+
     return (
         <article className="media">
             <figure className="media-left">
@@ -66,7 +117,7 @@ const Comment = (props) => {
                         <b>{props.authUname}</b>
                         <br />
                         <span className="post-text">
-                            {props.postText}
+                            {bodyAsComponents}
                         </span>
                         <br />
                         <small>
@@ -88,6 +139,9 @@ const Comment = (props) => {
                             </a>
                             <a className="dropdown-item" onClick={blockUser}>
                                 Block
+                            </a>
+                            <a className="dropdown-item" onClick={props.addReplyTag}>
+                                Reply
                             </a>
                         </div>
                     </div>
