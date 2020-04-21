@@ -12,45 +12,21 @@ const ForumPage = (props) => {
     const { id } = useParams();
     const post = useSelector(state => state.forum.posts.find(p => p._id === id));
     const [selected, setSelected] = useState(post);
+    const [filter, setFilter] = useState("");
     const {authenticated, isAdmin, isMod} = useSelector(store => ({
         authenticated: store.user.authenticated,
         isAdmin: store.user.profile.isAdmin,
         isMod: store.user.profile.isMod
     }));
 
-    /********** Hiding the forum list *********
-    ** This code will be finished in the future
-    ** and will allow the user to click a button
-    ** that hides the forum list so the contents
-    ** of the main box fill the entire screen.
-    */
-
-    // const [left, setLeft] = useState(true);
-
-    //const [moving, setMoving] = useState(false);
-
-    // const shift = () => {
-    //     /****** TODO: animation to shift the post list depending on the left state hook ******/
-    // };
-
-    // const changeLeft = () => {
-    //     if(!moving){
-    //         setLeft( prev => !prev );
-
-    //         setMoving(true);
-
-    //         shift();
-
-    //         setMoving(false);
-    //     }
-    // };
-
     /************ Renders the forum page consisting of a list of the forum posts and a dynamic main box ************/
     return (
         <div style={{ padding: '1rem' }}>
             <div className="forum">
                 <div className="left-side">
-                    <ForumList />
+                    <input type="text" className="search-input" value={filter}
+                        placeholder="Search Forum Posts by Title." onChange={(e) => { setFilter(e.target.value); }} />
+                    <ForumList filter={filter}/>
                     <Link className="button" to="/forum/new/">Add a new post</Link>
                     {authenticated && (isMod || isAdmin) && <Link className="button" to="/forum/mod/">Moderate Forum</Link>}
                 </div>
