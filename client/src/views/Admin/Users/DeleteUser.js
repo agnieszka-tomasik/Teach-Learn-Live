@@ -5,13 +5,14 @@ import useToasts from '../../../components/Toasts';
 
 const DeleteUser = (props) => {
 
-    const { addError } = useToasts();
+    const { addError, addSuccess } = useToasts();
 
     const handleClick = (e) => {
         e.preventDefault()
         axios.post('/admin/users/delete', { uname: props.uname })
             .then(response => {
                 if (response.status === 200) {
+                    addSuccess("Successfully deleted user!");
                     props.usersUpdate(response.data);
 
                 } else {

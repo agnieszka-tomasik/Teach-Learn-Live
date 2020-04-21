@@ -18,7 +18,7 @@ const BlogAdmin = (props) => {
     const posts = useSelector(state => state.admin.posts);
     const dispatch = useDispatch();
     const setPosts = (x) => dispatch(populatePosts(x));
-    const {addError} = useToasts();
+    const {addError, addSuccess} = useToasts();
 
     const postsUpdate = (newPosts) => {
         setPosts(newPosts);
@@ -28,6 +28,7 @@ const BlogAdmin = (props) => {
         axios.post('/admin/blog/add', post)
             .then(response => {
                 if (response.status === 200) {
+                    addSuccess("Successfully added post!");
                     setPosts(response.data);
                 } else {
                     console.log(`Add Blog Post fail ${response.data}`);

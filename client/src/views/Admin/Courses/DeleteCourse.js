@@ -4,7 +4,7 @@ import "../Admin.css"
 import useToasts from '../../../components/Toasts';
 
 const DeleteCourse = (props) => {
-    const { addError } = useToasts();
+    const { addError, addSuccess } = useToasts();
 
     const handleClick = (e) => {
         e.preventDefault();
@@ -12,7 +12,7 @@ const DeleteCourse = (props) => {
             .then(response => {
                 if (response.status === 200) {
                     props.courseListUpdate(response.data);
-
+                    addSuccess("Successfully deleted course!");
                 } else {
                     console.log(`Delete Course fail ${response.data}`);
                     addError(response.data)

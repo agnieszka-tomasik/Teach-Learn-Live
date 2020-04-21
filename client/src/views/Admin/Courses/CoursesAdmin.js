@@ -13,7 +13,7 @@ import useToasts from '../../../components/Toasts';
 const CoursesAdmin = (props) => {
     const [filterText, setFilterText] = useState('');
     const [selectedCourse, setSelectedCourse] = useState('');
-    const {addError} = useToasts();
+    const {addError, addSuccess} = useToasts();
     const courses = useSelector(state => state.course.availableCourses);
     const dispatch = useDispatch();
 
@@ -25,6 +25,7 @@ const CoursesAdmin = (props) => {
         axios.post('/admin/courses/add', course)
             .then(response => {
                 if (response.status === 200) {
+                    addSuccess("Successfully added course!");
                     dispatch(populateCourses(response.data));
                     
                 } else {

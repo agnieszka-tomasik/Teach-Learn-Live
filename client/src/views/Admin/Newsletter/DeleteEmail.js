@@ -5,13 +5,14 @@ import useToasts from '../../../components/Toasts';
 
 const DeleteEmail = (props) => {
 
-    const { addError } = useToasts();
+    const { addError, addSuccess } = useToasts();
 
     const handleClick = (e) => {
         e.preventDefault()
         axios.post('/admin/newsletter/delete', { id: props.id })
             .then(response => {
                 if (response.status === 200) {
+                    addSuccess("Successfully deleted email!");
                     props.emailsUpdate(response.data);
 
                 } else {

@@ -8,7 +8,7 @@ const SubmitComment = (props) => {
     const text = props.text;
     const setText = props.setText;
     const dispatch = useDispatch();
-    const { addError } = useToasts();
+    const { addError, addSuccess } = useToasts();
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -28,6 +28,7 @@ const SubmitComment = (props) => {
             .then(response => {
                 if (response.status === 200) {
                     console.log(props.parent, text);
+                    addSuccess("Successfully added comment!");
                     dispatch(addComment(response.data));
                 } else {
                     addError("You are blocked from commenting on this post");

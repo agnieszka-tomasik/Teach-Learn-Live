@@ -5,7 +5,7 @@ import useToasts from '../../../components/Toasts';
 
 const UpdatePost = (props) => {
     const [updatedPost, setUpdatedPost] = useState(props.selectedPost);
-    const { addError } = useToasts();
+    const { addError, addSuccess } = useToasts();
 
     const handleTitleChange = (text) => {
         text.persist();
@@ -28,6 +28,7 @@ const UpdatePost = (props) => {
         axios.post('/admin/blog/update', updatedPost)
             .then(response => {
                 if (response.status === 200) {
+                    addSuccess("Successfully updated post!");
                     props.postsUpdate(response.data);
 
                 } else {
