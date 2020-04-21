@@ -21,6 +21,7 @@ const ViewCourse = (props) => {
             <div>
                 <h2>{selectedCourse[0].title}</h2>
                 <p>Description: {selectedCourse[0].description}</p>
+                <p>Price: {selectedCourse[0].price}</p>
                 <UpdateCourse
                     selectedCourse={selectedCourse[0]}
                     coursesUpdate={props.coursesUpdate}

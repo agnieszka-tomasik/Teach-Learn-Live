@@ -22,8 +22,8 @@ router.route('/courses/courseslist').get((req, res) => {
 });
 
 router.route('/courses/add').post((req, res) => {
-    let { title, description } = req.body;
-    Courses.create({ title: title, description: description }, (err, doc) => {
+    let { title, description, price } = req.body;
+    Courses.create({ title: title, description: description, price: price}, (err, doc) => {
         if (err) {
             return res.sendStatus(400);
         } else {

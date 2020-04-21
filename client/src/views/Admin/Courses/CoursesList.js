@@ -16,6 +16,7 @@ const CoursesList = (props) => {
                 <tr  key={course.id}>
                     <td  onClick={() => updateSelectedCourse(course.title)}>{course.title} </td>
                     <td  onClick={() => updateSelectedCourse(course.title)}>{course.description} </td>
+                    <td  onClick={() => updateSelectedCourse(course.title)}>${course.price} </td>
                     <td>
                         <DeleteCourse
                             title={course.title}
