@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import moment from 'moment';
 import "./Comment.css";
+import "./Common.css";
 
 /* component used in ForumPost.js to create a comment list */
 const Comment = (props) => {
@@ -17,7 +18,9 @@ const Comment = (props) => {
                         <p>
                             <b>{props.authUname}</b>
                             <br/>
-                            {props.postText}
+                            <span className="post-text">
+                                {props.postText}
+                            </span>
                             <br />
                             <small>{moment(props.postDate).fromNow()}</small>
                         </p>

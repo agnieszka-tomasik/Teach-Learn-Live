@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { addComment, populateForum } from '../../store/forumSlice';
-import './ForumSubmit.css'
 import { useDispatch } from 'react-redux';
 import axios from 'axios';
 

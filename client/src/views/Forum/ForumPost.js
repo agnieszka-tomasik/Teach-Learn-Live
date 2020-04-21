@@ -30,6 +30,7 @@ const Forum = () => {
                 <ul className="comment-list">
                     {commentsToList}
                 </ul>
+                <br/>
                 <SubmitComment parent={post} selected={selected}/>
             </div>
         </section>

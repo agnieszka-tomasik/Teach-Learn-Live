@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser, faAngleRight } from '@fortawesome/free-solid-svg-icons'
 import moment from 'moment';
 import "./OriginalPost.css";
+import "./Common.css";
 
 const OriginalPost = (props) => {
     const { authenticated, isAdmin, isMod } = useSelector(store => ({
@@ -28,7 +29,9 @@ const OriginalPost = (props) => {
                     <div className="content">
                         <b>{props.data.authUname}</b>
                         <br/>
-                        {props.data.postText}
+                        <span className="post-text">
+                            {props.data.postText}
+                        </span>
                         <br />
                         <small>{moment(props.data.postDate).fromNow()}</small>
                         {/* {authenticated && (isMod || isAdmin) && <DeletePost post={props.data} >Remove Post</DeletePost>} */}
