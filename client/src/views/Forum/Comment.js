@@ -6,14 +6,14 @@ import { faUser } from '@fortawesome/free-solid-svg-icons'
 const Comment = (props) => {
     return (
         <li className="Comment-box" key={props.key} >
-            <article class="media">
-                <figure class="media-left">
-                    <p class="image 64x64">
+            <article className="media">
+                <figure className="media-left">
+                    <p className="image 64x64">
                         <FontAwesomeIcon icon={faUser}/>
                     </p>
                 </figure>
-                <div class="media-content">
-                    <div class="content">
+                <div className="media-content">
+                    <div className="content">
                         <p>
                             <b>{props.comment.authUname}</b>
                             <br/>

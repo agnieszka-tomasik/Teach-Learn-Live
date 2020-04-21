@@ -35,11 +35,11 @@ const CreatePost = () => {
     return (
         <div>
           <form onSubmit={createPost}>
-            <article class="media">
-              <div class="media-content">
-                <div class="field">
-                  <p class="control">
-                    <textarea class="textarea">
+            <article className="media">
+              <div className="media-content">
+                <div className="field">
+                  <p className="control">
+                    <textarea className="textarea">
                       <input
                           className="create-post-title"
                           type="text"
@@ -49,9 +49,9 @@ const CreatePost = () => {
                     </textarea>
                   </p>
                 </div>
-                <div class="field">
-                  <p class="control">
-                    <textarea class="textarea">
+                <div className="field">
+                  <p className="control">
+                    <textarea className="textarea">
                       <input
                           className="create-post-body-text"
                           type="text"
@@ -61,10 +61,10 @@ const CreatePost = () => {
                     </textarea>
                   </p>
                 </div>
-                <nav class="level">
-                  <div class="level-left">
-                    <div class="level-item">
-                      <a class="button is-info">
+                <nav className="level">
+                  <div className="level-left">
+                    <div className="level-item">
+                      <a className="button is-info">
                         <input
                             className="create-post-submit"
                             type="submit"

@@ -43,10 +43,10 @@ const SubmitComment = (props) => {
           className="field"
           onSubmit={handleSubmit}>
           <div className="submit-box control">
-            <article class="media">
-              <div class="media-content">
-                <div class="field">
-                  <p class="control">
+            <article className="media">
+              <div className="media-content">
+                <div className="field">
+                  <p className="control">
                         <input
                           className=" textarea comment-input"
                           type="text"
@@ -55,8 +55,8 @@ const SubmitComment = (props) => {
                           placeholder="Enter your comment" />
                   </p>
                 </div>
-                <div class="field">
-                  <p class="control">
+                <div className="field">
+                  <p className="control">
                       <input
                           className="button submit-comment"
                           type="submit"
