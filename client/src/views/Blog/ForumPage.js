@@ -24,7 +24,7 @@ const ForumPage = (props) => {
             <div className="forum">
                 <div className="left-side">
                     <input type="text" className="search-input" value={filter}
-                        placeholder="Search Forum Posts by Title." onChange={(e) => { setFilter(e.target.value); }} />
+                        placeholder="Search Blog Posts by Title." onChange={(e) => { setFilter(e.target.value); }} />
                     <ForumList filter={filter}/>
                 </div>
                 <div className="right-side">
