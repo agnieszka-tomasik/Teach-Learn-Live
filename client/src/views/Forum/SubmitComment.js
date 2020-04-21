@@ -40,15 +40,14 @@ const SubmitComment = (props) => {
     return (
         <form
           id="post-comment"
-          className="field"
           onSubmit={handleSubmit}>
           <div className="submit-box control">
             <article className="media">
               <div className="media-content">
                 <div className="field">
                   <p className="control">
-                        <input
-                          className=" textarea comment-input"
+                        <textarea
+                          className="textarea comment-input"
                           type="text"
                           value={text}
                           onChange={(e) => { setText(e.target.value) }}
