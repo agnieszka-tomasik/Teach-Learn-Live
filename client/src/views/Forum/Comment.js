@@ -102,7 +102,17 @@ const Comment = (props) => {
 
     return (
         <div className = "Comment-box" key = {props.data._id} >
-            {bodyAsComponents}
+            <article class="media">
+                <div class="media-content">
+                    <div class="content">
+                    <p>
+                        <i>{props.data.authUname}</i>
+                        <br>{bodyAsComponents}</br>
+                        <small>{props.data.postDate}}</small>
+                    </p>
+                    </div>
+                </div>
+            </article>
             <button className = "Comment-reply" onClick = {props.addRef}>reply</button>
             <RefBox commentRef={selectedRef} commentList={commentList} />
         </div>
