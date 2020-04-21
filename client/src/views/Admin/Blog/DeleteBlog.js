@@ -4,13 +4,14 @@ import "../Admin.css"
 import useToasts from '../../../components/Toasts';
 
 const DeleteUser = (props) => {
-    const {addError} = useToasts();
+    const {addError, addSuccess} = useToasts();
 
     const handleClick = (e) => {
         e.preventDefault();
         axios.post('/admin/blog/delete', {id:props.id})
             .then(response => {
                 if (response.status === 200) {
+                    addSuccess("Successfully deleted blog post!");
                     props.postsUpdate(response.data);
                 } else {
                     console.log(`Delete Blog Post fail ${response.data}`);

@@ -5,7 +5,7 @@ import useToasts from '../../../components/Toasts';
 
 const UpdateCourse = (props) => {
     const [updatedCourse, setUpdatedCourse] = useState(props.selectedCourse);
-    const { addError } = useToasts();
+    const { addError, addSuccess } = useToasts();
 
     const handleTitleChange = (text) => {
         text.persist();
@@ -26,6 +26,7 @@ const UpdateCourse = (props) => {
         axios.post('/admin/courses/update', updatedCourse)
             .then(response => {
                 if (response.status === 200) {
+                    addSuccess("Successfully updated course!");
                     props.coursesUpdate(response.data);
 
                 } else {

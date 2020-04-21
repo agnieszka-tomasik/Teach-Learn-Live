@@ -11,7 +11,7 @@ import useToasts from '../../../components/Toasts';
 
 const NewsletterAdmin = (props) => {
     const [filterText, setFilterText] = useState('');
-    const { addError } = useToasts();
+    const { addError, addSuccess } = useToasts();
 
     const emails = useSelector(state => state.admin.emails);
     const dispatch = useDispatch();
@@ -25,6 +25,7 @@ const NewsletterAdmin = (props) => {
         axios.post('/admin/newsletter/add', email)
             .then(response => {
                 if (response.status === 200) {
+                    addSuccess("Successfully added email!");
                     setEmails(response.data);
 
                 } else {

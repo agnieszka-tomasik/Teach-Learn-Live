@@ -5,7 +5,7 @@ import useToasts from '../../../components/Toasts';
 
 const UpdateUser = (props) => {
     const [updatedUser, setUpdatedUser] = useState(props.selectedUser);
-    const { addError } = useToasts();
+    const { addError, addSuccess} = useToasts();
 
     const handleUnameChange = (text) => {
         text.persist();
@@ -39,6 +39,7 @@ const UpdateUser = (props) => {
         axios.post('/admin/users/update', updatedUser)
             .then(response => {
                 if (response.status === 200) {
+                    addSuccess("Successfully updated user!");
                     props.usersUpdate(response.data);
 
                 } else {

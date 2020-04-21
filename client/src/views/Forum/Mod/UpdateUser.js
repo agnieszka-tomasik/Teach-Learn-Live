@@ -5,7 +5,7 @@ import useToasts from '../../../components/Toasts';
 
 const UpdateUser = (props) => {
     const [updatedUser, setUpdatedUser] = useState(props.selectedUser);
-    const { addError } = useToasts();
+    const { addError, addSuccess } = useToasts();
 
     const handleCheckChange = () => {
         let newUser = Object.assign({}, updatedUser);
@@ -19,7 +19,7 @@ const UpdateUser = (props) => {
             .then(response => {
                 if (response.status === 200) {
                     props.usersUpdate(response.data);
-
+                    addSuccess("Successfully blocked user!");
                 } else {
                     console.log(`Update User fail ${response.data}`);
                     addError(response.data);

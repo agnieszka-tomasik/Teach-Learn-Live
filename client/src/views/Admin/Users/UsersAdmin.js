@@ -13,7 +13,7 @@ import useToasts from '../../../components/Toasts';
 const UsersAdmin = (props) => {
     const [filterText, setFilterText] = useState('');
     const [selectedUser, setSelectedUser] = useState('');
-    const {addError} = useToasts();
+    const {addError, addSuccess} = useToasts();
 
     //todo refactor
     const users = useSelector(state => state.admin.users);
@@ -29,6 +29,7 @@ const UsersAdmin = (props) => {
         axios.post('/admin/users/add', user)
             .then(response => {
                 if (response.status === 200) {
+                    addSuccess("Successfully added user!");
                     setUsers(response.data);
                 } else {
                     console.log(`Add User fail ${response.data}`);

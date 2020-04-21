@@ -30,7 +30,7 @@ const Comment = (props) => {
 
     const [dropdown, setDropdown] = useState(false);
     const dispatch = useDispatch();
-    const {addError} = useToasts();
+    const {addError, addSuccess} = useToasts();
     useEffect(() => {
         const off = () => {
             setDropdown(false);
@@ -50,6 +50,7 @@ const Comment = (props) => {
         axios.post('/forum/comment/delete', { post: props.parent, comment: props})
             .then(response => {
                 if (response.status === 200) {
+                    addSuccess("Successfully deleted comment!");
                     dispatch(delComment(response.data));
                     
                 } else {
