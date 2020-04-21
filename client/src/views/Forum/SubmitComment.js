@@ -41,9 +41,9 @@ const SubmitComment = (props) => {
     return (
         <form id="post-comment" className="field" onSubmit={handleSubmit}>
             <div className="submit-box control">
-                <input type="text" className="comment-input" value={text} 
-                    placeholder="Enter your comment" onChange={(e) => { setText(e.target.value); }}/>
-                <input className="button submit-comment" type="submit" value="Submit"/>
+                <textarea type="text" className="textarea comment-input" value={text} 
+                    placeholder="Add a comment" onChange={(e) => { setText(e.target.value); }}/>
+                <input className="button submit-comment" type="submit" value="Comment"/>
             </div>
         </form>
 
