@@ -24,7 +24,6 @@ const ViewUser = (props) => {
                 <UpdateUser
                     selectedUser={selectedUser[0]}
                     usersUpdate={props.usersUpdate}
-                    setUpError={props.setUpError}
                 />
             </div>
         );

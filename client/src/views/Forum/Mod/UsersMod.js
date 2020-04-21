@@ -60,15 +60,6 @@ const UsersMod = (props) => {
                             }
                             error={delError && <p className="is-danger">{delError}</p>}
                         />
-                        <div className="tableWrapper">
-                            <table className="table is-striped is-hoverable">
-                                <tr >
-                                    <td >
-                                        <b>Username</b>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
                     </div>
                     <div className="column2">
                         <ViewUser

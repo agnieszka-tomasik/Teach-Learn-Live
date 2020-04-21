@@ -1,7 +1,7 @@
 .comment-box {
     border-left: 4px #333 solid;
     box-sizing: border-box;
-    padding-left:4px;
+    padding:12px;
     background-color: #fff;
     margin-top:.5em;
 }

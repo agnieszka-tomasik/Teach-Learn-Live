@@ -10,20 +10,21 @@ const DeletePost = (props) => {
     const dispatch = useDispatch();
     const history = useHistory();
 
-    const handleClick = () => {
-        axios.post('/forum/post/delete', {post:props.post})
+    const handleClick = (e) => {
+        e.preventDefault()
+        axios.post('/forum/post/delete', { post: props.post })
             .then(response => {
                 if (response.status === 200) {
                     history.goBack();
                     dispatch(delPost(response.data));
-                    //props.setDelError(null);
+                    //
                 } else {
                     console.log(`Delete post fail ${response.data}`);
-                    //props.setDelError(response.data)
+                    //addError(response.data)
                 }
             }).catch(e => {
                 console.log(`Delete post fail ${e}`);
-                //props.setDelError("Delete post fail");
+                //addError("Delete post fail");
             });
     }
 

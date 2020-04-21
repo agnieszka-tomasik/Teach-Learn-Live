@@ -2,15 +2,12 @@ import React, { useRef, useState } from 'react';
 import './Forum.css';
 import Comment from './Comment.js';
 import SubmitComment from './SubmitComment';
-import DeleteComment from './DeleteComment';
 import OriginalPost from './OriginalPost.js';
-import BlockedUser from './BlockedUser.js';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector, ReactReduxContext } from 'react-redux';
 
 const Forum = () => {
     const { id } = useParams();
-    const [error, setError] = useState(null);
     const post = useSelector(state => state.forum.posts.find(p => p._id === id));
     const [selected, setSelected] = useState(post);
     if (!post) {
@@ -21,7 +18,7 @@ const Forum = () => {
     ** an html list to be printed below the original post
     */
     const commentsToList = post.comments.map(c => <li className="comment-box" key={c._id}>
-        <Comment {...c} />
+        <Comment parent={post} {...c} />
     </li>)
 
     /******** Print Original Post and Comments (with indent of 50px for comments specified in ForumPost.css) *********/

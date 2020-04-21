@@ -8,16 +8,14 @@ import "../Admin.css"
 import axios from 'axios';
 import Table from "../AdminTable";
 import { populateCourses } from '../../../store/courseSlice';
+import useErrorToast from '../../../components/ErrorToast';
 
 const CoursesAdmin = (props) => {
     const [filterText, setFilterText] = useState('');
     const [selectedCourse, setSelectedCourse] = useState('');
+    const {addError} = useErrorToast();
     const courses = useSelector(state => state.course.availableCourses);
     const dispatch = useDispatch();
-    const [addError, setAddError] = useState(null);
-    const [delError, setDelError] = useState(null);
-    const [upError, setUpError] = useState(null);
-
 
     const coursesUpdate = (newCourses) => {
         dispatch(populateCourses(newCourses));
@@ -28,14 +26,14 @@ const CoursesAdmin = (props) => {
             .then(response => {
                 if (response.status === 200) {
                     dispatch(populateCourses(response.data));
-                    setAddError(null);
+                    
                 } else {
                     console.log(`Add Course fail ${response.data}`);
-                    setAddError(response.data);
+                    addError(response.data);
                 }
             }).catch(e => {
                 console.log(`Add Course fail ${e}`);
-                setAddError("Add Course fail");
+                addError("Add Course fail");
             });
     };
 
@@ -64,9 +62,7 @@ const CoursesAdmin = (props) => {
                                     selectedUpdate={selectedUpdate}
                                     filterText={filterText}
                                     coursesUpdate={coursesUpdate}
-                                    setDelError={setDelError}
                                 />}
-                            error={<p className="is-danger">{delError}</p>}
                         />
                     </div>
                     <div className="column2">
@@ -74,9 +70,7 @@ const CoursesAdmin = (props) => {
                             data={courses}
                             title={selectedCourse}
                             coursesUpdate={coursesUpdate}
-                            setUpError={setUpError}
                         />
-                        {upError && <p className="is-danger">{delError}</p>}
                     </div>
                     <div className="column2">
                         <AddCourse
@@ -84,7 +78,6 @@ const CoursesAdmin = (props) => {
                             addCourse={addCourse}
                             data={courses}
                         />
-                        {addError && <p className="is-danger">{addError}</p>}
                     </div>
                 </div>
             </main>

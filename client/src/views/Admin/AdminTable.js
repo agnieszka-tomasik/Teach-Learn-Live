@@ -1,6 +1,6 @@
 import React from 'react';
 import "./AdminTable.css";
-const AdminTable = ({ head, body, error }) => {
+const AdminTable = ({ head, body }) => {
     return <div className="tableWrapper">
         <table className="table is-hoverable">
             <thead>
@@ -13,7 +13,6 @@ const AdminTable = ({ head, body, error }) => {
                 {body}
             </tbody>
         </table>
-        {error}
     </div>
 }
 

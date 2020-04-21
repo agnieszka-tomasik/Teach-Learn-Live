@@ -20,7 +20,6 @@ const CoursesList = (props) => {
                         <DeleteCourse
                             title={course.title}
                             courseListUpdate={props.coursesUpdate}
-                            setDelError={props.setDelError}
                         />
                     </td>
                 </tr>

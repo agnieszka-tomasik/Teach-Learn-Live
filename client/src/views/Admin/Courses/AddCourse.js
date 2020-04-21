@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import "../Admin.css"
 
 const AddCourse = (props) => {
@@ -24,22 +24,23 @@ const AddCourse = (props) => {
         }))
     };
 
-    const handleClick = () => {
-         let inputs = document.getElementsByTagName("input");
-         for(let i = 0; i < inputs.length; i++){
-             inputs[i].value = "";
-         }
-         props.addCourse(newCourse)
+    const handleClick = (e) => {
+        e.preventDefault();
+        let inputs = document.getElementsByTagName("input");
+        for (let i = 0; i < inputs.length; i++) {
+            inputs[i].value = "";
+        }
+        props.addCourse(newCourse)
     };
 
     return (
         <div>
             <h1 className="title">Add New Course:</h1>
-        <form>
-            <input type='text' id='title' className='inputtext' placeholder='Course Title' onChange={handleTitleChange}/>
-            <input type='text' className='inputtext' placeholder='Description' onChange={handleDescChange}/>
-            <button className='button' onClick={handleClick}>Add</button>
-        </form>
+            <form>
+                <input type='text' id='title' className='inputtext' placeholder='Course Title' onChange={handleTitleChange} />
+                <input type='text' className='inputtext' placeholder='Description' onChange={handleDescChange} />
+                <button className='button' onClick={handleClick}>Add</button>
+            </form>
         </div>
     );
 };

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import "../Admin.css"
 
 const AddUser = (props) => {
@@ -47,32 +47,33 @@ const AddUser = (props) => {
         }))
     };
 
-    const handleClick = () => {
-         let inputs = document.getElementsByTagName("input");
-         for(let i = 0; i < inputs.length; i++){
-             inputs[i].value = "";
-         }
-         props.addUser(newUser)
+    const handleClick = (e) => {
+        e.preventDefault()
+        let inputs = document.getElementsByTagName("input");
+        for (let i = 0; i < inputs.length; i++) {
+            inputs[i].value = "";
+        }
+        props.addUser(newUser)
     };
 
     return (
         <div>
             <h1 className="title">Add New User:</h1>
-        <form>
-            <input type='text' className='inputtext' id='title' placeholder='Username' onChange={handleUnameChange}/>
-            <input type='text' className='inputtext' placeholder='Email' onChange={handleEmailChange}/>
-            <input type='password' className='inputpass' placeholder='Password' onChange={handlePassChange}/>
-            <label>
-                Admin:
+            <form>
+                <input type='text' className='inputtext' id='title' placeholder='Username' onChange={handleUnameChange} />
+                <input type='text' className='inputtext' placeholder='Email' onChange={handleEmailChange} />
+                <input type='password' className='inputpass' placeholder='Password' onChange={handlePassChange} />
+                <label>
+                    Admin:
                 <input
-                    name="isAdmin"
-                    type="checkbox"
-                    checked={newUser.isAdmin}
-                    onChange={handleCheckChange} />
-            </label>
-            <br/>
-            <button className='button' onClick={handleClick}>Add</button>
-        </form>
+                        name="isAdmin"
+                        type="checkbox"
+                        checked={newUser.isAdmin}
+                        onChange={handleCheckChange} />
+                </label>
+                <br />
+                <button className='button' onClick={handleClick}>Add</button>
+            </form>
         </div>
     );
 

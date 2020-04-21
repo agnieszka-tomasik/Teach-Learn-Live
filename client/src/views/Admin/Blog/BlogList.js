@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import DeleteBlog from './DeleteBlog';
 import "../Admin.css"
+import useErrorToast from '../../../components/ErrorToast';
 
 const BlogList = (props) => {
+    const {addError} = useErrorToast();
 
     const updateSelectedPost = (id) => {
         props.selectedUpdate(id);
@@ -21,7 +23,7 @@ const BlogList = (props) => {
                         <DeleteBlog
                             id={post._id}
                             postsUpdate={props.postsUpdate}
-                            setDelError={props.setDelError}
+                            setDelError={addError}
                         />
                     </td>
                 </tr>

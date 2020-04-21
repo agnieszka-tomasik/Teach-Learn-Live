@@ -20,7 +20,6 @@ const UsersList = (props) => {
                         <DeleteUser
                             uname={user.uname}
                             usersUpdate={props.usersUpdate}
-                            setDelError={props.setDelError}
                         />
                     </td>
                 </tr>

@@ -7,17 +7,15 @@ import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
 import { populateEmails } from '../../../store/adminSlice';
 import Table from '../AdminTable';
+import useErrorToast from '../../../components/ErrorToast';
 
 const NewsletterAdmin = (props) => {
     const [filterText, setFilterText] = useState('');
+    const { addError } = useErrorToast();
 
     const emails = useSelector(state => state.admin.emails);
     const dispatch = useDispatch();
     const setEmails = (x) => dispatch(populateEmails(x));
-
-    const [addError, setAddError] = useState(null);
-    const [delError, setDelError] = useState(null);
-
 
     const emailsUpdate = (newEmails) => {
         setEmails(newEmails);
@@ -28,14 +26,14 @@ const NewsletterAdmin = (props) => {
             .then(response => {
                 if (response.status === 200) {
                     setEmails(response.data);
-                    setAddError(null);
+
                 } else {
                     console.log(`Add Email fail ${response.data}`);
-                    setAddError(response.data);
+                    addError(response.data);
                 }
             }).catch(e => {
                 console.log(`Add Email fail ${e}`);
-                setAddError("Add Email fail");
+                addError("Add Email fail");
             });
     };
 
@@ -62,12 +60,9 @@ const NewsletterAdmin = (props) => {
                                     data={emails}
                                     filterText={filterText}
                                     emailsUpdate={emailsUpdate}
-                                    setDelError={setDelError}
                                 />
                             }
-                            error={
-                                delError && <p className="is-danger">{delError}</p>
-                            } />
+                        />
                     </div>
                     <div className="column2">
                         <AddEmail
@@ -75,7 +70,6 @@ const NewsletterAdmin = (props) => {
                             addEmail={addEmail}
                             data={emails}
                         />
-                        {addError && <p className="is-danger">{addError}</p>}
                     </div>
                 </div>
             </main>

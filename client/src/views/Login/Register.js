@@ -6,6 +6,7 @@ import { WithBanner } from '../../components/Banner';
 import './Forms.css';
 import { useDispatch } from 'react-redux';
 import { authenticated } from '../../store/userSlice';
+import useErrorToast from '../../components/ErrorToast';
 
 function validatePassword(password) {
     const lowers = /(?=.*[a-z]).*/
@@ -28,14 +29,16 @@ function validatePassword(password) {
 
 function Login() {
     const history = useHistory();
-    const [error, setError] = useState(null);
+    const {addError} = useErrorToast();
     const dispatch = useDispatch();
 
     const submit = (e) => {
         e.preventDefault();
         const formData = new FormData(e.target);
         if (formData.get('password') !== formData.get('passwordConfirm')) {
-            setError('Passwords did not match!');
+            addError(<div>
+                Passwords did not match!
+            </div>, {appearance: "error"});
             return;
         }
 
@@ -45,34 +48,34 @@ function Login() {
          */
         let password = formData.get('password');
         let retnums = validatePassword(password);
-        let errormsg = "";
+        let errormsg = [];
         retnums.forEach((retnum) => {
             switch (retnum) {
                 case -1:
-                    errormsg += "Password must contain at least one lowercase letter \n";
+                    errormsg.push("Password must contain at least one lowercase letter");
                     break;
                 case -2:
-                    errormsg += "Password must contain at least one uppercase letter \n";
+                    errormsg.push("Password must contain at least one uppercase letter");
                     break;
                 case -3:
-                    errormsg += "Password must contain at least one special symbol \n";
+                    errormsg.push("Password must contain at least one special symbol");
                     break;
                 case -4:
-                    errormsg += "Password must be at least 8 characters long \n";
+                    errormsg.push("Password must be at least 8 characters long");
                     break;
             }
         });
 
         if (retnums.length > 0) {
-            errormsg = new Set(errormsg.split('\n'))
-            errormsg = Array(errormsg);
             errormsg = errormsg.map((e, key) => {
-                return (<span key={key}>
+                return (<li key={key}>
                             {e}
                             <br/>
-                        </span>);
+                        </li>);
             });
-            setError(errormsg);
+            addError(<ul>
+                {errormsg}
+            </ul>, {appearance: "error", autoDismiss: false});
             return;
         } 
 
@@ -83,11 +86,15 @@ function Login() {
                     dispatch(authenticated(response.data));
                     history.push('/home');
                 } else {
-                    setError(response.data);
+                    addError(<div>
+                        {response.data}
+                    </div>, {appearance: "error"});
                 }
             }).catch((err) => {
                 console.log(`Registration fail ${err}`);
-                setError('Registration failed.');
+                    addError(<div>
+                        Registration failed
+                    </div>, {appearance: "error"});
             });
     };
 
@@ -109,10 +116,8 @@ function Login() {
                     <Field label="Confirm Password">
                         <input className="input" type="password" name="passwordConfirm" placeholder="Confirm Password" required />
                     </Field>
-                    {error && <p className="is-danger">{error}</p>}
                     <input className="button is-primary" type="submit" />
                 </form>
-                {error && error.split('\n').map((err, key) => <p className="is-danger" key={key}>{err}</p>)}
             </div>
             <Link to="/login">Login</Link>
             <Link to="/home">Go back</Link>

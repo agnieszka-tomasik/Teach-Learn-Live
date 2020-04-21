@@ -15,7 +15,7 @@ const EmailList = (props) => {
                         <DeleteEmail
                             id={email._id}
                             emailsUpdate={props.emailsUpdate}
-                            setDelError={props.setDelError}
+                            
                         />
                     </td>
                 </tr>

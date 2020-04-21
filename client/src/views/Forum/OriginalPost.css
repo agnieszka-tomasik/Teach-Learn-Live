@@ -6,8 +6,6 @@
     background-color: #ffffff;
     border-left: 8px #01FFFF solid;
     box-sizing: border-box;
-    padding-left:4px;
-
-    /* padding: 1rem; */
+    padding: 12px;
     margin-bottom: 1rem;
 }
