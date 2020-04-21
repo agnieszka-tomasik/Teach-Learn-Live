@@ -1,11 +1,12 @@
 import React from 'react';
 import "../Admin.css"
 import UpdateUser from './UpdateUser';
+import { useSelector } from 'react-redux';
 
 const ViewUser = (props) => {
-    let selectedUser = props.data.filter(user => user.uname === props.uname);
+    let selectedUser = useSelector(state => state.admin.users.find(user => user.uname === props.uname));
 
-    if (!selectedUser[0]){
+    if (!selectedUser){
         return (
             <div>
                 <p>
@@ -19,13 +20,12 @@ const ViewUser = (props) => {
     {
         return (
             <div>
-                <h2>{selectedUser[0].uname}</h2>
-                <p>Email: {selectedUser[0].email}</p>
-                <p>Join Date: {selectedUser[0].joinDate}</p>
-                <p>Admin: {selectedUser[0].isAdmin ? "Yes" : "No"}</p>
-                <p>Courses: {selectedUser[0].courses}</p>
+                <h2>{selectedUser.uname}</h2> <p>Email: {selectedUser.email}</p>
+                <p>Join Date: {selectedUser.joinDate}</p>
+                <p>Admin: {selectedUser.isAdmin ? "Yes" : "No"}</p>
+                <p>Courses: {selectedUser.courses}</p>
                 <UpdateUser
-                    selectedUser={selectedUser[0]}
+                    selectedUser={selectedUser}
                     usersUpdate={props.usersUpdate}
                 />
             </div>

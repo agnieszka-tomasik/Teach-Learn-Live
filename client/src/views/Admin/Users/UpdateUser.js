@@ -5,6 +5,10 @@ import useToasts from '../../../components/Toasts';
 
 const UpdateUser = (props) => {
     const [updatedUser, setUpdatedUser] = useState(props.selectedUser);
+    React.useEffect(() => {
+        setUpdatedUser(props.selectedUser);
+    }, [props.selectedUser])
+
     const { addError, addSuccess} = useToasts();
 
     const handleUnameChange = (text) => {
