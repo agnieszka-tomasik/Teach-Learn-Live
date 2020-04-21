@@ -36,5 +36,8 @@
     "should": "^13.2.3",
     "supertest": "^4.0.2"
   },
-  "homepage": "https://github.com/UFWebApps/React_Template_Repo#readme"
+  "homepage": "https://github.com/UFWebApps/React_Template_Repo#readme",
+  "devDependencies": {
+    "react-social-icons": "^4.1.0"
+  }
 }

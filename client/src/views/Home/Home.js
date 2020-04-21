@@ -4,6 +4,7 @@ import './Home.css';
 import axios from 'axios';
 import { logout } from '../../store/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
+import { SocialIcon } from 'react-social-icons';
 
 function Home() {
     const [message, setMessage] = useState(null);
@@ -45,7 +46,9 @@ function Home() {
                         <div className="container">
                             <div className="navbar-brand">
                                 <img className="nav-logo navbar-item" src="/tll_logo_no_bg.svg" alt="Teach Leave Live" />
-
+                                <SocialIcon url = "http://instagram.com/teachleavelive/"/>
+                                <SocialIcon url = "http://twitter.com/teachleavelive/"/>
+                                <SocialIcon url = "http://facebook.com/teachleavelive/"/>
                                 <span className="navbar-burger burger" data-target="navbarMenuHeroA">
                                     <span />
                                     <span />
