@@ -5,6 +5,9 @@ import useToasts from '../../../components/Toasts';
 
 const UpdateCourse = (props) => {
     const [updatedCourse, setUpdatedCourse] = useState(props.selectedCourse);
+    React.useEffect(() => {
+        setUpdatedCourse(props.selectedCourse);
+    }, [props.selectedCourse])
     const { addError, addSuccess } = useToasts();
 
     const handleTitleChange = (text) => {
