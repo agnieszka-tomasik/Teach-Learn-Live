@@ -34,6 +34,12 @@ const UpdateUser = (props) => {
         setUpdatedUser(newUser);
     }
 
+    const handleModCheckChange = () => {
+        let newUser = Object.assign({}, updatedUser);
+        newUser.isMod = !newUser.isMod;
+        setUpdatedUser(newUser);
+    }
+
     const handleClick = (e) => {
         e.preventDefault()
         axios.post('/admin/users/update', updatedUser)
@@ -66,6 +72,15 @@ const UpdateUser = (props) => {
                         type="checkbox"
                         checked={updatedUser.isAdmin}
                         onChange={handleCheckChange} />
+                </label>
+                <br />
+                <label>
+                    Moderator:
+                <input
+                        name="isAdmin"
+                        type="checkbox"
+                        checked={updatedUser.isMod}
+                        onChange={handleModCheckChange} />
                 </label>
                 <br />
                 <button className='button' onClick={handleClick}>Update</button>

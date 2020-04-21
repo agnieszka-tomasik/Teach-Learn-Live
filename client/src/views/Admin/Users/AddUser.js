@@ -7,7 +7,8 @@ const AddUser = (props) => {
             uname: "",
             password: "",
             email: "",
-            isAdmin: false
+            isAdmin: false,
+            isMod: false
         }
     );
 
@@ -17,7 +18,8 @@ const AddUser = (props) => {
             uname: text.target.value,
             password: prevState.password,
             email: prevState.email,
-            isAdmin: prevState.isAdmin
+            isAdmin: prevState.isAdmin,
+            isMod: prevState.isMod
         }))
     };
     const handlePassChange = (text) => {
@@ -26,7 +28,8 @@ const AddUser = (props) => {
             uname: prevState.uname,
             password: text.target.value,
             email: prevState.email,
-            isAdmin: prevState.isAdmin
+            isAdmin: prevState.isAdmin,
+            isMod: prevState.isMod
         }))
     };
     const handleEmailChange = (text) => {
@@ -35,7 +38,8 @@ const AddUser = (props) => {
             uname: prevState.uname,
             password: prevState.password,
             email: text.target.value,
-            isAdmin: prevState.isAdmin
+            isAdmin: prevState.isAdmin,
+            isMod: prevState.isMod
         }))
     };
     const handleCheckChange = () => {
@@ -43,7 +47,17 @@ const AddUser = (props) => {
             uname: prevState.uname,
             password: prevState.password,
             email: prevState.email,
-            isAdmin: !prevState.isAdmin
+            isAdmin: !prevState.isAdmin,
+            isMod: prevState.isMod
+        }))
+    };
+    const handleModCheckChange = () => {
+        setNewUser(prevState => ({
+            uname: prevState.uname,
+            password: prevState.password,
+            email: prevState.email,
+            isAdmin: prevState.isAdmin,
+            isMod: !prevState.isMod
         }))
     };
 
@@ -70,6 +84,15 @@ const AddUser = (props) => {
                         type="checkbox"
                         checked={newUser.isAdmin}
                         onChange={handleCheckChange} />
+                </label>
+                <br />
+                <label>
+                    Moderator:
+                <input
+                        name="isAdmin"
+                        type="checkbox"
+                        checked={newUser.isMod}
+                        onChange={handleModCheckChange} />
                 </label>
                 <br />
                 <button className='button' onClick={handleClick}>Add</button>
