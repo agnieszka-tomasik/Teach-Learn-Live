@@ -1,0 +1,13 @@
+.title svg {
+    vertical-align: middle;
+}
+
+.original-post {
+    background-color: #ffffff;
+    border-left: 8px #01FFFF solid;
+    box-sizing: border-box;
+    padding-left:4px;
+
+    /* padding: 1rem; */
+    margin-bottom: 1rem;
+}
