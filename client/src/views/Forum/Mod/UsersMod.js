@@ -48,8 +48,8 @@ const UsersMod = (props) => {
                     <div className="column1">
                         <div className="tableWrapper">
                             <table className="table is-striped is-hoverable">
-                                <tr className='tr'>
-                                    <td className='tr'>
+                                <tr >
+                                    <td >
                                         <b>Username</b>
                                     </td>
                                 </tr>

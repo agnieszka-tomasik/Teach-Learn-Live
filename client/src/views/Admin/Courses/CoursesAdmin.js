@@ -1,11 +1,12 @@
-import React, {useState } from 'react';
-import {useSelector, useDispatch} from 'react-redux'
+import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux'
 import Search from './Search';
 import ViewCourse from './ViewCourse';
 import CoursesList from './CoursesList';
 import AddCourse from "./AddCourse";
 import "../Admin.css"
 import axios from 'axios';
+import Table from "../AdminTable";
 import { populateCourses } from '../../../store/courseSlice';
 
 const CoursesAdmin = (props) => {
@@ -52,32 +53,21 @@ const CoursesAdmin = (props) => {
                 <h1 className="title">Manage Site Courses</h1>
             </div>
 
-            <Search filterUpdate={filterUpdate}/>
+            <Search filterUpdate={filterUpdate} />
             <main className='main'>
                 <div className="row">
                     <div className="column1">
-                        <div className="tableWrapper">
-                            <table className="table is-striped is-hoverable">
-                                <tr className='tr'>
-                                    <td className='td'>
-                                        <b>Title</b>
-                                    </td>
-                                    <td className='td'>
-                                        <b>Description</b>
-                                    </td>
-                                    <td className='td'>
-                                    </td>
-                                </tr>
+                        <Table head={["Title", "Description"]}
+                            body={
                                 <CoursesList
                                     data={courses}
                                     selectedUpdate={selectedUpdate}
                                     filterText={filterText}
                                     coursesUpdate={coursesUpdate}
                                     setDelError={setDelError}
-                                />
-                                {delError && <p className="is-danger">{delError}</p>}
-                            </table>
-                        </div>
+                                />}
+                            error={() => delError && <p className="is-danger">{delError}</p>}
+                        />
                     </div>
                     <div className="column2">
                         <ViewCourse
@@ -89,9 +79,9 @@ const CoursesAdmin = (props) => {
                         {upError && <p className="is-danger">{delError}</p>}
                     </div>
                     <div className="column2">
-                        <AddCourse 
-                            className='AddCourse' 
-                            addCourse={addCourse} 
+                        <AddCourse
+                            className='AddCourse'
+                            addCourse={addCourse}
                             data={courses}
                         />
                         {addError && <p className="is-danger">{addError}</p>}

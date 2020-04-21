@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import Search from './Search';
 import ViewBlog from './ViewBlog';
 import BlogList from './BlogList';
@@ -7,6 +7,7 @@ import "../Admin.css"
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
 import { populatePosts } from '../../../store/adminSlice';
+import Table from '../AdminTable';
 
 const BlogAdmin = (props) => {
     const [filterText, setFilterText] = useState('');
@@ -62,31 +63,20 @@ const BlogAdmin = (props) => {
             <main className='main'>
                 <div className="row">
                     <div className="column1">
-                        <div className="tableWrapper">
-                            <table className="table is-striped is-hoverable">
-                                <tr className='tr'>
-                                    <td className='td'>
-                                        <b>Author</b>
-                                    </td>
-                                    <td className='td'>
-                                        <b>Title</b>
-                                    </td>
-                                    <td className='td'>
-                                        <b>Date</b>
-                                    </td>
-                                    <td className='td'>
-                                    </td>
-                                </tr>
+                        <Table
+                            head={["Author", "Title", "Date"]}
+                            body={
                                 <BlogList
                                     data={posts}
                                     selectedUpdate={selectedUpdate}
                                     filterText={filterText}
                                     postsUpdate={postsUpdate}
                                     setDelError={setDelError}
-                                />
-                                {delError && <p className="is-danger">{delError}</p>}
-                            </table>
-                        </div>
+                                />}
+                            error={
+                                delError && <p className="is-danger">{delError}</p>
+                            }
+                        />
                     </div>
                     <div className="column2">
                         <ViewBlog
@@ -98,9 +88,9 @@ const BlogAdmin = (props) => {
                         {upError && <p className="is-danger">{delError}</p>}
                     </div>
                     <div className="column2">
-                        <AddBlog 
-                            className='AddCourse' 
-                            addPost={addPost} 
+                        <AddBlog
+                            className='AddCourse'
+                            addPost={addPost}
                             data={posts}
                         />
                         {addError && <p className="is-danger">{addError}</p>}

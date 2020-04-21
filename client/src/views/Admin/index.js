@@ -21,7 +21,7 @@ const Cards = () => {
     return <div className="container">
             <h1 className="title">Admin Panel</h1>
             {pages.map(page => {
-                return <Link to={page.path}>
+                return <Link key={page.path} to={page.path}>
                         <div className="card-row">
                             <div className="title is-4">{page.name}</div>
                             {page.description}

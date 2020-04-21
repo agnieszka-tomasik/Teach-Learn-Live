@@ -13,9 +13,9 @@ const CoursesList = (props) => {
     })
         .map(course => {
             return (
-                <tr className='tr' key={course.id}>
-                    <td className='td' onClick={() => updateSelectedCourse(course.title)}>{course.title} </td>
-                    <td className='td' onClick={() => updateSelectedCourse(course.title)}>{course.description} </td>
+                <tr  key={course.id}>
+                    <td  onClick={() => updateSelectedCourse(course.title)}>{course.title} </td>
+                    <td  onClick={() => updateSelectedCourse(course.title)}>{course.description} </td>
                     <td>
                         <DeleteCourse
                             title={course.title}

@@ -9,8 +9,8 @@ const EmailList = (props) => {
     })
         .map(email => {
             return (
-                <tr className='tr' key={email.email}>
-                    <td className='td'>{email.email} </td>
+                <tr  key={email.email}>
+                    <td >{email.email} </td>
                     <td>
                         <DeleteEmail
                             id={email._id}

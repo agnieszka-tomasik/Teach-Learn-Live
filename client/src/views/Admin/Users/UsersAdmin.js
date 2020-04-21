@@ -1,10 +1,11 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import Search from './Search';
 import ViewUser from './ViewUser';
 import UsersList from './UsersList';
 import AddUser from "./AddUser";
 import "../Admin.css"
 import axios from 'axios';
+import Table from '../AdminTable';
 import { useSelector, useDispatch } from 'react-redux';
 import { populateUsers } from '../../../store/adminSlice';
 
@@ -63,18 +64,8 @@ const UsersAdmin = (props) => {
             <main className='main'>
                 <div className="row">
                     <div className="column1">
-                        <div className="tableWrapper">
-                            <table className="table is-striped is-hoverable">
-                                <tr className='tr'>
-                                    <td className='td'>
-                                        <b>Username</b>
-                                    </td>
-                                    <td className='td'>
-                                        <b>Email</b>
-                                    </td>
-                                    <td className='td'>
-                                    </td>
-                                </tr>
+                        <Table head={["Username", "Email"]}
+                            body={
                                 <UsersList
                                     data={users}
                                     selectedUpdate={selectedUpdate}
@@ -82,9 +73,9 @@ const UsersAdmin = (props) => {
                                     usersUpdate={usersUpdate}
                                     setDelError={setDelError}
                                 />
-                                {delError && <p className="is-danger">{delError}</p>}
-                            </table>
-                        </div>
+                            }
+                            error={delError && <p className="is-danger">{delError}</p>}
+                        />
                     </div>
                     <div className="column2">
                         <ViewUser
@@ -96,9 +87,9 @@ const UsersAdmin = (props) => {
                         {upError && <p className="is-danger">{delError}</p>}
                     </div>
                     <div className="column2">
-                        <AddUser 
-                            className='AddCourse' 
-                            addUser={addUser} 
+                        <AddUser
+                            className='AddCourse'
+                            addUser={addUser}
                             data={users}
                         />
                         {addError && <p className="is-danger">{addError}</p>}

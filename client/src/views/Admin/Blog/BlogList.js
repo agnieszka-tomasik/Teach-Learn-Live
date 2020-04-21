@@ -13,10 +13,10 @@ const BlogList = (props) => {
     })
         .map(post => {
             return (
-                <tr className='tr' key={post.postTitle}>
-                    <td className='td' onClick={() => updateSelectedPost(post._id)}>{post.authUname} </td>
-                    <td className='td' onClick={() => updateSelectedPost(post._id)}>{post.postTitle} </td>
-                    <td className='td' onClick={() => updateSelectedPost(post._id)}>{post.postDate} </td>
+                <tr  key={post.postTitle}>
+                    <td  onClick={() => updateSelectedPost(post._id)}>{post.authUname} </td>
+                    <td  onClick={() => updateSelectedPost(post._id)}>{post.postTitle} </td>
+                    <td  onClick={() => updateSelectedPost(post._id)}>{post.postDate} </td>
                     <td>
                         <DeleteBlog
                             id={post._id}
