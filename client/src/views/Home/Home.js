@@ -62,6 +62,7 @@ function Home() {
                                         {!authenticated && <Link to="login" className="button is-light navbar-item">Login</Link>}
                                         {!authenticated && <Link to="register" className="button is-primary navbar-item"><strong>Register</strong></Link>}
                                         {authenticated && <Link to="forum" className="button is-primary navbar-item">Forum</Link>}
+                                        <Link to="blog" className="button is-primary navbar-item">Blog</Link>
                                         {authenticated && <a href="#" type="button" className="button is-light navbar-item" onClick={logoutAction}>Logout</a>}
                                     </div>
                                 </div>

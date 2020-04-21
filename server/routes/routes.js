@@ -198,9 +198,16 @@ router.route('/initdata').get((req, res) => {
                     return res.sendStatus(400);
                 }
                 else {
-                    return res.status(200).send({
-                        courses: coursesDocs,
-                        posts: postDocs
+                    Blog.find((err, blogDocs) => {
+                        if(err){
+                            return res.sendStatus(400);
+                        }else{
+                            return res.status(200).send({
+                                courses: coursesDocs,
+                                posts: postDocs,
+                                blog: blogDocs
+                            });
+                        }
                     });
                 }
             })

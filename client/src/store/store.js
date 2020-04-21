@@ -9,6 +9,7 @@ import forum, { populateForum } from './forumSlice';
 import course, { populateCourses } from './courseSlice';
 import user, { authenticated } from './userSlice';
 import admin from './adminSlice';
+import blog, {populateBlog} from './blogSlice';
 
 /**
  * Please see https://redux-toolkit.js.org/tutorials/intermediate-tutorial
@@ -20,7 +21,8 @@ const rootReducer = combineReducers({
     user,
     course,
     forum,
-    admin
+    admin,
+    blog
 });
 
 const store = configureStore({
@@ -42,6 +44,7 @@ const StateProvider = ({ children }) => {
             if (response.status === 200) {
                 store.dispatch(populateCourses(response.data.courses));
                 store.dispatch(populateForum(response.data.posts));
+                store.dispatch(populateBlog(response.data.blog));
             }
         })
     }, []);
