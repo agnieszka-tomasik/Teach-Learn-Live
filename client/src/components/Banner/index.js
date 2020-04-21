@@ -3,7 +3,9 @@ import { Link } from 'react-router-dom';
 
 const defaultLinks = [
     { path: '/home', name: 'Home' },
-    { path: '/courses', name: 'Courses' }
+    { path: '/courses', name: 'Courses' },
+    { path: '/forum', name: 'Forum' },
+    { path: '/blog', name: 'Blog' }
 ]
 function Banner(props) {
     const links = props.links || defaultLinks;

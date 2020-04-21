@@ -1,0 +1,14 @@
+.forum-list .forum-list-item:first-child {
+    margin-top: 0;
+}
+
+.forum-list-item {
+    background-color: #fff;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    margin-right: .5em;
+    padding:1em;
+}
+.forum-list-item svg{
+    vertical-align: middle;
+}

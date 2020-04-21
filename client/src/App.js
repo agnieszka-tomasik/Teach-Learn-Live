@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import ForumPage from "./views/Forum/ForumPage";
+import BlogPage from "./views/Blog/ForumPage";
 import Home from "./views/Home/Home";
 import Courses from "./views/Courses/Courses";
 import Register from "./views/Login/Register";
@@ -48,6 +49,7 @@ const Main = () => {
         <Route path="/courses" component={Courses} />
         <Route path="/forum/mod" component={Mod} />
         <Route path="/forum" component={ForumPage} />
+        <Route path="/blog" component={BlogPage} />
         <Route path="/admin" component={Admin} />
         <Route component={NotFound} />
     </Switch>
