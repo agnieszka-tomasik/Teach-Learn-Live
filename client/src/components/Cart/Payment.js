@@ -1,60 +1,64 @@
-import React, {useState, useRef, useEffect} from 'react';
+import React, { useState, useRef, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux'
+import _useToasts from '../Toasts';
 
+function money_round(num) {
+    return Math.ceil(num * 100) / 100;
+}
 function Payment() {
     const [paidFor, setPaidFor] = useState(false);
-    const [error, setError] = useState(null);
+    const { addError, addSuccess } = _useToasts();
+    const grandTotal = useSelector(state => state.cart.total);
     const paypalRef = useRef();
-    const product = {
-        price: 100,
-        description: "Test Course",
-    }
+    const addedCourses = useSelector(state => state.cart.courseList);
 
     useEffect(() => {
         window.paypal.
-        Buttons({
-            createOrder: (data, actions) => {
-                return actions.order.create({
-                    purchase_units: [
-                        {
-                            description: product.description,
+            Buttons({
+                createOrder: (data, actions) => {
+                    return actions.order.create({
+                        purchase_units: addedCourses.map(course => ({
+                            description: course.description,
                             amount: {
-                                currency_code: 'USD',
-                                value: product.price,
-                            },
-                        },
-                    ],
-                });
-            },
-            onApprove: async (data, actions) => {
-                const order = await actions.order.capture();
-                setPaidFor(true);
-                console.log(order);
-            },
-            onError: err => {
-                setError(err);
-                console.error(err);
-            },
-        })
-        .render(paypalRef.current);
-    }, [product.description, product.price]);
+                                currency: 'USD',
+                                value: course.price
+                            }
+                        }))
+                    });
+                },
+                onApprove: async (data, actions) => {
+                    const order = await actions.order.capture();
+                    setPaidFor(true);
+                    addSuccess("Successfully purchased!");
+                    console.log(order);
+                },
+                onError: err => {
+                    addError(err);
+                    console.error(err);
+                },
+            })
+            .render(paypalRef.current);
+    }, [addedCourses]);
 
     if (paidFor) {
-        return(
+        return (
             <div>
                 <h1>Purchase complete!</h1>
             </div>
         );
     }
 
-    return (
-        <div>
-            {error && <div>Error occurred! {error.message}</div>}
-            <h1>
-                {product.description} for ${product.price}
-            </h1>
-            <div ref={paypalRef}/>
+    if (money_round(grandTotal) != 0) {
+        return <div className="paymentBox">
+            <div className="title is-h5">
+                Total: <small>${money_round(grandTotal)}</small>
+            </div>
+            <div style={{ textAlign: "center" }} ref={paypalRef} />
         </div>
-    )
+    } else {
+        return <></>
+    }
+
 }
 
 export default Payment;
