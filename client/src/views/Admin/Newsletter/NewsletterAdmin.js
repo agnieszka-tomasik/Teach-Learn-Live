@@ -7,11 +7,11 @@ import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
 import { populateEmails } from '../../../store/adminSlice';
 import Table from '../AdminTable';
-import useErrorToast from '../../../components/ErrorToast';
+import useToasts from '../../../components/Toasts';
 
 const NewsletterAdmin = (props) => {
     const [filterText, setFilterText] = useState('');
-    const { addError } = useErrorToast();
+    const { addError } = useToasts();
 
     const emails = useSelector(state => state.admin.emails);
     const dispatch = useDispatch();

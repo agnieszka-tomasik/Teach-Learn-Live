@@ -5,9 +5,11 @@ import axios from 'axios';
 import { logout } from '../../store/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { SocialIcon } from 'react-social-icons';
+import _useToasts from '../../components/Toasts';
 
 function Home() {
     const [message, setMessage] = useState(null);
+    const {addSuccess, addError} = _useToasts();
     const { authenticated, isAdmin } = useSelector(store => ({
         authenticated: store.user.authenticated,
         isAdmin: store.user.profile.isAdmin
@@ -29,13 +31,13 @@ function Home() {
         axios.post('/signup-newsletter', Object.fromEntries(formData))
             .then((response) => {
                 if (response.status === 200) {
-                    setMessage({ message: 'Sign up successful!', class: 'is-success' });
+                    addSuccess("Sign up successful!");
                 } else {
-                    setMessage({ message: "Wasn't able to sign up", class: 'is-danger' });
+                    addError("Wasn't able to sign up.");
                 }
             })
-            .catch(() => {
-                setMessage({ message: "Wasn't able to sign up", class: 'is-danger' });
+            .catch((error) => {
+                addError(error.response.data);
             });
     };
     return (

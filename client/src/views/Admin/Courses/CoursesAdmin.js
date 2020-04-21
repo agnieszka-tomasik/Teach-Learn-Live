@@ -8,12 +8,12 @@ import "../Admin.css"
 import axios from 'axios';
 import Table from "../AdminTable";
 import { populateCourses } from '../../../store/courseSlice';
-import useErrorToast from '../../../components/ErrorToast';
+import useToasts from '../../../components/Toasts';
 
 const CoursesAdmin = (props) => {
     const [filterText, setFilterText] = useState('');
     const [selectedCourse, setSelectedCourse] = useState('');
-    const {addError} = useErrorToast();
+    const {addError} = useToasts();
     const courses = useSelector(state => state.course.availableCourses);
     const dispatch = useDispatch();
 

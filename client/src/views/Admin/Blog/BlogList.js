@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import DeleteBlog from './DeleteBlog';
 import "../Admin.css"
-import useErrorToast from '../../../components/ErrorToast';
+import useToasts from '../../../components/Toasts';
 
 const BlogList = (props) => {
-    const {addError} = useErrorToast();
+    const {addError} = useToasts();
 
     const updateSelectedPost = (id) => {
         props.selectedUpdate(id);

@@ -72,8 +72,16 @@ router.post('/logout', (req, res) => {
 router.post('/signup-newsletter', (req, res) => {
     const { email } = req.body;
     Newsletter.create({ email }, (err, doc) => {
-        if (err || !doc) {
-            return res.sendStatus(400);
+        if(err) {
+            if(err.message.includes('to be unique')) {
+                return res.status(400).send('Already signed up');
+            }
+            else if(err.message.includes('required')) {
+                return res.status(400).send('Could not recognize email');
+            }
+        }
+        else if (!doc) {
+            return res.status(400).send("Couldn't sign up");
         } else {
             return res.sendStatus(200);
         }

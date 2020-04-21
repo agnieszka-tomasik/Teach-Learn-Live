@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import "../Admin.css"
-import useErrorToast from '../../../components/ErrorToast';
+import useToasts from '../../../components/Toasts';
 
 const UpdateCourse = (props) => {
     const [updatedCourse, setUpdatedCourse] = useState(props.selectedCourse);
-    const { addError } = useErrorToast();
+    const { addError } = useToasts();
 
     const handleTitleChange = (text) => {
         text.persist();

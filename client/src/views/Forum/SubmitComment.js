@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { addComment, populateForum } from '../../store/forumSlice';
 import { useDispatch } from 'react-redux';
-import useErrorToast from '../../components/ErrorToast';
+import useToasts from '../../components/Toasts';
 import axios from 'axios';
 
 const SubmitComment = (props) => {
     const text = props.text;
     const setText = props.setText;
     const dispatch = useDispatch();
-    const { addError } = useErrorToast();
+    const { addError } = useToasts();
 
     const handleSubmit = (e) => {
         e.preventDefault();

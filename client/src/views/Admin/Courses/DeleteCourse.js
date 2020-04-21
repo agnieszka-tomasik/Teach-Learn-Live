@@ -1,10 +1,10 @@
 import React from 'react';
 import axios from 'axios';
 import "../Admin.css"
-import useErrorToast from '../../../components/ErrorToast';
+import useToasts from '../../../components/Toasts';
 
 const DeleteCourse = (props) => {
-    const { addError } = useErrorToast();
+    const { addError } = useToasts();
 
     const handleClick = (e) => {
         e.preventDefault();
