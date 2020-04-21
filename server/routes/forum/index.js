@@ -109,8 +109,6 @@ router.route('/comment/delete').post((req, res) => {
         }
         else {
             const i = doc.comments.findIndex(c => c._id == comment._id);
-            //console.log(doc.comments);
-            //console.log(comment);
             doc.comments.splice(i, 1);
             ForumPost.findByIdAndUpdate(post._id, doc, (err, newDoc) => {
                 if (err) {
