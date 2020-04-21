@@ -9,7 +9,9 @@ const ForumList = (props) => {
     const posts = useSelector(state => state.forum.posts)
     const history = useHistory();
     /***** maps the forum posts to clickable table rows with the corresponding information needed for the list *****/
-    const items = posts.map(item =>
+    const items = posts
+    .filter(post => post.postTitle.includes(props.filter))
+    .map(item =>
         <li className="forum-list-item" key={item._id} onClick={() => { history.push(`/forum/${item._id}`) }} >
             <div>
                 <FontAwesomeIcon icon={faAngleRight}/>
