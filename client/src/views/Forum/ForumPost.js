@@ -3,12 +3,10 @@ import './Forum.css';
 import Comment from './Comment.js';
 import SubmitComment from './SubmitComment';
 import DeleteComment from './DeleteComment';
-import BlockedUser from './BlockedUser';
 import OriginalPost from './OriginalPost.js';
 import BlockedUser from './BlockedUser.js';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector, ReactReduxContext } from 'react-redux';
-import { createConnection } from 'mongoose';
 
 const Forum = () => {
     const { id } = useParams();
