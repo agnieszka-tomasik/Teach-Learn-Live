@@ -5,6 +5,11 @@ import useToasts from '../../../components/Toasts';
 
 const UpdatePost = (props) => {
     const [updatedPost, setUpdatedPost] = useState(props.selectedPost);
+    
+    React.useEffect(() => {
+        setUpdatedPost(props.selectedPost);
+    }, [props.selectedPost])
+
     const { addError, addSuccess } = useToasts();
 
     const handleTitleChange = (text) => {
