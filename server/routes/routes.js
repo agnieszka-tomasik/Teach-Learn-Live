@@ -42,7 +42,7 @@ router.route('/login').post((req, res) => {
     User.findOne({ uname: username }, (err, doc) => {
         if (err) {
             return res.sendStatus(400);
-        } else if (doc) {
+        } else if (doc) { 
             if (doc.validPassword(password)) {
                 saveSession(req, doc);
                 return sendProfileInfo(res, doc);

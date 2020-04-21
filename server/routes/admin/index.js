@@ -90,7 +90,7 @@ router.route('/users/add').post((req, res) => {
         email: email,
         isAdmin: isAdmin
     });
-
+    
     newUser.setPassword(password);
     newUser.save((err, user) => {
         if (err) {
