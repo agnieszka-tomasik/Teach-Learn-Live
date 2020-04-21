@@ -1,4 +1,5 @@
 import React from 'react';
+import "./AdminTable.css";
 const AdminTable = ({ head, body, error }) => {
     return <div className="tableWrapper">
         <table className="table is-hoverable">
