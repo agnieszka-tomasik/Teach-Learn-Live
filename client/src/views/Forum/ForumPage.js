@@ -21,7 +21,7 @@ const ForumPage = (props) => {
 
     /************ Renders the forum page consisting of a list of the forum posts and a dynamic main box ************/
     return (
-        <div style={{ padding: '1rem' }}>
+        <div style={{ padding: '1rem', height: "90vh", overflow:"hidden"}}>
             <div className="forum">
                 <div className="left-side">
                     <input type="text" className="search-input" value={filter}
