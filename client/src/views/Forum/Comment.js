@@ -1,6 +1,6 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { faUser, faCalendar } from '@fortawesome/free-solid-svg-icons';
 import moment from 'moment';
 import "./Comment.css";
 import "./Common.css";
@@ -22,7 +22,10 @@ const Comment = (props) => {
                                 {props.postText}
                             </span>
                             <br />
-                            <small>{moment(props.postDate).fromNow()}</small>
+                            <small>
+                                <FontAwesomeIcon icon={faCalendar}/>
+                                &nbsp;
+                                {moment(props.postDate).fromNow()}</small>
                         </p>
                     </div>
                 </div>
