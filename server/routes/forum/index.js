@@ -3,6 +3,14 @@ const User = require('../../schemas/UserSchema.js');
 const express = require('express');
 const router = express.Router();
 
+const modController = (req, res, next) => {
+    if (req.session.user.isMod || req.session.user.isAdmin) {
+        next();
+    } else {
+        res.status(403).send("Not authorized.");
+    }
+}
+
 router.use(function (req, res, next) {
     if (req.session.user) {
         next();
@@ -51,7 +59,27 @@ router.post('/', (req, res) => {
     })
 });
 
+const addComment = (doc, post, selected) => {
+    if(doc._id == selected._id){
+        doc.comments.push(post);
+        return doc;
+    }else if(doc.comments.length <= 0){
+        return doc;
+    }else{
+        for(let i = 0; i < doc.comments.length; i++){
+            doc.comments[i] = addComment(doc.comments[i], post, selected);
+        }
+        return doc;
+    }
+}
+
 router.route('/comment').post((req, res) => {
+    const {post , text, selected} = req.body;
+    if(selected == undefined || selected == null){
+        return res.status(201).send("Comment post fail");
+    }
+    console.log(post);
+    console.log(selected);
     ForumPost.findById(req.body.post._id, (err, doc) => {
         if (err) {
             res.status(403).send("Comment not posted");
@@ -60,22 +88,22 @@ router.route('/comment').post((req, res) => {
             res.status(403).send("You are blocked from commenting on this post");
         }
         else {
-            post = new ForumPost({
+            postWrap = new ForumPost({
                 authUname: req.session.user.uname,
-                postText: req.body.text
+                postText: text
             });
-            doc.comments.push(post);
-            ForumPost.findByIdAndUpdate(req.body.post._id, doc, (err, doc) => {
+            doc = addComment(doc, postWrap, selected);
+            ForumPost.findByIdAndUpdate(req.body.post._id, doc, (err, newdoc) => {
                 if (err) {
                     res.status(403).send("Comment not posted");
                 }
                 else {
-                    ForumPost.find((err, doc) => {
+                    ForumPost.find((err, docs) => {
                         if (err) {
                             res.status(403).send("Comment not posted");
                         }
                         else {
-                            res.status(200).send(doc);
+                            res.status(200).send(docs);
                         }
                     })
                 }
@@ -152,6 +180,33 @@ router.route('/post/localblock').post((req, res) => {
                     });
                 }
             })
+        }
+    });
+});
+
+router.route('/globalblock').post((req, res) => {
+    let user = req.body;
+    User.findByIdAndUpdate(user._id, {blacklisted:user.blacklisted}, (err, data) => {
+        if(err){
+            return res.status(400).send("Block fail");
+        }else{
+            User.find((err, docs) => {
+                if(err){
+                    return res.status(201).send("Get userlist fail.");
+                }else{
+                    return res.status(200).send(docs);
+                }
+            });
+        }
+    });
+});
+
+router.route('/mod/userslist').get( modController, (req, res) => {
+    User.find((err, docs) => {
+        if(err){
+            return res.status(201).send("Get userlist fail.");
+        }else{
+            return res.status(200).send(docs);
         }
     });
 });
