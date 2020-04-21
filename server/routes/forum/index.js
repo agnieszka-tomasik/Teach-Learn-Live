@@ -54,24 +54,30 @@ router.route('/comment').post((req, res) => {
             res.status(403).send("Comment not posted");
         }
         else {
-            post = new ForumPost({
-                authUname: req.session.userID,
-                postText: req.body.text
-            });
-            doc.comments.push(post);
-            ForumPost.findByIdAndUpdate(req.body.post._id, doc, (err, doc) => {
-                if (err) {
-                    res.status(403).send("Comment not posted");
+            User.findById(req.session.userID, (err, user) => {
+                if (err || !user) {
+                    res.status(403).send("Not authorized");
                 }
                 else {
-                    ForumPost.find((err, doc) => {
+                    post = new ForumPost({
+                        authUname: user.uname,
+                        postText: req.body.text
+                    });
+                    doc.comments.push(post);
+                    ForumPost.findByIdAndUpdate(req.body.post._id, doc, (err, doc) => {
                         if (err) {
                             res.status(403).send("Comment not posted");
                         }
                         else {
-                            res.status(200).send(doc);
-                        }
-                    })
+                            ForumPost.find((err, doc) => {
+                                if (err) {
+                                    res.status(403).send("Comment not posted");
+                                }
+                                else {
+                                    res.status(200).send(doc);
+                                }
+                            })
+                        }});
                 }
             });
         }
