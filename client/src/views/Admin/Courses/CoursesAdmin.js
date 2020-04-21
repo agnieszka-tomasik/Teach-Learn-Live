@@ -56,7 +56,7 @@ const CoursesAdmin = (props) => {
             <main className='main'>
                 <div className="row">
                     <div className="column1">
-                        <Table head={["Title", "Description"]}
+                        <Table head={["Title", "Description", "Price"]}
                             body={
                                 <CoursesList
                                     data={courses}

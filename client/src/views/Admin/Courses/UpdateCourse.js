@@ -21,6 +21,13 @@ const UpdateCourse = (props) => {
         setUpdatedCourse(newCourse);
     }
 
+    const handlePriceChange = (text) => {
+        text.persis();
+        setUpdatedCourse(prevState => ({
+            ...prevState,
+            price: parseFloat(text.target.value)
+        }))
+    }
     const handleClick = (e) => {
         e.preventDefault();
         axios.post('/admin/courses/update', updatedCourse)
@@ -45,6 +52,7 @@ const UpdateCourse = (props) => {
             <form>
                 <input type='text' className='inputtext' id='title' placeholder={props.selectedCourse.title} onChange={handleTitleChange} />
                 <input type='text' className='inputtext' placeholder={props.selectedCourse.description} onChange={handleDescChange} />
+                <input type='number' className='inputtext' placeholder='Price' placeholde={props.selectedCourse.price} onChange={handlePriceChange}/>
                 <button className='button' onClick={handleClick}>Update</button>
             </form>
         </div>
