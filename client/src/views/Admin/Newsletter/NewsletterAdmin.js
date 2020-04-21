@@ -55,7 +55,7 @@ const NewsletterAdmin = (props) => {
                 <div className="row">
                     <div className="column1">
                         <div className="tableWrapper">
-                            <table className="table table-striped table-hover">
+                            <table className="table is-striped is-hoverable">
                                 <tr className='tr'>
                                     <td className='td'>
                                         <b>Email</b>

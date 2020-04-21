@@ -57,10 +57,15 @@ const CoursesAdmin = (props) => {
                 <div className="row">
                     <div className="column1">
                         <div className="tableWrapper">
-                            <table className="table table-striped table-hover">
+                            <table className="table is-striped is-hoverable">
                                 <tr className='tr'>
                                     <td className='td'>
-                                        <b>Title Description</b>
+                                        <b>Title</b>
+                                    </td>
+                                    <td className='td'>
+                                        <b>Description</b>
+                                    </td>
+                                    <td className='td'>
                                     </td>
                                 </tr>
                                 <CoursesList
