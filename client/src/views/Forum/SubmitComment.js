@@ -5,7 +5,8 @@ import { useDispatch } from 'react-redux';
 import axios from 'axios';
 
 const SubmitComment = (props) => {
-    const [text, setText] = useState("");
+    const text = props.text;
+    const setText = props.setText;
     const dispatch = useDispatch();
 
     const handleSubmit = (e) => {
@@ -18,6 +19,7 @@ const SubmitComment = (props) => {
         //Finally, reset the comment input textbox
         setText("");
     }
+
     /*************************** Axios post to create a new comment ************************************/
     const postComment = (text) => {
 
@@ -42,7 +44,7 @@ const SubmitComment = (props) => {
                 <input type="text" className="comment-input" value={text} 
                     placeholder="Enter your comment" onChange={(e) => { setText(e.target.value); }}/>
 
-                <input className="button submit-comment" type="submit" value="Submit"/>
+                <input className="button submit-comment" type="submit" value="Submit" />
             </div>
         </form>
 

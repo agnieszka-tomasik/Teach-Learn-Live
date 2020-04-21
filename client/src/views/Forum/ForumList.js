@@ -17,8 +17,10 @@ const ForumList = (props) => {
     );
     /**** Renders the list of forum posts as a table ****/
     return (
-        <table className = "table table-striped table-hover" >
-            {items}
+        <table>
+            <tbody className = "table table-striped table-hover" >
+                {items}
+            </tbody>
         </table>
     );
 }

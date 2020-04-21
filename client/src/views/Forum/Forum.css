@@ -9,3 +9,6 @@
 .right-side{
 	flex-grow: 2;
 }
+.Ref-box{
+	float: right
+}
