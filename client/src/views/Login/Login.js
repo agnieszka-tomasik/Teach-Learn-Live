@@ -6,12 +6,12 @@ import { WithBanner } from '../../components/Banner';
 import { authenticated } from '../../store/userSlice';
 import './Forms.css';
 import { useDispatch } from 'react-redux';
-import useErrorToast from '../../components/ErrorToast'
+import useToasts from '../../components/Toasts'
 
 function Login() {
     const history = useHistory();
     const dispatch = useDispatch();
-    const { addError } = useErrorToast();
+    const { addError } = useToasts();
 
     const submit = (e) => {
         e.preventDefault();

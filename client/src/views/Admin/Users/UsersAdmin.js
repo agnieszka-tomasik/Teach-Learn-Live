@@ -8,12 +8,12 @@ import axios from 'axios';
 import Table from '../AdminTable';
 import { useSelector, useDispatch } from 'react-redux';
 import { populateUsers } from '../../../store/adminSlice';
-import useErrorToast from '../../../components/ErrorToast';
+import useToasts from '../../../components/Toasts';
 
 const UsersAdmin = (props) => {
     const [filterText, setFilterText] = useState('');
     const [selectedUser, setSelectedUser] = useState('');
-    const {addError} = useErrorToast();
+    const {addError} = useToasts();
 
     //todo refactor
     const users = useSelector(state => state.admin.users);

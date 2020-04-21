@@ -7,7 +7,7 @@ import axios from 'axios';
 import { delComment } from '../../store/forumSlice';
 import "./Comment.css";
 import "./Common.css";
-import useErrorToast from '../../components/ErrorToast';
+import useToasts from '../../components/Toasts';
 
 /** Hyperlink to comment replying to **/
 const CommentLink = (props) => {
@@ -30,7 +30,7 @@ const Comment = (props) => {
 
     const [dropdown, setDropdown] = useState(false);
     const dispatch = useDispatch();
-    const {addError} = useErrorToast();
+    const {addError} = useToasts();
     useEffect(() => {
         const off = () => {
             setDropdown(false);

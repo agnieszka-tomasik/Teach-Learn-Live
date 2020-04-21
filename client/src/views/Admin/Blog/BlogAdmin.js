@@ -8,7 +8,7 @@ import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
 import { populatePosts } from '../../../store/adminSlice';
 import Table from '../AdminTable';
-import useErrorToast from '../../../components/ErrorToast';
+import useToasts from '../../../components/Toasts';
 
 const BlogAdmin = (props) => {
     const [filterText, setFilterText] = useState('');
@@ -18,7 +18,7 @@ const BlogAdmin = (props) => {
     const posts = useSelector(state => state.admin.posts);
     const dispatch = useDispatch();
     const setPosts = (x) => dispatch(populatePosts(x));
-    const {addError} = useErrorToast();
+    const {addError} = useToasts();
 
     const postsUpdate = (newPosts) => {
         setPosts(newPosts);

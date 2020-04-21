@@ -6,7 +6,7 @@ import { WithBanner } from '../../components/Banner';
 import './Forms.css';
 import { useDispatch } from 'react-redux';
 import { authenticated } from '../../store/userSlice';
-import useErrorToast from '../../components/ErrorToast';
+import useToasts from '../../components/Toasts';
 
 function validatePassword(password) {
     const lowers = /(?=.*[a-z]).*/
@@ -29,7 +29,7 @@ function validatePassword(password) {
 
 function Login() {
     const history = useHistory();
-    const {addError} = useErrorToast();
+    const {addError} = useToasts();
     const dispatch = useDispatch();
 
     const submit = (e) => {

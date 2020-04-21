@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import "../../Admin/Admin.css"
-import useErrorToast from '../../../components/ErrorToast';
+import useToasts from '../../../components/Toasts';
 
 const UpdateUser = (props) => {
     const [updatedUser, setUpdatedUser] = useState(props.selectedUser);
-    const { addError } = useErrorToast();
+    const { addError } = useToasts();
 
     const handleCheckChange = () => {
         let newUser = Object.assign({}, updatedUser);
