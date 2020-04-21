@@ -9,7 +9,7 @@ import './Forum.css'
 */
 const RefBox = (props) => {
     const ref = props.commentRef;
-    
+
     let text;
 
     /* Don't allow refbox to have more hyperlinks.
@@ -22,7 +22,7 @@ const RefBox = (props) => {
     ** Kind of a middle ground between just showing the tag and making it an actual hyperlink.
     ** I chose this because I thought it unwise to have hyperlinks to hyperlinks and so on...
     */
-    if(ref) {
+    if (ref) {
         text = ref.postText.replace(/<replyTo:(\w*)>/g, (match, id, offset, string) => {
             return props.commentList.find(comment => comment._id === id).authUname;
         });
@@ -31,7 +31,7 @@ const RefBox = (props) => {
     /* If there is no ref, nothing is returned, otherwise everything in the div is output */
     return (
         ref &&
-        <div className = "Ref-box">
+        <div className="Ref-box">
             {text}
         </div>
     );
@@ -40,9 +40,9 @@ const RefBox = (props) => {
 /** Hyperlink reference that results from replying **/
 const CommentRef = (props) => {
     return (
-        <a  href={"#" + props.commentRef._id }
-            onMouseOver = {  () => {   props.select(props.commentRef)    } }
-            onMouseOut = {  () => { props.select(null)  }   } >
+        <a href={"#" + props.commentRef._id}
+            onMouseOver={() => { props.select(props.commentRef) }}
+            onMouseOut={() => { props.select(null) }} >
             {props.commentRef.authUname}
         </a>
     );
@@ -74,7 +74,7 @@ const Comment = (props) => {
     ** regular text input by the user or just the _id of the
     ** comment that is supposed to have a reference at that point.
     */
-    const splitBodyText = text.split(  /<replyTo:(\w*)>/ );
+    const splitBodyText = text.split(/<replyTo:(\w*)>/);
 
 
     /* Now I map each string to the necessary component.
@@ -92,28 +92,30 @@ const Comment = (props) => {
     ** the static nature of the array it should be fine in this case.
     */
     let commentToReference;
-    const bodyAsComponents = splitBodyText.map( (str, index) => {
-        commentToReference = commentList.find( comment => str === comment._id  );
-        if(commentToReference)
-            return <CommentRef commentRef={commentToReference} select ={selectRefWrapper} key={index} />;
+    const bodyAsComponents = splitBodyText.map((str, index) => {
+        commentToReference = commentList.find(comment => str === comment._id);
+        if (commentToReference)
+            return <CommentRef commentRef={commentToReference} select={selectRefWrapper} key={index} />;
         else
             return <span key={index}>{str}</span>;
     });
 
     return (
-        <div className = "Comment-box" key = {props.data._id} >
+        <div className="Comment-box" key={props.data._id} >
             <article class="media">
                 <div class="media-content">
                     <div class="content">
-                    <p>
-                        <i>{props.data.authUname}</i>
-                        <br>{bodyAsComponents}</br>
-                        <small>{props.data.postDate}}</small>
-                    </p>
+                        <p>
+                            <i>{props.data.authUname}</i>
+                            <br />
+                            {bodyAsComponents}
+                            <br />
+                            <small>{props.data.postDate}}</small>
+                        </p>
                     </div>
                 </div>
             </article>
-            <button className = "Comment-reply" onClick = {props.addRef}>reply</button>
+            <button className="Comment-reply" onClick={props.addRef}>reply</button>
             <RefBox commentRef={selectedRef} commentList={commentList} />
         </div>
     );
