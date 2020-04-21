@@ -11,22 +11,6 @@ import { useHistory } from 'react-router-dom';
 const OriginalPost = (props) => {
     const dispatch = useDispatch();
     const history = useHistory();
-    const deletePost = () => {
-        axios.post('/forum/post/delete', { post: props.data })
-            .then(response => {
-                if (response.status === 200) {
-                    history.goBack();
-                    dispatch(delPost(response.data));
-                    //
-                } else {
-                    console.log(`Delete post fail ${response.data}`);
-                    //addError(response.data)
-                }
-            }).catch(e => {
-                console.log(`Delete post fail ${e}`);
-                //addError("Delete post fail");
-            });
-    }
     return (
         <div className="original-post">
             <div className="title">
