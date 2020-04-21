@@ -5,12 +5,14 @@ import SubmitComment from './SubmitComment';
 import DeleteComment from './DeleteComment';
 import BlockedUser from './BlockedUser';
 import OriginalPost from './OriginalPost.js';
+import BlockedUser from './BlockedUser.js';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector, ReactReduxContext } from 'react-redux';
 import { createConnection } from 'mongoose';
 
 const Forum = () => {
     const { id } = useParams();
+    const [error, setError] = useState(null);
     const post = useSelector(state => state.forum.posts.find(p => p._id === id));
     const [selected, setSelected] = useState(post);
     const {authenticated, isAdmin, isMod} = useSelector(store => ({
