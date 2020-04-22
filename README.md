@@ -1,23 +1,16 @@
-## _**PLEASE READ THIS TO COMPLETION BEFORE ASKING ANY QUESTIONS!**_
+# Setup
+The project requires the following technologies to run:
 
-### _**IMPORTANT NOTES**_ - 
-This project does not have a mongoDB connection setup. Setup the connection based on the environments below.
-- local development: create a config file (make sure to name it config.js) in the config folder, which exports your db.uri connection. An example is provided, config/config.example.js. This file will be ignored by git so your db credentials will be kept safe when the app is deployed.
-- production: Since the config file is not pushed when you deploy your app, you must specifiy your db uri in heorku. Set the uri in heroku as specified in [this](https://devcenter.heroku.com/articles/config-vars) resource. Make sure you name the environement variable "DB_URI".
+- [Node v12.+](https://nodejs.org/en/)
+- [MongoDB](https://www.mongodb.com/)
+- [A paypal developer account](https://developer.paypal.com/classic-home/)
 
-This project contains an example project board meant to showcase how one can be used. The issues posted to it are not real issues.
+It is recommended to use a [MongoDB Atlas account](https://www.mongodb.com/cloud/atlas/signup) to manage your database instance.
 
-## Getting Started
-This repository aims to assist you in beginning work on a MERN stack application for heroku deployment with a solid file structure as a foundation. To get started make a copy of this template repo for your project teams by clicking the green "Use this template" button above.
-
-Since this project will hold both the client application and the server application there will be node modules in two different places. First run `npm install` from the root. After this you will run `npm run-script install-all` from the root. From now on run this command anytime you want to install all modules again. This is a script we have defined in package.json. Alternatively your group may choose to simplify this process by using yarn workspaces as specified [here](https://yarnpkg.com/lang/en/docs/workspaces/).
-
-This app can be deployed directly to heroku since there is a script defined in package.json which will automatically handle building and deploying the app. For more information on deploying to heroku reference the extra resources at the bottom of this file. 
+Additionally, PayPal API keys and credentials will be required for payment and store processing to work.
 
 
 ## Available Scripts
-
-Please note that any time the server is run in these scripts `nodemon` is used in place of `node` for easier development. If you are interested in how this works follow the nodemon In the project directory, you can run:
 
 ### `npm run-script dev`
 
@@ -42,7 +35,38 @@ It correctly bundles React in production mode and optimizes the build for the be
 
 If deploying to heroku this does not need to be run since it is handled by the heroku-postbuild script<br>
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Config File
+`client/public/index.html`
+
+Once you have a PayPal API account, you will be provided with an SDK link. The link should be copy pasted 
+
+Find the following line:
+```<script src = ""></script>```
+and paste your SDK link inside the double quotes.
+
+`server/config/config.js`
+
+Contains all the configuration for the application to run. Use config.example.js as an example to copy and paste.
+
+The following keys are used for local development:
+```
+    db: {
+        uri: 'mongodb://127.0.0.1:27017', // Holds the MongoDB connection string
+    },
+    secret: 'test', // Holds the secret for session storage.
+```
+
+
+In order to run in production, one must set the following environment variables in order for the application to run. Heroku provides easy access to modification of the environment variables through their dashboard UI by accessing the settings page of the application
+
+- `DB_URI` - The MongoDB connection string
+- `SESSION_SECRET` - The secret to use for storing user sessions. This can be any arbitrary value but *must* not be revealed to others.
+
+## Creating an Administrator
+
+The first administrator of the site will need to be manually updated in the database. This will require modifying your MongoDB instance and setting the `isAdmin` key to true for the desired user. Afterwards, it will be possible to create administrators through the website.
+
+If MongoDB Atlas was used, a database viewer is provided by the service that you can use to modify the MongoDB database.
 
 
 ## File structure
