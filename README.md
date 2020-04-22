@@ -1,3 +1,22 @@
+# Overview
+
+Teach Leave Live is a web application with the intent to provide a community for teachers to learn and share with each other. This project implements a web app that has the following features:
+
+    - Forum posting and replies
+    - Blog posting and viewing
+    - Course Store
+    - Newsletter Signup
+    - User registration and login
+    - Administrative panels for the above features
+
+On the front end, the code is compartmentalized by view, with components used to keep UI consistent between pages. Most logic for interacting with the backend is kept close to the view by using Redux and React Hooks to interact with state when needed.
+
+The backend is composed of various API routes that the front-end needs to succeed and populate itself with data, and also provide interactivity for users of the application. Routes are sectioned off into separate router instances that group routes together and are handled by individual controllers. 
+
+The backend communicates with the front-end through a combination of GET and POST calls, handling session state and authentication as well. We use a role-based authentication system to validate when users can access certain routes.
+
+MongoDB is used as the database store to keep persistent data. We use Mongoose to connect and interact with the database by handling Model objects in our code. 
+
 # Setup
 The project requires the following technologies to run:
 
